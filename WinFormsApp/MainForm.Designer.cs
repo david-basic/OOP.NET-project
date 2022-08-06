@@ -34,7 +34,6 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainPage = new System.Windows.Forms.TabPage();
             this.pnlStartingSetup = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.pnlPlayerFavPlayerChoice = new System.Windows.Forms.TableLayoutPanel();
             this.pnlAllPlayers = new System.Windows.Forms.FlowLayoutPanel();
             this.contextMenuAddFavourite = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -132,7 +131,6 @@
             // 
             // pnlStartingSetup
             // 
-            this.pnlStartingSetup.Controls.Add(this.btnSave);
             this.pnlStartingSetup.Controls.Add(this.pnlPlayerFavPlayerChoice);
             this.pnlStartingSetup.Controls.Add(this.label2);
             this.pnlStartingSetup.Controls.Add(this.txtChosenFavTeams);
@@ -144,15 +142,6 @@
             this.pnlStartingSetup.Name = "pnlStartingSetup";
             this.pnlStartingSetup.Size = new System.Drawing.Size(1906, 1048);
             this.pnlStartingSetup.TabIndex = 1;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(65, 397);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(186, 88);
-            this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "Save current setup";
-            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // pnlPlayerFavPlayerChoice
             // 
@@ -553,7 +542,6 @@
         private System.Windows.Forms.ToolStripMenuItem addToFavouritesToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuRemoveFavouritePlayers;
         private System.Windows.Forms.ToolStripMenuItem removeFromFavouritesToolStripMenuItem;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel pnlSettingsTab;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.ComboBox ddlLanguageChoice;

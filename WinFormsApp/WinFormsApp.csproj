@@ -121,6 +121,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="RankingPlayerUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RankingPlayerUC.Designer.cs">
+      <DependentUpon>RankingPlayerUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </Compile>
     <EmbeddedResource Include="DataLayerTestForm.resx">
       <DependentUpon>DataLayerTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RankingPlayerUC.resx">
+      <DependentUpon>RankingPlayerUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.hr.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
