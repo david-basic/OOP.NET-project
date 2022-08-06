@@ -86,7 +86,6 @@ namespace WinFormsApp
                     }
                 }
             }
-
         }
 
         private void ImgPlayer_Click(object sender, EventArgs e)

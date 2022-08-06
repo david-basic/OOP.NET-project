@@ -54,6 +54,8 @@ namespace WinFormsApp
             //string[] lang = File.ReadAllLines(filePathLanguage);
             //SetCulture(lang[0]);
 
+            tabRanking.Enabled = false;
+
             string[] championship = File.ReadAllLines(filePathChampionship);
             teamsWereChosen = File.Exists(filePathChosenTeams);
             playersWereChosen = File.Exists(filePathChosenPlayers);
@@ -95,6 +97,7 @@ namespace WinFormsApp
             //Settings tab ddls
             FillDdlsWithData();
             SetIndexesToZero();
+
         }
 
         //!!!!
@@ -550,5 +553,16 @@ namespace WinFormsApp
             File.WriteAllLines(file.FullName, content);
         }
         #endregion
+
+        private void btnSaveInitialSetup_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirmation == DialogResult.Yes)
+            {
+                pnlStartingSetup.Enabled = false;
+                MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tabRanking.Enabled = true;
+            }
+        }
     }
 }

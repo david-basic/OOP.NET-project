@@ -143,6 +143,8 @@
             this.Controls.Add(this.imgPlayer);
             this.Name = "RankingPlayerUC";
             this.Size = new System.Drawing.Size(303, 420);
+            this.Load += new System.EventHandler(this.RankingPlayerUC_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.RankingPlayerUC_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.imgPlayer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgYellowCard)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgGoal)).EndInit();

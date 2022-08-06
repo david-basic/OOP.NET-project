@@ -67,6 +67,7 @@
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.imgLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSaveInitialSetup = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
@@ -131,6 +132,7 @@
             // 
             // pnlStartingSetup
             // 
+            this.pnlStartingSetup.Controls.Add(this.btnSaveInitialSetup);
             this.pnlStartingSetup.Controls.Add(this.pnlPlayerFavPlayerChoice);
             this.pnlStartingSetup.Controls.Add(this.label2);
             this.pnlStartingSetup.Controls.Add(this.txtChosenFavTeams);
@@ -483,6 +485,17 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // btnSaveInitialSetup
+            // 
+            this.btnSaveInitialSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveInitialSetup.Location = new System.Drawing.Point(87, 328);
+            this.btnSaveInitialSetup.Name = "btnSaveInitialSetup";
+            this.btnSaveInitialSetup.Size = new System.Drawing.Size(151, 97);
+            this.btnSaveInitialSetup.TabIndex = 6;
+            this.btnSaveInitialSetup.Text = "Save initial setup";
+            this.btnSaveInitialSetup.UseVisualStyleBackColor = true;
+            this.btnSaveInitialSetup.Click += new System.EventHandler(this.btnSaveInitialSetup_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,5 +571,6 @@
         private System.Windows.Forms.Button btnSortByGoals;
         private System.Windows.Forms.FlowLayoutPanel pnlPlayersRanking;
         private System.Windows.Forms.FlowLayoutPanel pnlTeamsRanking;
+        private System.Windows.Forms.Button btnSaveInitialSetup;
     }
 }
