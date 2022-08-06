@@ -44,6 +44,7 @@ namespace WinFormsApp
         public MainForm()
         {
             InitializeComponent();
+            // dodao sam tu komentar for testing purposes of git
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
