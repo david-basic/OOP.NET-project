@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace WinFormsApp
 {
-    public partial class RankingPlayerUC : UserControl
+    public partial class RankingPlayerUC : UserControl, IComparable<RankingPlayerUC>
     {
         Bitmap emptyStar = Properties.ResourcesImages.emptyStar;
         Bitmap fullStar = Properties.ResourcesImages.fullStar;
@@ -116,6 +116,11 @@ namespace WinFormsApp
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FullName);
             hashCode = hashCode * -1521134295 + ShirtNumber.GetHashCode();
             return hashCode;
+        }
+
+        public int CompareTo(RankingPlayerUC other)
+        {
+            return other.Goals.CompareTo(Goals);
         }
     }
 }

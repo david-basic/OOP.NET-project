@@ -30,8 +30,9 @@ namespace WinFormsApp
         private List<Matches> matches = new List<Matches>();
         private HashSet<PlayerUC> allPlayers = new HashSet<PlayerUC>();
         private HashSet<PlayerUC> favPlayers = new HashSet<PlayerUC>();
-        private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
+        private HashSet<RankingPlayerUC> nonFavRankingPanelPlayers = new HashSet<RankingPlayerUC>();
         private HashSet<RankingPlayerUC> favRankingPanelPlayers = new HashSet<RankingPlayerUC>();
+        private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
 
         string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
         string filePathChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipSettings.txt";
@@ -306,11 +307,27 @@ namespace WinFormsApp
         }
         private void btnSortByGoals_Click(object sender, EventArgs e)
         {
+            pnlPlayersRanking.Controls.Clear();
 
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort();
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = false;
+            btnSortByYellowCards.Enabled = true;
         }
         private void btnSortByYellowCards_Click(object sender, EventArgs e)
         {
+            pnlPlayersRanking.Controls.Clear();
 
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort((x, y) => -x.YellowCards.CompareTo(y.YellowCards));
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = false;
         }
         #endregion
 
@@ -339,6 +356,7 @@ namespace WinFormsApp
                         }
                     }
                     favRankingPanelPlayers.Add(rankPlUC);
+                    allRankingPanelPlayers.Add(rankPlUC);
                 }
             }
             favRankingPanelPlayers.ToList().ForEach(item => pnlPlayersRanking.Controls.Add(item));
@@ -362,10 +380,11 @@ namespace WinFormsApp
                             rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName, matches);
                         }
                     }
+                    nonFavRankingPanelPlayers.Add(rankPlUC);
                     allRankingPanelPlayers.Add(rankPlUC);
                 }
             }
-            allRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
+            nonFavRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
         }
         private int GetPlayerGoals(string playerFullName, List<Matches> matches)
         {
