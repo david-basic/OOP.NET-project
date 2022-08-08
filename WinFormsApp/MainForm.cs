@@ -27,6 +27,7 @@ namespace WinFormsApp
         private List<Team> teams = new List<Team>();
         private List<StartingEleven> players = new List<StartingEleven>();
         private List<PlayerUC> selectedPlayersUC = new List<PlayerUC>();
+        private List<Matches> matches = new List<Matches>();
         private HashSet<PlayerUC> allPlayers = new HashSet<PlayerUC>();
         private HashSet<PlayerUC> favPlayers = new HashSet<PlayerUC>();
         private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
@@ -287,7 +288,7 @@ namespace WinFormsApp
                 e.Cancel = true;
             }
         }
-        private void btnSaveInitialSetup_Click(object sender, EventArgs e)
+        private async void btnSaveInitialSetup_Click(object sender, EventArgs e)
         {
             DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmation == DialogResult.Yes)
@@ -295,17 +296,22 @@ namespace WinFormsApp
                 pnlStartingSetup.Enabled = false;
                 MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                FillPlayerRankingPanel();
+                string[] championship = File.ReadAllLines(filePathChampionship);
+                fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
+                matches = await GetAllMatches(fifaCodes, championship);
+
+                FillPlayerRankingPanel(matches);
 
                 tabRanking.Enabled = true;
             }
         }
+
         #endregion
 
         //Ranking tab methods
         #region
         //Players
-        private void FillPlayerRankingPanel()
+        private void FillPlayerRankingPanel(List<Matches> matches)
         {
             string[] ChosenPlayers = File.ReadAllLines(filePathChosenPlayers);
             foreach (string playerName in ChosenPlayers)
@@ -322,8 +328,8 @@ namespace WinFormsApp
                             rankPlUC.Captain = pl.Captain;
                             rankPlUC.ShirtNumber = pl.ShirtNumber;
                             rankPlUC.Favourite = true;
-                            rankPlUC.Goals = GetPlayerGoals(pl.FullName);
-                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName);
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName, matches);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName, matches);
                         }
                     }
                     favRankingPanelPlayers.Add(rankPlUC);
@@ -346,8 +352,8 @@ namespace WinFormsApp
                             rankPlUC.Captain = pl.Captain;
                             rankPlUC.ShirtNumber = pl.ShirtNumber;
                             rankPlUC.Favourite = false;
-                            rankPlUC.Goals = GetPlayerGoals(pl.FullName);
-                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName);
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName, matches);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName, matches);
                         }
                     }
                     allRankingPanelPlayers.Add(rankPlUC);
@@ -355,19 +361,81 @@ namespace WinFormsApp
             }
             allRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
         }
-        private int GetPlayerGoals(string playerFullName)
+        private int GetPlayerGoals(string playerFullName, List<Matches> matches)
         {
 
+            // for each match
+            // check home team events
+            // if player == fullname => check if type of event == goal (tu parsaj string na prva 4 slova da provjeris samo)
+            // increase counter 
+            // check away team events
+            // if player == fullname => check if type of event == goal (tu parsaj string na prva 4 slova da provjeris samo)
+            // increase counter
 
-            return 0;
+            int goalCounter = 0;
+
+            foreach (var match in matches)
+            {
+                List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+                foreach (var teamEvent in homeTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                    {
+                        if (teamEvent.TypeOfEvent != "goal-own")
+                        {
+                            goalCounter++;
+                        }
+                    }
+                }
+
+                List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+                foreach (var teamEvent in awayTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                    {
+                        if (teamEvent.TypeOfEvent != "goal-own")
+                        {
+                            goalCounter++;
+                        }
+                    }
+                }
+            }
+
+            return goalCounter;
         }
-        private int GetPlayerYellowCards(string playerFullName)
+        private int GetPlayerYellowCards(string playerFullName, List<Matches> matches)
         {
+            int yellowCardCounter = 0;
 
+            foreach (var match in matches)
+            {
+                List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+                foreach (var teamEvent in homeTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                    {
+                        yellowCardCounter++;
+                    }
+                }
 
-            return 0;
+                List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+                foreach (var teamEvent in awayTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                    {
+                        yellowCardCounter++;
+                    }
+                }
+            }
+
+            return yellowCardCounter;
         }
-        
+        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
+        {
+            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
+            return tmpMatches;
+        }
+
         //Teams
         //....
         #endregion

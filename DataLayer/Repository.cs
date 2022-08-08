@@ -145,15 +145,66 @@ namespace DataLayer
             if (champ == "m")
             {
                 RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_MEN_DATA}{code}");
-                return client.ExecuteAsync<List<Matches>>(new RestRequest());   
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
             }
             else
             {
                 RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_WOMEN_DATA}{code}");
-                return client.ExecuteAsync<List<Matches>>(new RestRequest());   
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
             }
         }
-        
+        #endregion
+
+        // Matches API
+        #region
+        public async Task<List<Matches>> PrepareMatches(string[] fifaCodes, string champ)
+        {
+            List<Matches> tempMatches = new List<Matches>();
+
+            string path;
+
+            if (champ == "m")
+            {
+                path = $"{Application.StartupPath}/men_matches.json";
+            }
+            else
+            {
+                path = $"{Application.StartupPath}/women_matches.json";
+            }
+
+            foreach (var code in fifaCodes)
+            {
+                RestResponse<List<Matches>> restResponse = await GetMatches(code, champ);
+                if (restResponse.Content == null)
+                {
+                    string restResponseFromFile = GetDataFromFile(path);
+                    tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
+
+                    matches = tempMatches;
+                }
+                else
+                {
+                    tempMatches = DeserializeData(restResponse);
+
+                    matches = tempMatches;
+                }
+            }
+
+            return matches;
+        }
+        private Task<RestResponse<List<Matches>>> GetMatches(string code, string champ)
+        {
+            if (champ == "m")
+            {
+                RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_MEN_DATA}{code}");
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
+            }
+            else
+            {
+                RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_WOMEN_DATA}{code}");
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
+            }
+        }
         #endregion
 
         // Deserializing data
