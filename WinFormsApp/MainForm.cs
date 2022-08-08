@@ -301,6 +301,7 @@ namespace WinFormsApp
                 matches = await GetAllMatches(fifaCodes, championship);
 
                 FillPlayerRankingPanel(matches);
+                FillTeamRankingPanel(matches);
 
                 tabRanking.Enabled = true;
             }
@@ -316,6 +317,7 @@ namespace WinFormsApp
 
             btnSortByGoals.Enabled = false;
             btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = true;
         }
         private void btnSortByYellowCards_Click(object sender, EventArgs e)
         {
@@ -328,6 +330,20 @@ namespace WinFormsApp
 
             btnSortByGoals.Enabled = true;
             btnSortByYellowCards.Enabled = false;
+            btnSortByFavourite.Enabled = true;
+        }
+        private void btnSortByFavourite_Click(object sender, EventArgs e)
+        {
+            pnlPlayersRanking.Controls.Clear();
+
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort((x, y) => -x.Favourite.CompareTo(y.Favourite));
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = false;
         }
         #endregion
 
@@ -385,6 +401,10 @@ namespace WinFormsApp
                 }
             }
             nonFavRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = false;
         }
         private int GetPlayerGoals(string playerFullName, List<Matches> matches)
         {
@@ -453,7 +473,25 @@ namespace WinFormsApp
         }
 
         //Teams
-        //....
+        private void FillTeamRankingPanel(List<Matches> matches)
+        {
+            List<RankingTeamUC> rankingMatches = new List<RankingTeamUC>();
+
+            foreach (var match in matches)
+            {
+                RankingTeamUC teamUC = new RankingTeamUC();
+
+                teamUC.HomeTeamName = match.HomeTeam.Country;
+                teamUC.AwayTeamName = match.AwayTeam.Country;
+                teamUC.MatchLocation = match.Location;
+                teamUC.MatchAttendance = match.Attendance;
+
+                rankingMatches.Add(teamUC);
+            }
+            rankingMatches.Sort();
+
+            rankingMatches.ForEach(m => pnlTeamsRanking.Controls.Add(m));
+        }
         #endregion
 
         //Team, player choice
@@ -720,5 +758,6 @@ namespace WinFormsApp
             File.WriteAllLines(file.FullName, content);
         }
         #endregion
+
     }
 }

@@ -127,6 +127,12 @@
     <Compile Include="RankingPlayerUC.Designer.cs">
       <DependentUpon>RankingPlayerUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="RankingTeamUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RankingTeamUC.Designer.cs">
+      <DependentUpon>RankingTeamUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RankingPlayerUC.resx">
       <DependentUpon>RankingPlayerUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RankingTeamUC.resx">
+      <DependentUpon>RankingTeamUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.hr.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

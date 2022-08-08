@@ -68,6 +68,7 @@
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.imgLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSortByFavourite = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
@@ -289,6 +290,7 @@
             // 
             // pnlRanking
             // 
+            this.pnlRanking.Controls.Add(this.btnSortByFavourite);
             this.pnlRanking.Controls.Add(this.btnSortByYellowCards);
             this.pnlRanking.Controls.Add(this.btnSortByGoals);
             this.pnlRanking.Controls.Add(this.lblTeamRanking);
@@ -367,10 +369,12 @@
             this.pnlTeamsRanking.AutoScroll = true;
             this.pnlTeamsRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTeamsRanking.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTeamsRanking.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlTeamsRanking.Location = new System.Drawing.Point(726, 3);
             this.pnlTeamsRanking.Name = "pnlTeamsRanking";
             this.pnlTeamsRanking.Size = new System.Drawing.Size(718, 668);
             this.pnlTeamsRanking.TabIndex = 1;
+            this.pnlTeamsRanking.WrapContents = false;
             // 
             // menuStrip1
             // 
@@ -500,6 +504,16 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // btnSortByFavourite
+            // 
+            this.btnSortByFavourite.Location = new System.Drawing.Point(353, 10);
+            this.btnSortByFavourite.Name = "btnSortByFavourite";
+            this.btnSortByFavourite.Size = new System.Drawing.Size(125, 23);
+            this.btnSortByFavourite.TabIndex = 5;
+            this.btnSortByFavourite.Text = "Sort by Favourite";
+            this.btnSortByFavourite.UseVisualStyleBackColor = true;
+            this.btnSortByFavourite.Click += new System.EventHandler(this.btnSortByFavourite_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -576,5 +590,6 @@
         private System.Windows.Forms.FlowLayoutPanel pnlPlayersRanking;
         private System.Windows.Forms.FlowLayoutPanel pnlTeamsRanking;
         private System.Windows.Forms.Button btnSaveInitialSetup;
+        private System.Windows.Forms.Button btnSortByFavourite;
     }
 }
