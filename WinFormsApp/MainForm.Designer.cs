@@ -308,6 +308,7 @@
             this.btnSortByYellowCards.TabIndex = 4;
             this.btnSortByYellowCards.Text = "Sort by Yellow Cards";
             this.btnSortByYellowCards.UseVisualStyleBackColor = true;
+            this.btnSortByYellowCards.Click += new System.EventHandler(this.btnSortByYellowCards_Click);
             // 
             // btnSortByGoals
             // 
@@ -317,6 +318,7 @@
             this.btnSortByGoals.TabIndex = 3;
             this.btnSortByGoals.Text = "Sort by Goals";
             this.btnSortByGoals.UseVisualStyleBackColor = true;
+            this.btnSortByGoals.Click += new System.EventHandler(this.btnSortByGoals_Click);
             // 
             // lblTeamRanking
             // 

@@ -100,7 +100,6 @@ namespace WinFormsApp
             //Settings tab ddls
             FillDdlsWithData();
             SetIndexesToZero();
-
         }
 
         //!!!!
@@ -305,7 +304,14 @@ namespace WinFormsApp
                 tabRanking.Enabled = true;
             }
         }
+        private void btnSortByGoals_Click(object sender, EventArgs e)
+        {
 
+        }
+        private void btnSortByYellowCards_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         //Ranking tab methods
@@ -363,15 +369,6 @@ namespace WinFormsApp
         }
         private int GetPlayerGoals(string playerFullName, List<Matches> matches)
         {
-
-            // for each match
-            // check home team events
-            // if player == fullname => check if type of event == goal (tu parsaj string na prva 4 slova da provjeris samo)
-            // increase counter 
-            // check away team events
-            // if player == fullname => check if type of event == goal (tu parsaj string na prva 4 slova da provjeris samo)
-            // increase counter
-
             int goalCounter = 0;
 
             foreach (var match in matches)
@@ -704,6 +701,5 @@ namespace WinFormsApp
             File.WriteAllLines(file.FullName, content);
         }
         #endregion
-
     }
 }
