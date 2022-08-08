@@ -34,6 +34,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainPage = new System.Windows.Forms.TabPage();
             this.pnlStartingSetup = new System.Windows.Forms.Panel();
+            this.btnSaveInitialSetup = new System.Windows.Forms.Button();
             this.pnlPlayerFavPlayerChoice = new System.Windows.Forms.TableLayoutPanel();
             this.pnlAllPlayers = new System.Windows.Forms.FlowLayoutPanel();
             this.contextMenuAddFavourite = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -67,7 +68,6 @@
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.imgLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnSaveInitialSetup = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
@@ -144,6 +144,17 @@
             this.pnlStartingSetup.Name = "pnlStartingSetup";
             this.pnlStartingSetup.Size = new System.Drawing.Size(1906, 1048);
             this.pnlStartingSetup.TabIndex = 1;
+            // 
+            // btnSaveInitialSetup
+            // 
+            this.btnSaveInitialSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveInitialSetup.Location = new System.Drawing.Point(87, 328);
+            this.btnSaveInitialSetup.Name = "btnSaveInitialSetup";
+            this.btnSaveInitialSetup.Size = new System.Drawing.Size(151, 97);
+            this.btnSaveInitialSetup.TabIndex = 6;
+            this.btnSaveInitialSetup.Text = "Save initial setup";
+            this.btnSaveInitialSetup.UseVisualStyleBackColor = true;
+            this.btnSaveInitialSetup.Click += new System.EventHandler(this.btnSaveInitialSetup_Click);
             // 
             // pnlPlayerFavPlayerChoice
             // 
@@ -341,6 +352,7 @@
             // 
             // pnlPlayersRanking
             // 
+            this.pnlPlayersRanking.AutoScroll = true;
             this.pnlPlayersRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPlayersRanking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPlayersRanking.Location = new System.Drawing.Point(3, 3);
@@ -350,6 +362,7 @@
             // 
             // pnlTeamsRanking
             // 
+            this.pnlTeamsRanking.AutoScroll = true;
             this.pnlTeamsRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTeamsRanking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTeamsRanking.Location = new System.Drawing.Point(726, 3);
@@ -484,17 +497,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(1920, 54);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnSaveInitialSetup
-            // 
-            this.btnSaveInitialSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveInitialSetup.Location = new System.Drawing.Point(87, 328);
-            this.btnSaveInitialSetup.Name = "btnSaveInitialSetup";
-            this.btnSaveInitialSetup.Size = new System.Drawing.Size(151, 97);
-            this.btnSaveInitialSetup.TabIndex = 6;
-            this.btnSaveInitialSetup.Text = "Save initial setup";
-            this.btnSaveInitialSetup.UseVisualStyleBackColor = true;
-            this.btnSaveInitialSetup.Click += new System.EventHandler(this.btnSaveInitialSetup_Click);
             // 
             // MainForm
             // 

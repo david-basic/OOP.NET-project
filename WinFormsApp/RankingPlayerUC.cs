@@ -69,6 +69,9 @@ namespace WinFormsApp
                 imgFavourite.Image = emptyStar;
             }
 
+            lblGoalsNumber.Text = Goals.ToString();
+            lblYellowCardsNumber.Text = YellowCards.ToString();
+
             if (File.Exists(filePathImagesPaths))
             {
                 string[] tempPathsCollection = File.ReadAllLines(filePathImagesPaths);

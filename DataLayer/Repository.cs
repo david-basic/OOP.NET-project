@@ -15,6 +15,7 @@ namespace DataLayer
     {
         public List<Team> teams = new List<Team>();
         public List<StartingEleven> players = new List<StartingEleven>();
+        public List<Matches> matches = new List<Matches>();
 
         // Team API
         #region
@@ -70,7 +71,7 @@ namespace DataLayer
         #region
         public async Task<List<StartingEleven>> PreparePlayers(string[] fifaCodes, string champ)
         {
-            List<Matches> matches = new List<Matches>();
+            List<Matches> tempMatches = new List<Matches>();
 
             string path;
 
@@ -90,9 +91,9 @@ namespace DataLayer
                 if (restResponse.Content == null)
                 {
                     string restResponseFromFile = GetDataFromFile(path);
-                    matches = DeserializeFileData<List<Matches>>(restResponseFromFile);
+                    tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
 
-                    Matches[] m = matches.ToArray();
+                    Matches[] m = tempMatches.ToArray();
 
                     for (int i = 0; i < m.Length; i++)
                     {
@@ -114,9 +115,9 @@ namespace DataLayer
                 }
                 else
                 {
-                    matches = DeserializeData(restResponse);
+                    tempMatches = DeserializeData(restResponse);
 
-                    Matches[] m = matches.ToArray();
+                    Matches[] m = tempMatches.ToArray();
 
                     for (int i = 0; i < 1; i++)
                     {
@@ -152,6 +153,7 @@ namespace DataLayer
                 return client.ExecuteAsync<List<Matches>>(new RestRequest());   
             }
         }
+        
         #endregion
 
         // Deserializing data

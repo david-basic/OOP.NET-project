@@ -29,6 +29,8 @@ namespace WinFormsApp
         private List<PlayerUC> selectedPlayersUC = new List<PlayerUC>();
         private HashSet<PlayerUC> allPlayers = new HashSet<PlayerUC>();
         private HashSet<PlayerUC> favPlayers = new HashSet<PlayerUC>();
+        private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
+        private HashSet<RankingPlayerUC> favRankingPanelPlayers = new HashSet<RankingPlayerUC>();
 
         string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
         string filePathChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipSettings.txt";
@@ -285,6 +287,89 @@ namespace WinFormsApp
                 e.Cancel = true;
             }
         }
+        private void btnSaveInitialSetup_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirmation == DialogResult.Yes)
+            {
+                pnlStartingSetup.Enabled = false;
+                MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                FillPlayerRankingPanel();
+
+                tabRanking.Enabled = true;
+            }
+        }
+        #endregion
+
+        //Ranking tab methods
+        #region
+        //Players
+        private void FillPlayerRankingPanel()
+        {
+            string[] ChosenPlayers = File.ReadAllLines(filePathChosenPlayers);
+            foreach (string playerName in ChosenPlayers)
+            {
+                if (playerName != "")
+                {
+                    RankingPlayerUC rankPlUC = new RankingPlayerUC();
+
+                    foreach (var pl in players)
+                    {
+                        if (pl.FullName == playerName)
+                        {
+                            rankPlUC.FullName = pl.FullName;
+                            rankPlUC.Captain = pl.Captain;
+                            rankPlUC.ShirtNumber = pl.ShirtNumber;
+                            rankPlUC.Favourite = true;
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName);
+                        }
+                    }
+                    favRankingPanelPlayers.Add(rankPlUC);
+                }
+            }
+            favRankingPanelPlayers.ToList().ForEach(item => pnlPlayersRanking.Controls.Add(item));
+
+            string[] NotChosenPlayers = File.ReadAllLines(filePathNotChosenPlayers);
+            foreach (var playerName in NotChosenPlayers)
+            {
+                if (playerName != "")
+                {
+                    RankingPlayerUC rankPlUC = new RankingPlayerUC();
+
+                    foreach (var pl in players)
+                    {
+                        if (pl.FullName == playerName)
+                        {
+                            rankPlUC.FullName = pl.FullName;
+                            rankPlUC.Captain = pl.Captain;
+                            rankPlUC.ShirtNumber = pl.ShirtNumber;
+                            rankPlUC.Favourite = false;
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName);
+                        }
+                    }
+                    allRankingPanelPlayers.Add(rankPlUC);
+                }
+            }
+            allRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
+        }
+        private int GetPlayerGoals(string playerFullName)
+        {
+
+
+            return 0;
+        }
+        private int GetPlayerYellowCards(string playerFullName)
+        {
+
+
+            return 0;
+        }
+        
+        //Teams
+        //....
         #endregion
 
         //Team, player choice
@@ -385,7 +470,6 @@ namespace WinFormsApp
                 {
                     PlayerUC plUC = new PlayerUC();
 
-                    //foreach (var pla in players)
                     foreach (var pla in players)
                     {
                         if (pla.FullName == playerName)
@@ -412,7 +496,6 @@ namespace WinFormsApp
                 {
                     PlayerUC plUC = new PlayerUC();
 
-                    //foreach (var pla in players)
                     foreach (var pla in players)
                     {
                         if (pla.FullName == playerName)
@@ -554,15 +637,5 @@ namespace WinFormsApp
         }
         #endregion
 
-        private void btnSaveInitialSetup_Click(object sender, EventArgs e)
-        {
-            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (confirmation == DialogResult.Yes)
-            {
-                pnlStartingSetup.Enabled = false;
-                MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                tabRanking.Enabled = true;
-            }
-        }
     }
 }
