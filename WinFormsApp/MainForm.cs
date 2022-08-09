@@ -759,5 +759,9 @@ namespace WinFormsApp
         }
         #endregion
 
+        private void pRintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not yet implemented.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

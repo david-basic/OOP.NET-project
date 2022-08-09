@@ -401,6 +401,7 @@
             this.pRintToolStripMenuItem.Name = "pRintToolStripMenuItem";
             this.pRintToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.pRintToolStripMenuItem.Text = "Print";
+            this.pRintToolStripMenuItem.Click += new System.EventHandler(this.pRintToolStripMenuItem_Click);
             // 
             // settingsTab
             // 
