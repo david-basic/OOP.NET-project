@@ -79,6 +79,15 @@ namespace WinFormsApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restart required to change the language or favourite team. Restart now?.
+        /// </summary>
+        public static string languageOrChampChange {
+            get {
+                return ResourceManager.GetString("languageOrChampChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Men.
         /// </summary>
         public static string men {

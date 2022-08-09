@@ -19,7 +19,8 @@ namespace WinFormsApp
         private const string HR = "hr", EN = "en";
 
         string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
-        string filePathChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipSettings.txt";
+        string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
         string filePathStartup = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
 
         public SettingsForm()
@@ -132,7 +133,9 @@ namespace WinFormsApp
 
             try
             {
-                SaveToFile(filePathChampionship, champLines);
+                SaveToFile(filePathCurrentChampionship, champLines);
+
+                SaveToFile(filePathPreviousChampionship, champLines);
 
                 SaveToFile(filePathLanguage, langLines);
 

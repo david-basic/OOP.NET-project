@@ -89,50 +89,34 @@
             // 
             // tableLayoutPanel
             // 
+            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
             this.tableLayoutPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.Controls.Add(this.tabControl, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.imgLogo, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.imgLeft, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.pictureBox1, 1, 0);
-            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 2;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1520, 825);
-            this.tableLayoutPanel.TabIndex = 0;
             // 
             // tabControl
             // 
+            resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Controls.Add(this.tabPageMainPage);
             this.tabControl.Controls.Add(this.tabRanking);
             this.tabControl.Controls.Add(this.settingsTab);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.HotTrack = true;
-            this.tabControl.ItemSize = new System.Drawing.Size(58, 18);
-            this.tabControl.Location = new System.Drawing.Point(63, 63);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1920, 1080);
-            this.tabControl.TabIndex = 2;
             // 
             // tabPageMainPage
             // 
+            resources.ApplyResources(this.tabPageMainPage, "tabPageMainPage");
             this.tabPageMainPage.Controls.Add(this.pnlStartingSetup);
-            this.tabPageMainPage.Location = new System.Drawing.Point(4, 22);
             this.tabPageMainPage.Name = "tabPageMainPage";
-            this.tabPageMainPage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMainPage.Size = new System.Drawing.Size(1912, 1054);
-            this.tabPageMainPage.TabIndex = 2;
-            this.tabPageMainPage.Text = "Main page";
             this.tabPageMainPage.UseVisualStyleBackColor = true;
             // 
             // pnlStartingSetup
             // 
+            resources.ApplyResources(this.pnlStartingSetup, "pnlStartingSetup");
             this.pnlStartingSetup.Controls.Add(this.btnSaveInitialSetup);
             this.pnlStartingSetup.Controls.Add(this.pnlPlayerFavPlayerChoice);
             this.pnlStartingSetup.Controls.Add(this.label2);
@@ -140,390 +124,251 @@
             this.pnlStartingSetup.Controls.Add(this.btnChoose);
             this.pnlStartingSetup.Controls.Add(this.ddlTeams);
             this.pnlStartingSetup.Controls.Add(this.lblTeams);
-            this.pnlStartingSetup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlStartingSetup.Location = new System.Drawing.Point(3, 3);
             this.pnlStartingSetup.Name = "pnlStartingSetup";
-            this.pnlStartingSetup.Size = new System.Drawing.Size(1906, 1048);
-            this.pnlStartingSetup.TabIndex = 1;
             // 
             // btnSaveInitialSetup
             // 
-            this.btnSaveInitialSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveInitialSetup.Location = new System.Drawing.Point(87, 328);
+            resources.ApplyResources(this.btnSaveInitialSetup, "btnSaveInitialSetup");
             this.btnSaveInitialSetup.Name = "btnSaveInitialSetup";
-            this.btnSaveInitialSetup.Size = new System.Drawing.Size(151, 97);
-            this.btnSaveInitialSetup.TabIndex = 6;
-            this.btnSaveInitialSetup.Text = "Save initial setup";
             this.btnSaveInitialSetup.UseVisualStyleBackColor = true;
-            this.btnSaveInitialSetup.Click += new System.EventHandler(this.btnSaveInitialSetup_Click);
+            this.btnSaveInitialSetup.Click += new System.EventHandler(this.BtnSaveInitialSetup_Click);
             // 
             // pnlPlayerFavPlayerChoice
             // 
-            this.pnlPlayerFavPlayerChoice.ColumnCount = 2;
-            this.pnlPlayerFavPlayerChoice.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlPlayerFavPlayerChoice.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            resources.ApplyResources(this.pnlPlayerFavPlayerChoice, "pnlPlayerFavPlayerChoice");
             this.pnlPlayerFavPlayerChoice.Controls.Add(this.pnlAllPlayers, 1, 0);
             this.pnlPlayerFavPlayerChoice.Controls.Add(this.pnlFavouritePlayers, 0, 0);
-            this.pnlPlayerFavPlayerChoice.Location = new System.Drawing.Point(326, 3);
             this.pnlPlayerFavPlayerChoice.Name = "pnlPlayerFavPlayerChoice";
-            this.pnlPlayerFavPlayerChoice.RowCount = 1;
-            this.pnlPlayerFavPlayerChoice.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.pnlPlayerFavPlayerChoice.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 710F));
-            this.pnlPlayerFavPlayerChoice.Size = new System.Drawing.Size(1124, 710);
-            this.pnlPlayerFavPlayerChoice.TabIndex = 5;
             // 
             // pnlAllPlayers
             // 
-            this.pnlAllPlayers.AutoScroll = true;
+            resources.ApplyResources(this.pnlAllPlayers, "pnlAllPlayers");
             this.pnlAllPlayers.BackColor = System.Drawing.SystemColors.Control;
             this.pnlAllPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlAllPlayers.ContextMenuStrip = this.contextMenuAddFavourite;
-            this.pnlAllPlayers.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlAllPlayers.Location = new System.Drawing.Point(565, 3);
             this.pnlAllPlayers.Name = "pnlAllPlayers";
-            this.pnlAllPlayers.Padding = new System.Windows.Forms.Padding(6);
-            this.pnlAllPlayers.Size = new System.Drawing.Size(341, 704);
-            this.pnlAllPlayers.TabIndex = 1;
-            this.pnlAllPlayers.WrapContents = false;
             // 
             // contextMenuAddFavourite
             // 
+            resources.ApplyResources(this.contextMenuAddFavourite, "contextMenuAddFavourite");
             this.contextMenuAddFavourite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToFavouritesToolStripMenuItem});
             this.contextMenuAddFavourite.Name = "contextMenuAddFavourite";
-            this.contextMenuAddFavourite.Size = new System.Drawing.Size(166, 26);
             // 
             // addToFavouritesToolStripMenuItem
             // 
+            resources.ApplyResources(this.addToFavouritesToolStripMenuItem, "addToFavouritesToolStripMenuItem");
             this.addToFavouritesToolStripMenuItem.Name = "addToFavouritesToolStripMenuItem";
-            this.addToFavouritesToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.addToFavouritesToolStripMenuItem.Text = "Add to favourites";
             this.addToFavouritesToolStripMenuItem.Click += new System.EventHandler(this.AddToFavourites_Click);
             // 
             // pnlFavouritePlayers
             // 
-            this.pnlFavouritePlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlFavouritePlayers.AutoScroll = true;
+            resources.ApplyResources(this.pnlFavouritePlayers, "pnlFavouritePlayers");
             this.pnlFavouritePlayers.BackColor = System.Drawing.SystemColors.Control;
             this.pnlFavouritePlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlFavouritePlayers.ContextMenuStrip = this.contextMenuRemoveFavouritePlayers;
-            this.pnlFavouritePlayers.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlFavouritePlayers.Location = new System.Drawing.Point(218, 3);
             this.pnlFavouritePlayers.Name = "pnlFavouritePlayers";
-            this.pnlFavouritePlayers.Padding = new System.Windows.Forms.Padding(6);
-            this.pnlFavouritePlayers.Size = new System.Drawing.Size(341, 704);
-            this.pnlFavouritePlayers.TabIndex = 0;
-            this.pnlFavouritePlayers.WrapContents = false;
             // 
             // contextMenuRemoveFavouritePlayers
             // 
+            resources.ApplyResources(this.contextMenuRemoveFavouritePlayers, "contextMenuRemoveFavouritePlayers");
             this.contextMenuRemoveFavouritePlayers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeFromFavouritesToolStripMenuItem});
             this.contextMenuRemoveFavouritePlayers.Name = "contextMenuRemoveFavouritePlayers";
-            this.contextMenuRemoveFavouritePlayers.Size = new System.Drawing.Size(202, 26);
             // 
             // removeFromFavouritesToolStripMenuItem
             // 
+            resources.ApplyResources(this.removeFromFavouritesToolStripMenuItem, "removeFromFavouritesToolStripMenuItem");
             this.removeFromFavouritesToolStripMenuItem.Name = "removeFromFavouritesToolStripMenuItem";
-            this.removeFromFavouritesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.removeFromFavouritesToolStripMenuItem.Text = "Remove from favourites";
             this.removeFromFavouritesToolStripMenuItem.Click += new System.EventHandler(this.RemoveFromFavourites_Click);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 57);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Choose a favourite team...";
             // 
             // txtChosenFavTeams
             // 
-            this.txtChosenFavTeams.Location = new System.Drawing.Point(15, 73);
-            this.txtChosenFavTeams.Multiline = true;
+            resources.ApplyResources(this.txtChosenFavTeams, "txtChosenFavTeams");
             this.txtChosenFavTeams.Name = "txtChosenFavTeams";
             this.txtChosenFavTeams.ReadOnly = true;
-            this.txtChosenFavTeams.Size = new System.Drawing.Size(305, 175);
-            this.txtChosenFavTeams.TabIndex = 3;
             // 
             // btnChoose
             // 
+            resources.ApplyResources(this.btnChoose, "btnChoose");
             this.btnChoose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnChoose.Location = new System.Drawing.Point(229, 29);
             this.btnChoose.Name = "btnChoose";
-            this.btnChoose.Size = new System.Drawing.Size(91, 23);
-            this.btnChoose.TabIndex = 2;
-            this.btnChoose.Text = "Choose";
             this.btnChoose.UseVisualStyleBackColor = true;
             this.btnChoose.Click += new System.EventHandler(this.BtnChoose_Click);
             // 
             // ddlTeams
             // 
+            resources.ApplyResources(this.ddlTeams, "ddlTeams");
             this.ddlTeams.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlTeams.FormattingEnabled = true;
-            this.ddlTeams.Location = new System.Drawing.Point(15, 29);
             this.ddlTeams.Name = "ddlTeams";
-            this.ddlTeams.Size = new System.Drawing.Size(207, 21);
-            this.ddlTeams.TabIndex = 1;
             // 
             // lblTeams
             // 
-            this.lblTeams.AutoSize = true;
-            this.lblTeams.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.lblTeams, "lblTeams");
             this.lblTeams.Name = "lblTeams";
-            this.lblTeams.Size = new System.Drawing.Size(42, 13);
-            this.lblTeams.TabIndex = 0;
-            this.lblTeams.Text = "Teams:";
             // 
             // tabRanking
             // 
+            resources.ApplyResources(this.tabRanking, "tabRanking");
             this.tabRanking.Controls.Add(this.pnlRanking);
             this.tabRanking.Controls.Add(this.menuStrip1);
-            this.tabRanking.Location = new System.Drawing.Point(4, 22);
             this.tabRanking.Name = "tabRanking";
-            this.tabRanking.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRanking.Size = new System.Drawing.Size(1912, 1054);
-            this.tabRanking.TabIndex = 3;
-            this.tabRanking.Text = "Ranking";
             this.tabRanking.UseVisualStyleBackColor = true;
             // 
             // pnlRanking
             // 
+            resources.ApplyResources(this.pnlRanking, "pnlRanking");
             this.pnlRanking.Controls.Add(this.btnSortByFavourite);
             this.pnlRanking.Controls.Add(this.btnSortByYellowCards);
             this.pnlRanking.Controls.Add(this.btnSortByGoals);
             this.pnlRanking.Controls.Add(this.lblTeamRanking);
             this.pnlRanking.Controls.Add(this.lblPlayersRanking);
             this.pnlRanking.Controls.Add(this.pnlPlayerAndTeamRankings);
-            this.pnlRanking.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRanking.Location = new System.Drawing.Point(3, 27);
             this.pnlRanking.Name = "pnlRanking";
-            this.pnlRanking.Size = new System.Drawing.Size(1906, 1024);
-            this.pnlRanking.TabIndex = 0;
             // 
             // btnSortByFavourite
             // 
-            this.btnSortByFavourite.Location = new System.Drawing.Point(353, 10);
+            resources.ApplyResources(this.btnSortByFavourite, "btnSortByFavourite");
             this.btnSortByFavourite.Name = "btnSortByFavourite";
-            this.btnSortByFavourite.Size = new System.Drawing.Size(125, 23);
-            this.btnSortByFavourite.TabIndex = 5;
-            this.btnSortByFavourite.Text = "Sort by Favourite";
             this.btnSortByFavourite.UseVisualStyleBackColor = true;
-            this.btnSortByFavourite.Click += new System.EventHandler(this.btnSortByFavourite_Click);
+            this.btnSortByFavourite.Click += new System.EventHandler(this.BtnSortByFavourite_Click);
             // 
             // btnSortByYellowCards
             // 
-            this.btnSortByYellowCards.Location = new System.Drawing.Point(222, 10);
+            resources.ApplyResources(this.btnSortByYellowCards, "btnSortByYellowCards");
             this.btnSortByYellowCards.Name = "btnSortByYellowCards";
-            this.btnSortByYellowCards.Size = new System.Drawing.Size(125, 23);
-            this.btnSortByYellowCards.TabIndex = 4;
-            this.btnSortByYellowCards.Text = "Sort by Yellow Cards";
             this.btnSortByYellowCards.UseVisualStyleBackColor = true;
-            this.btnSortByYellowCards.Click += new System.EventHandler(this.btnSortByYellowCards_Click);
+            this.btnSortByYellowCards.Click += new System.EventHandler(this.BtnSortByYellowCards_Click);
             // 
             // btnSortByGoals
             // 
-            this.btnSortByGoals.Location = new System.Drawing.Point(91, 10);
+            resources.ApplyResources(this.btnSortByGoals, "btnSortByGoals");
             this.btnSortByGoals.Name = "btnSortByGoals";
-            this.btnSortByGoals.Size = new System.Drawing.Size(125, 23);
-            this.btnSortByGoals.TabIndex = 3;
-            this.btnSortByGoals.Text = "Sort by Goals";
             this.btnSortByGoals.UseVisualStyleBackColor = true;
-            this.btnSortByGoals.Click += new System.EventHandler(this.btnSortByGoals_Click);
+            this.btnSortByGoals.Click += new System.EventHandler(this.BtnSortByGoals_Click);
             // 
             // lblTeamRanking
             // 
-            this.lblTeamRanking.AutoSize = true;
-            this.lblTeamRanking.Location = new System.Drawing.Point(726, 15);
+            resources.ApplyResources(this.lblTeamRanking, "lblTeamRanking");
             this.lblTeamRanking.Name = "lblTeamRanking";
-            this.lblTeamRanking.Size = new System.Drawing.Size(85, 13);
-            this.lblTeamRanking.TabIndex = 2;
-            this.lblTeamRanking.Text = "Teams Ranking:";
             // 
             // lblPlayersRanking
             // 
-            this.lblPlayersRanking.AutoSize = true;
-            this.lblPlayersRanking.Location = new System.Drawing.Point(3, 15);
+            resources.ApplyResources(this.lblPlayersRanking, "lblPlayersRanking");
             this.lblPlayersRanking.Name = "lblPlayersRanking";
-            this.lblPlayersRanking.Size = new System.Drawing.Size(82, 13);
-            this.lblPlayersRanking.TabIndex = 1;
-            this.lblPlayersRanking.Text = "Player Ranking:";
             // 
             // pnlPlayerAndTeamRankings
             // 
-            this.pnlPlayerAndTeamRankings.ColumnCount = 2;
-            this.pnlPlayerAndTeamRankings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlPlayerAndTeamRankings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            resources.ApplyResources(this.pnlPlayerAndTeamRankings, "pnlPlayerAndTeamRankings");
             this.pnlPlayerAndTeamRankings.Controls.Add(this.pnlPlayersRanking, 0, 0);
             this.pnlPlayerAndTeamRankings.Controls.Add(this.pnlTeamsRanking, 1, 0);
-            this.pnlPlayerAndTeamRankings.Location = new System.Drawing.Point(3, 39);
             this.pnlPlayerAndTeamRankings.Name = "pnlPlayerAndTeamRankings";
-            this.pnlPlayerAndTeamRankings.RowCount = 1;
-            this.pnlPlayerAndTeamRankings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlPlayerAndTeamRankings.Size = new System.Drawing.Size(1447, 674);
-            this.pnlPlayerAndTeamRankings.TabIndex = 0;
             // 
             // pnlPlayersRanking
             // 
-            this.pnlPlayersRanking.AutoScroll = true;
+            resources.ApplyResources(this.pnlPlayersRanking, "pnlPlayersRanking");
             this.pnlPlayersRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPlayersRanking.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPlayersRanking.Location = new System.Drawing.Point(3, 3);
             this.pnlPlayersRanking.Name = "pnlPlayersRanking";
-            this.pnlPlayersRanking.Size = new System.Drawing.Size(717, 668);
-            this.pnlPlayersRanking.TabIndex = 0;
             // 
             // pnlTeamsRanking
             // 
-            this.pnlTeamsRanking.AutoScroll = true;
+            resources.ApplyResources(this.pnlTeamsRanking, "pnlTeamsRanking");
             this.pnlTeamsRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTeamsRanking.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTeamsRanking.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.pnlTeamsRanking.Location = new System.Drawing.Point(726, 3);
             this.pnlTeamsRanking.Name = "pnlTeamsRanking";
-            this.pnlTeamsRanking.Size = new System.Drawing.Size(718, 668);
-            this.pnlTeamsRanking.TabIndex = 1;
-            this.pnlTeamsRanking.WrapContents = false;
             // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pRintToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1906, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // pRintToolStripMenuItem
             // 
+            resources.ApplyResources(this.pRintToolStripMenuItem, "pRintToolStripMenuItem");
             this.pRintToolStripMenuItem.Name = "pRintToolStripMenuItem";
-            this.pRintToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.pRintToolStripMenuItem.Text = "Print";
-            this.pRintToolStripMenuItem.Click += new System.EventHandler(this.pRintToolStripMenuItem_Click);
+            this.pRintToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // settingsTab
             // 
+            resources.ApplyResources(this.settingsTab, "settingsTab");
             this.settingsTab.Controls.Add(this.pnlSettingsTab);
-            this.settingsTab.Location = new System.Drawing.Point(4, 22);
             this.settingsTab.Name = "settingsTab";
-            this.settingsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.settingsTab.Size = new System.Drawing.Size(1912, 1054);
-            this.settingsTab.TabIndex = 5;
-            this.settingsTab.Text = "Settings";
             this.settingsTab.UseVisualStyleBackColor = true;
             // 
             // pnlSettingsTab
             // 
+            resources.ApplyResources(this.pnlSettingsTab, "pnlSettingsTab");
             this.pnlSettingsTab.Controls.Add(this.btnApply);
             this.pnlSettingsTab.Controls.Add(this.ddlLanguageChoice);
             this.pnlSettingsTab.Controls.Add(this.lblLanguageChoice);
             this.pnlSettingsTab.Controls.Add(this.ddlChampionshipChoice);
             this.pnlSettingsTab.Controls.Add(this.lblChampionshipChoice);
-            this.pnlSettingsTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSettingsTab.Location = new System.Drawing.Point(3, 3);
             this.pnlSettingsTab.Name = "pnlSettingsTab";
-            this.pnlSettingsTab.Size = new System.Drawing.Size(1906, 1048);
-            this.pnlSettingsTab.TabIndex = 0;
             // 
             // btnApply
             // 
-            this.btnApply.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnApply.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnApply.Location = new System.Drawing.Point(334, 298);
+            resources.ApplyResources(this.btnApply, "btnApply");
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(160, 54);
-            this.btnApply.TabIndex = 13;
-            this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // ddlLanguageChoice
             // 
-            this.ddlLanguageChoice.Anchor = System.Windows.Forms.AnchorStyles.None;
+            resources.ApplyResources(this.ddlLanguageChoice, "ddlLanguageChoice");
             this.ddlLanguageChoice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlLanguageChoice.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ddlLanguageChoice.FormattingEnabled = true;
-            this.ddlLanguageChoice.Location = new System.Drawing.Point(281, 221);
             this.ddlLanguageChoice.Name = "ddlLanguageChoice";
-            this.ddlLanguageChoice.Size = new System.Drawing.Size(290, 21);
-            this.ddlLanguageChoice.TabIndex = 12;
             // 
             // lblLanguageChoice
             // 
-            this.lblLanguageChoice.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblLanguageChoice.AutoSize = true;
-            this.lblLanguageChoice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblLanguageChoice.Location = new System.Drawing.Point(278, 205);
+            resources.ApplyResources(this.lblLanguageChoice, "lblLanguageChoice");
             this.lblLanguageChoice.Name = "lblLanguageChoice";
-            this.lblLanguageChoice.Size = new System.Drawing.Size(93, 13);
-            this.lblLanguageChoice.TabIndex = 11;
-            this.lblLanguageChoice.Text = "Choose language:";
             // 
             // ddlChampionshipChoice
             // 
-            this.ddlChampionshipChoice.Anchor = System.Windows.Forms.AnchorStyles.None;
+            resources.ApplyResources(this.ddlChampionshipChoice, "ddlChampionshipChoice");
             this.ddlChampionshipChoice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlChampionshipChoice.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ddlChampionshipChoice.FormattingEnabled = true;
-            this.ddlChampionshipChoice.Location = new System.Drawing.Point(281, 149);
             this.ddlChampionshipChoice.Name = "ddlChampionshipChoice";
-            this.ddlChampionshipChoice.Size = new System.Drawing.Size(290, 21);
-            this.ddlChampionshipChoice.TabIndex = 10;
             // 
             // lblChampionshipChoice
             // 
-            this.lblChampionshipChoice.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblChampionshipChoice.AutoSize = true;
-            this.lblChampionshipChoice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblChampionshipChoice.Location = new System.Drawing.Point(278, 133);
+            resources.ApplyResources(this.lblChampionshipChoice, "lblChampionshipChoice");
             this.lblChampionshipChoice.Name = "lblChampionshipChoice";
-            this.lblChampionshipChoice.Size = new System.Drawing.Size(114, 13);
-            this.lblChampionshipChoice.TabIndex = 9;
-            this.lblChampionshipChoice.Text = "Choose championship:";
             // 
             // imgLogo
             // 
+            resources.ApplyResources(this.imgLogo, "imgLogo");
             this.imgLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
-            this.imgLogo.Location = new System.Drawing.Point(3, 3);
             this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(54, 54);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgLogo.TabIndex = 3;
             this.imgLogo.TabStop = false;
             // 
             // imgLeft
             // 
-            this.imgLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLeft.Image = ((System.Drawing.Image)(resources.GetObject("imgLeft.Image")));
-            this.imgLeft.Location = new System.Drawing.Point(3, 63);
+            resources.ApplyResources(this.imgLeft, "imgLeft");
             this.imgLeft.Name = "imgLeft";
-            this.imgLeft.Size = new System.Drawing.Size(54, 1080);
-            this.imgLeft.TabIndex = 5;
             this.imgLeft.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(63, 3);
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1920, 54);
-            this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1520, 825);
             this.Controls.Add(this.tableLayoutPanel);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel.ResumeLayout(false);

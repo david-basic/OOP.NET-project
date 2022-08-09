@@ -123,6 +123,9 @@
   <data name="en" xml:space="preserve">
     <value>Engleski</value>
   </data>
+  <data name="languageOrChampChange" xml:space="preserve">
+    <value>Restart je potreban da bi se promijenio jezik ili najdraža ekipa. Restart sada?</value>
+  </data>
   <data name="men" xml:space="preserve">
     <value>Muško</value>
   </data>

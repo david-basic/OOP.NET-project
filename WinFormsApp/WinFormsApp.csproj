@@ -142,8 +142,14 @@
     <EmbeddedResource Include="ImageChange.resx">
       <DependentUpon>ImageChange.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.hr.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerUC.hr.resx">
+      <DependentUpon>PlayerUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayerUC.resx">
       <DependentUpon>PlayerUC.cs</DependentUpon>

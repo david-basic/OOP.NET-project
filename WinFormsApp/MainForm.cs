@@ -19,6 +19,7 @@ namespace WinFormsApp
         private bool playersWereChosen;
         private const int INIT_FAV_TEAMS_NUM = 1;
         private const int INIT_FAV_PLAYERS_NUM = 3;
+        private const string HR = "hr", EN = "en";
         private int counterFavTeam = 0;
         private int globalCounterSelectedPlayers = 0;
 
@@ -35,7 +36,8 @@ namespace WinFormsApp
         private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
 
         string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
-        string filePathChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipSettings.txt";
+        string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
         string filePathChosenTeams = $"{Application.StartupPath}/MyAppFiles/ChosenTeams.txt";
         string filePathChosenTeamsFifaCodes = $"{Application.StartupPath}/MyAppFiles/ChosenTeamsFifaCodes.txt";
         string filePathNotChosenTeams = $"{Application.StartupPath}/MyAppFiles/NotChosenTeams.txt";
@@ -47,54 +49,75 @@ namespace WinFormsApp
 
         public MainForm()
         {
+            string[] lang = File.ReadAllLines(filePathLanguage);
+            SetCulture(lang[0]);
+
             InitializeComponent();
         }
 
         private async void MainForm_Load(object sender, EventArgs e)
         {
-            // !!!!
-            // TO DO: implementiraj lokalizaciju
-            // !!!!
-            //string[] lang = File.ReadAllLines(filePathLanguage);
-            //SetCulture(lang[0]);
 
             tabRanking.Enabled = false;
 
-            string[] championship = File.ReadAllLines(filePathChampionship);
-            teamsWereChosen = File.Exists(filePathChosenTeams);
-            playersWereChosen = File.Exists(filePathChosenPlayers);
-
-            if (File.Exists(filePathChosenTeamsFifaCodes))
+            string[] currentChampionship = File.ReadAllLines(filePathCurrentChampionship);
+            string[] previousChampionship = File.ReadAllLines(filePathPreviousChampionship);
+            if (currentChampionship[0] == previousChampionship[0])
             {
-                fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
-            }
+                teamsWereChosen = File.Exists(filePathChosenTeams);
+                playersWereChosen = File.Exists(filePathChosenPlayers);
 
-            if (!teamsWereChosen)
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                await FillTeamsList(championship);
-                Cursor.Current = Cursors.Default;
-            }
-            else
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                GetChosenAndNotChosenTeams();
-                players = await GetAllPlayers(fifaCodes, championship);
-
-                if (playersWereChosen)
+                if (File.Exists(filePathChosenTeamsFifaCodes))
                 {
-                    GetChosenAndNotChosenPlayers();
+                    fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
+                }
 
-                    if (favPlayers.Count >= INIT_FAV_PLAYERS_NUM)
-                    {
-                        pnlAllPlayers.Enabled = false;
-                    }
+                if (!teamsWereChosen)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    await FillTeamsList(currentChampionship);
+                    Cursor.Current = Cursors.Default;
                 }
                 else
                 {
-                    FillAllPlayersPanelWithPlayerUCs();
-                }
+                    Cursor.Current = Cursors.WaitCursor;
+                    GetChosenAndNotChosenTeams();
+                    players = await GetAllPlayers(fifaCodes, currentChampionship);
 
+                    if (playersWereChosen)
+                    {
+                        GetChosenAndNotChosenPlayers();
+
+                        if (favPlayers.Count >= INIT_FAV_PLAYERS_NUM)
+                        {
+                            pnlAllPlayers.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        FillAllPlayersPanelWithPlayerUCs();
+                    }
+
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+            else
+            {
+                ddlTeams.Items.Clear();
+                txtChosenFavTeams.Clear();
+                pnlFavouritePlayers.Controls.Clear();
+                pnlAllPlayers.Controls.Clear();
+
+                File.Delete(filePathChosenTeams);
+                File.Delete(filePathChosenPlayers);
+                File.Delete(filePathChosenTeamsFifaCodes);
+
+                previousChampionship = currentChampionship;
+
+                SaveToFile(filePathPreviousChampionship, previousChampionship.ToList());
+
+                Cursor.Current = Cursors.WaitCursor;
+                await FillTeamsList(currentChampionship);
                 Cursor.Current = Cursors.Default;
             }
 
@@ -103,9 +126,6 @@ namespace WinFormsApp
             SetIndexesToZero();
         }
 
-        //!!!!
-        //TO DO: implementiraj lokalizaciju
-        //!!!!
         //Culture
         #region
         private void SetCulture(string language)
@@ -114,8 +134,6 @@ namespace WinFormsApp
 
             Thread.CurrentThread.CurrentUICulture = culture;
             Thread.CurrentThread.CurrentCulture = culture;
-
-            ResetUI();
         }
         private void ResetUI()
         {
@@ -132,7 +150,7 @@ namespace WinFormsApp
             ChooseATeam();
             ddlTeams.SelectedIndex = 0;
 
-            string[] championship = File.ReadAllLines(filePathChampionship);
+            string[] championship = File.ReadAllLines(filePathCurrentChampionship);
             if (txtChosenFavTeams.Text.Length != 0 ^ thereAreLoadedPlayers)
             {
                 fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
@@ -279,16 +297,12 @@ namespace WinFormsApp
         {
             DialogResult dialogResult = MessageBox.Show("Are you sure?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            // !!!!
-            // TO DO: fali implementacija ESC uz dialog NO result. neznam kako to za sada
-            // !!!!
-
             if (dialogResult == DialogResult.No)
             {
                 e.Cancel = true;
             }
         }
-        private async void btnSaveInitialSetup_Click(object sender, EventArgs e)
+        private async void BtnSaveInitialSetup_Click(object sender, EventArgs e)
         {
             DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmation == DialogResult.Yes)
@@ -296,7 +310,7 @@ namespace WinFormsApp
                 pnlStartingSetup.Enabled = false;
                 MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                string[] championship = File.ReadAllLines(filePathChampionship);
+                string[] championship = File.ReadAllLines(filePathCurrentChampionship);
                 fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
                 matches = await GetAllMatches(fifaCodes, championship);
 
@@ -306,7 +320,7 @@ namespace WinFormsApp
                 tabRanking.Enabled = true;
             }
         }
-        private void btnSortByGoals_Click(object sender, EventArgs e)
+        private void BtnSortByGoals_Click(object sender, EventArgs e)
         {
             pnlPlayersRanking.Controls.Clear();
 
@@ -319,7 +333,7 @@ namespace WinFormsApp
             btnSortByYellowCards.Enabled = true;
             btnSortByFavourite.Enabled = true;
         }
-        private void btnSortByYellowCards_Click(object sender, EventArgs e)
+        private void BtnSortByYellowCards_Click(object sender, EventArgs e)
         {
             pnlPlayersRanking.Controls.Clear();
 
@@ -332,7 +346,7 @@ namespace WinFormsApp
             btnSortByYellowCards.Enabled = false;
             btnSortByFavourite.Enabled = true;
         }
-        private void btnSortByFavourite_Click(object sender, EventArgs e)
+        private void BtnSortByFavourite_Click(object sender, EventArgs e)
         {
             pnlPlayersRanking.Controls.Clear();
 
@@ -344,6 +358,10 @@ namespace WinFormsApp
             btnSortByGoals.Enabled = true;
             btnSortByYellowCards.Enabled = true;
             btnSortByFavourite.Enabled = false;
+        }
+        private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This feature is not yet implemented.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
@@ -678,9 +696,13 @@ namespace WinFormsApp
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
-            SaveSettings();
-            //SetAndSaveLanguage();
-            Application.Restart();
+            DialogResult dialogResult = MessageBox.Show($"{Properties.Resources.languageOrChampChange}", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                SaveSettings();
+                SetAndSaveLanguage();
+                Application.Restart();
+            }
         }
         private void SaveSettings()
         {
@@ -702,7 +724,7 @@ namespace WinFormsApp
 
             try
             {
-                SaveToFile(filePathChampionship, champLines);
+                SaveToFile(filePathCurrentChampionship, champLines);
 
                 SaveToFile(filePathLanguage, langLines);
 
@@ -713,40 +735,40 @@ namespace WinFormsApp
                 MessageBox.Show(ex.Message);
             }
         }
-        //private void SetAndSaveLanguage()
-        //{
-        //    int currentSelectedIndex = ddlChampionshipChoice.SelectedIndex;
-        //    if (ddlLanguageChoice.SelectedItem.ToString() == Properties.Resources.en)
-        //    {
-        //        SetCulture(EN);
-        //        FillDdlsWithData();
-        //        ddlLanguageChoice.SelectedIndex = 0;
-        //    }
-        //    else if (ddlLanguageChoice.SelectedItem.ToString() == Properties.Resources.cro)
-        //    {
-        //        SetCulture(HR);
-        //        FillDdlsWithData();
-        //        ddlLanguageChoice.SelectedIndex = 1;
-        //    }
-        //    ddlChampionshipChoice.SelectedIndex = currentSelectedIndex;
+        private void SetAndSaveLanguage()
+        {
+            int currentSelectedIndex = ddlChampionshipChoice.SelectedIndex;
+            if (ddlLanguageChoice.SelectedItem.ToString() == Properties.Resources.en)
+            {
+                SetCulture(EN);
+                FillDdlsWithData();
+                ddlLanguageChoice.SelectedIndex = 0;
+            }
+            else if (ddlLanguageChoice.SelectedItem.ToString() == Properties.Resources.cro)
+            {
+                SetCulture(HR);
+                FillDdlsWithData();
+                ddlLanguageChoice.SelectedIndex = 1;
+            }
+            ddlChampionshipChoice.SelectedIndex = currentSelectedIndex;
 
-        //    var language = new List<string>();
+            var language = new List<string>();
 
-        //    language.Add($"{Thread.CurrentThread.CurrentUICulture.Name}");
+            language.Add($"{Thread.CurrentThread.CurrentUICulture.Name}");
 
-        //    try
-        //    {
-        //        if (File.Exists(filePathLanguage))
-        //        {
-        //            File.Delete(filePathLanguage);
-        //        }
-        //        SaveToFile(filePathLanguage, language);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+            try
+            {
+                if (File.Exists(filePathLanguage))
+                {
+                    File.Delete(filePathLanguage);
+                }
+                SaveToFile(filePathLanguage, language);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         #endregion
 
         //General methods
@@ -758,10 +780,5 @@ namespace WinFormsApp
             File.WriteAllLines(file.FullName, content);
         }
         #endregion
-
-        private void pRintToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("This feature is not yet implemented.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
     }
 }
