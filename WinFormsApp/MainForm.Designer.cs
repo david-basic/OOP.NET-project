@@ -49,6 +49,7 @@
             this.lblTeams = new System.Windows.Forms.Label();
             this.tabRanking = new System.Windows.Forms.TabPage();
             this.pnlRanking = new System.Windows.Forms.Panel();
+            this.btnSortByFavourite = new System.Windows.Forms.Button();
             this.btnSortByYellowCards = new System.Windows.Forms.Button();
             this.btnSortByGoals = new System.Windows.Forms.Button();
             this.lblTeamRanking = new System.Windows.Forms.Label();
@@ -68,7 +69,6 @@
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.imgLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnSortByFavourite = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
@@ -302,6 +302,16 @@
             this.pnlRanking.Size = new System.Drawing.Size(1906, 1024);
             this.pnlRanking.TabIndex = 0;
             // 
+            // btnSortByFavourite
+            // 
+            this.btnSortByFavourite.Location = new System.Drawing.Point(353, 10);
+            this.btnSortByFavourite.Name = "btnSortByFavourite";
+            this.btnSortByFavourite.Size = new System.Drawing.Size(125, 23);
+            this.btnSortByFavourite.TabIndex = 5;
+            this.btnSortByFavourite.Text = "Sort by Favourite";
+            this.btnSortByFavourite.UseVisualStyleBackColor = true;
+            this.btnSortByFavourite.Click += new System.EventHandler(this.btnSortByFavourite_Click);
+            // 
             // btnSortByYellowCards
             // 
             this.btnSortByYellowCards.Location = new System.Drawing.Point(222, 10);
@@ -503,16 +513,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(1920, 54);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnSortByFavourite
-            // 
-            this.btnSortByFavourite.Location = new System.Drawing.Point(353, 10);
-            this.btnSortByFavourite.Name = "btnSortByFavourite";
-            this.btnSortByFavourite.Size = new System.Drawing.Size(125, 23);
-            this.btnSortByFavourite.TabIndex = 5;
-            this.btnSortByFavourite.Text = "Sort by Favourite";
-            this.btnSortByFavourite.UseVisualStyleBackColor = true;
-            this.btnSortByFavourite.Click += new System.EventHandler(this.btnSortByFavourite_Click);
             // 
             // MainForm
             // 
