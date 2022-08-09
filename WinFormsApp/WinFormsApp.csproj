@@ -199,11 +199,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
-      <Project>{c38bdae4-8b8e-4d7c-95d1-f0d26b4cf4c8}</Project>
+      <Project>{C38BDAE4-8B8E-4D7C-95D1-F0D26B4CF4C8}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Images\captain.png" />
     <Content Include="Images\defaultPlayer.png" />
