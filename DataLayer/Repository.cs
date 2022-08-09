@@ -15,6 +15,7 @@ namespace DataLayer
     {
         public List<Team> teams = new List<Team>();
         public List<StartingEleven> players = new List<StartingEleven>();
+        public List<Matches> matches = new List<Matches>();
 
         // Team API
         #region
@@ -70,7 +71,7 @@ namespace DataLayer
         #region
         public async Task<List<StartingEleven>> PreparePlayers(string[] fifaCodes, string champ)
         {
-            List<Matches> matches = new List<Matches>();
+            List<Matches> tempMatches = new List<Matches>();
 
             string path;
 
@@ -90,9 +91,9 @@ namespace DataLayer
                 if (restResponse.Content == null)
                 {
                     string restResponseFromFile = GetDataFromFile(path);
-                    matches = DeserializeFileData<List<Matches>>(restResponseFromFile);
+                    tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
 
-                    Matches[] m = matches.ToArray();
+                    Matches[] m = tempMatches.ToArray();
 
                     for (int i = 0; i < m.Length; i++)
                     {
@@ -114,9 +115,9 @@ namespace DataLayer
                 }
                 else
                 {
-                    matches = DeserializeData(restResponse);
+                    tempMatches = DeserializeData(restResponse);
 
-                    Matches[] m = matches.ToArray();
+                    Matches[] m = tempMatches.ToArray();
 
                     for (int i = 0; i < 1; i++)
                     {
@@ -144,12 +145,64 @@ namespace DataLayer
             if (champ == "m")
             {
                 RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_MEN_DATA}{code}");
-                return client.ExecuteAsync<List<Matches>>(new RestRequest());   
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
             }
             else
             {
                 RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_WOMEN_DATA}{code}");
-                return client.ExecuteAsync<List<Matches>>(new RestRequest());   
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
+            }
+        }
+        #endregion
+
+        // Matches API
+        #region
+        public async Task<List<Matches>> PrepareMatches(string[] fifaCodes, string champ)
+        {
+            List<Matches> tempMatches = new List<Matches>();
+
+            string path;
+
+            if (champ == "m")
+            {
+                path = $"{Application.StartupPath}/men_matches.json";
+            }
+            else
+            {
+                path = $"{Application.StartupPath}/women_matches.json";
+            }
+
+            foreach (var code in fifaCodes)
+            {
+                RestResponse<List<Matches>> restResponse = await GetMatches(code, champ);
+                if (restResponse.Content == null)
+                {
+                    string restResponseFromFile = GetDataFromFile(path);
+                    tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
+
+                    matches = tempMatches;
+                }
+                else
+                {
+                    tempMatches = DeserializeData(restResponse);
+
+                    matches = tempMatches;
+                }
+            }
+
+            return matches;
+        }
+        private Task<RestResponse<List<Matches>>> GetMatches(string code, string champ)
+        {
+            if (champ == "m")
+            {
+                RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_MEN_DATA}{code}");
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
+            }
+            else
+            {
+                RestClient client = new RestClient($"{ApiConstants.CUSTOM_TEAM_MATCHES_WOMEN_DATA}{code}");
+                return client.ExecuteAsync<List<Matches>>(new RestRequest());
             }
         }
         #endregion

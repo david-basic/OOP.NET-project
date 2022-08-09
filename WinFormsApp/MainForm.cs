@@ -27,8 +27,12 @@ namespace WinFormsApp
         private List<Team> teams = new List<Team>();
         private List<StartingEleven> players = new List<StartingEleven>();
         private List<PlayerUC> selectedPlayersUC = new List<PlayerUC>();
+        private List<Matches> matches = new List<Matches>();
         private HashSet<PlayerUC> allPlayers = new HashSet<PlayerUC>();
         private HashSet<PlayerUC> favPlayers = new HashSet<PlayerUC>();
+        private HashSet<RankingPlayerUC> nonFavRankingPanelPlayers = new HashSet<RankingPlayerUC>();
+        private HashSet<RankingPlayerUC> favRankingPanelPlayers = new HashSet<RankingPlayerUC>();
+        private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
 
         string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
         string filePathChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipSettings.txt";
@@ -53,6 +57,8 @@ namespace WinFormsApp
             // !!!!
             //string[] lang = File.ReadAllLines(filePathLanguage);
             //SetCulture(lang[0]);
+
+            tabRanking.Enabled = false;
 
             string[] championship = File.ReadAllLines(filePathChampionship);
             teamsWereChosen = File.Exists(filePathChosenTeams);
@@ -282,6 +288,210 @@ namespace WinFormsApp
                 e.Cancel = true;
             }
         }
+        private async void btnSaveInitialSetup_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirmation == DialogResult.Yes)
+            {
+                pnlStartingSetup.Enabled = false;
+                MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                string[] championship = File.ReadAllLines(filePathChampionship);
+                fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
+                matches = await GetAllMatches(fifaCodes, championship);
+
+                FillPlayerRankingPanel(matches);
+                FillTeamRankingPanel(matches);
+
+                tabRanking.Enabled = true;
+            }
+        }
+        private void btnSortByGoals_Click(object sender, EventArgs e)
+        {
+            pnlPlayersRanking.Controls.Clear();
+
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort();
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = false;
+            btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = true;
+        }
+        private void btnSortByYellowCards_Click(object sender, EventArgs e)
+        {
+            pnlPlayersRanking.Controls.Clear();
+
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort((x, y) => -x.YellowCards.CompareTo(y.YellowCards));
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = false;
+            btnSortByFavourite.Enabled = true;
+        }
+        private void btnSortByFavourite_Click(object sender, EventArgs e)
+        {
+            pnlPlayersRanking.Controls.Clear();
+
+            List<RankingPlayerUC> allRankingPlayerUCs = allRankingPanelPlayers.ToList();
+
+            allRankingPlayerUCs.Sort((x, y) => -x.Favourite.CompareTo(y.Favourite));
+            allRankingPlayerUCs.ForEach(plUC => pnlPlayersRanking.Controls.Add(plUC));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = false;
+        }
+        #endregion
+
+        //Ranking tab methods
+        #region
+        //Players
+        private void FillPlayerRankingPanel(List<Matches> matches)
+        {
+            string[] ChosenPlayers = File.ReadAllLines(filePathChosenPlayers);
+            foreach (string playerName in ChosenPlayers)
+            {
+                if (playerName != "")
+                {
+                    RankingPlayerUC rankPlUC = new RankingPlayerUC();
+
+                    foreach (var pl in players)
+                    {
+                        if (pl.FullName == playerName)
+                        {
+                            rankPlUC.FullName = pl.FullName;
+                            rankPlUC.Captain = pl.Captain;
+                            rankPlUC.ShirtNumber = pl.ShirtNumber;
+                            rankPlUC.Favourite = true;
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName, matches);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName, matches);
+                        }
+                    }
+                    favRankingPanelPlayers.Add(rankPlUC);
+                    allRankingPanelPlayers.Add(rankPlUC);
+                }
+            }
+            favRankingPanelPlayers.ToList().ForEach(item => pnlPlayersRanking.Controls.Add(item));
+
+            string[] NotChosenPlayers = File.ReadAllLines(filePathNotChosenPlayers);
+            foreach (var playerName in NotChosenPlayers)
+            {
+                if (playerName != "")
+                {
+                    RankingPlayerUC rankPlUC = new RankingPlayerUC();
+
+                    foreach (var pl in players)
+                    {
+                        if (pl.FullName == playerName)
+                        {
+                            rankPlUC.FullName = pl.FullName;
+                            rankPlUC.Captain = pl.Captain;
+                            rankPlUC.ShirtNumber = pl.ShirtNumber;
+                            rankPlUC.Favourite = false;
+                            rankPlUC.Goals = GetPlayerGoals(pl.FullName, matches);
+                            rankPlUC.YellowCards = GetPlayerYellowCards(pl.FullName, matches);
+                        }
+                    }
+                    nonFavRankingPanelPlayers.Add(rankPlUC);
+                    allRankingPanelPlayers.Add(rankPlUC);
+                }
+            }
+            nonFavRankingPanelPlayers.ToList().Where(p => !favRankingPanelPlayers.Contains(p)).ToList().ForEach(player => pnlPlayersRanking.Controls.Add(player));
+
+            btnSortByGoals.Enabled = true;
+            btnSortByYellowCards.Enabled = true;
+            btnSortByFavourite.Enabled = false;
+        }
+        private int GetPlayerGoals(string playerFullName, List<Matches> matches)
+        {
+            int goalCounter = 0;
+
+            foreach (var match in matches)
+            {
+                List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+                foreach (var teamEvent in homeTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                    {
+                        if (teamEvent.TypeOfEvent != "goal-own")
+                        {
+                            goalCounter++;
+                        }
+                    }
+                }
+
+                List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+                foreach (var teamEvent in awayTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                    {
+                        if (teamEvent.TypeOfEvent != "goal-own")
+                        {
+                            goalCounter++;
+                        }
+                    }
+                }
+            }
+
+            return goalCounter;
+        }
+        private int GetPlayerYellowCards(string playerFullName, List<Matches> matches)
+        {
+            int yellowCardCounter = 0;
+
+            foreach (var match in matches)
+            {
+                List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+                foreach (var teamEvent in homeTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                    {
+                        yellowCardCounter++;
+                    }
+                }
+
+                List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+                foreach (var teamEvent in awayTeamEvents)
+                {
+                    if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                    {
+                        yellowCardCounter++;
+                    }
+                }
+            }
+
+            return yellowCardCounter;
+        }
+        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
+        {
+            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
+            return tmpMatches;
+        }
+
+        //Teams
+        private void FillTeamRankingPanel(List<Matches> matches)
+        {
+            List<RankingTeamUC> rankingMatches = new List<RankingTeamUC>();
+
+            foreach (var match in matches)
+            {
+                RankingTeamUC teamUC = new RankingTeamUC();
+
+                teamUC.HomeTeamName = match.HomeTeam.Country;
+                teamUC.AwayTeamName = match.AwayTeam.Country;
+                teamUC.MatchLocation = match.Location;
+                teamUC.MatchAttendance = match.Attendance;
+
+                rankingMatches.Add(teamUC);
+            }
+            rankingMatches.Sort();
+
+            rankingMatches.ForEach(m => pnlTeamsRanking.Controls.Add(m));
+        }
         #endregion
 
         //Team, player choice
@@ -382,7 +592,6 @@ namespace WinFormsApp
                 {
                     PlayerUC plUC = new PlayerUC();
 
-                    //foreach (var pla in players)
                     foreach (var pla in players)
                     {
                         if (pla.FullName == playerName)
@@ -409,7 +618,6 @@ namespace WinFormsApp
                 {
                     PlayerUC plUC = new PlayerUC();
 
-                    //foreach (var pla in players)
                     foreach (var pla in players)
                     {
                         if (pla.FullName == playerName)
@@ -550,5 +758,6 @@ namespace WinFormsApp
             File.WriteAllLines(file.FullName, content);
         }
         #endregion
+
     }
 }

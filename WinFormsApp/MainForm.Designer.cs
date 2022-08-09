@@ -34,7 +34,7 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainPage = new System.Windows.Forms.TabPage();
             this.pnlStartingSetup = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnSaveInitialSetup = new System.Windows.Forms.Button();
             this.pnlPlayerFavPlayerChoice = new System.Windows.Forms.TableLayoutPanel();
             this.pnlAllPlayers = new System.Windows.Forms.FlowLayoutPanel();
             this.contextMenuAddFavourite = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -68,6 +68,7 @@
             this.imgLogo = new System.Windows.Forms.PictureBox();
             this.imgLeft = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnSortByFavourite = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMainPage.SuspendLayout();
@@ -132,7 +133,7 @@
             // 
             // pnlStartingSetup
             // 
-            this.pnlStartingSetup.Controls.Add(this.btnSave);
+            this.pnlStartingSetup.Controls.Add(this.btnSaveInitialSetup);
             this.pnlStartingSetup.Controls.Add(this.pnlPlayerFavPlayerChoice);
             this.pnlStartingSetup.Controls.Add(this.label2);
             this.pnlStartingSetup.Controls.Add(this.txtChosenFavTeams);
@@ -145,14 +146,16 @@
             this.pnlStartingSetup.Size = new System.Drawing.Size(1906, 1048);
             this.pnlStartingSetup.TabIndex = 1;
             // 
-            // btnSave
+            // btnSaveInitialSetup
             // 
-            this.btnSave.Location = new System.Drawing.Point(65, 397);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(186, 88);
-            this.btnSave.TabIndex = 6;
-            this.btnSave.Text = "Save current setup";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSaveInitialSetup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveInitialSetup.Location = new System.Drawing.Point(87, 328);
+            this.btnSaveInitialSetup.Name = "btnSaveInitialSetup";
+            this.btnSaveInitialSetup.Size = new System.Drawing.Size(151, 97);
+            this.btnSaveInitialSetup.TabIndex = 6;
+            this.btnSaveInitialSetup.Text = "Save initial setup";
+            this.btnSaveInitialSetup.UseVisualStyleBackColor = true;
+            this.btnSaveInitialSetup.Click += new System.EventHandler(this.btnSaveInitialSetup_Click);
             // 
             // pnlPlayerFavPlayerChoice
             // 
@@ -287,6 +290,7 @@
             // 
             // pnlRanking
             // 
+            this.pnlRanking.Controls.Add(this.btnSortByFavourite);
             this.pnlRanking.Controls.Add(this.btnSortByYellowCards);
             this.pnlRanking.Controls.Add(this.btnSortByGoals);
             this.pnlRanking.Controls.Add(this.lblTeamRanking);
@@ -306,6 +310,7 @@
             this.btnSortByYellowCards.TabIndex = 4;
             this.btnSortByYellowCards.Text = "Sort by Yellow Cards";
             this.btnSortByYellowCards.UseVisualStyleBackColor = true;
+            this.btnSortByYellowCards.Click += new System.EventHandler(this.btnSortByYellowCards_Click);
             // 
             // btnSortByGoals
             // 
@@ -315,6 +320,7 @@
             this.btnSortByGoals.TabIndex = 3;
             this.btnSortByGoals.Text = "Sort by Goals";
             this.btnSortByGoals.UseVisualStyleBackColor = true;
+            this.btnSortByGoals.Click += new System.EventHandler(this.btnSortByGoals_Click);
             // 
             // lblTeamRanking
             // 
@@ -350,6 +356,7 @@
             // 
             // pnlPlayersRanking
             // 
+            this.pnlPlayersRanking.AutoScroll = true;
             this.pnlPlayersRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPlayersRanking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPlayersRanking.Location = new System.Drawing.Point(3, 3);
@@ -359,12 +366,15 @@
             // 
             // pnlTeamsRanking
             // 
+            this.pnlTeamsRanking.AutoScroll = true;
             this.pnlTeamsRanking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTeamsRanking.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTeamsRanking.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlTeamsRanking.Location = new System.Drawing.Point(726, 3);
             this.pnlTeamsRanking.Name = "pnlTeamsRanking";
             this.pnlTeamsRanking.Size = new System.Drawing.Size(718, 668);
             this.pnlTeamsRanking.TabIndex = 1;
+            this.pnlTeamsRanking.WrapContents = false;
             // 
             // menuStrip1
             // 
@@ -494,6 +504,16 @@
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
             // 
+            // btnSortByFavourite
+            // 
+            this.btnSortByFavourite.Location = new System.Drawing.Point(353, 10);
+            this.btnSortByFavourite.Name = "btnSortByFavourite";
+            this.btnSortByFavourite.Size = new System.Drawing.Size(125, 23);
+            this.btnSortByFavourite.TabIndex = 5;
+            this.btnSortByFavourite.Text = "Sort by Favourite";
+            this.btnSortByFavourite.UseVisualStyleBackColor = true;
+            this.btnSortByFavourite.Click += new System.EventHandler(this.btnSortByFavourite_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -553,7 +573,6 @@
         private System.Windows.Forms.ToolStripMenuItem addToFavouritesToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuRemoveFavouritePlayers;
         private System.Windows.Forms.ToolStripMenuItem removeFromFavouritesToolStripMenuItem;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel pnlSettingsTab;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.ComboBox ddlLanguageChoice;
@@ -570,5 +589,7 @@
         private System.Windows.Forms.Button btnSortByGoals;
         private System.Windows.Forms.FlowLayoutPanel pnlPlayersRanking;
         private System.Windows.Forms.FlowLayoutPanel pnlTeamsRanking;
+        private System.Windows.Forms.Button btnSaveInitialSetup;
+        private System.Windows.Forms.Button btnSortByFavourite;
     }
 }
