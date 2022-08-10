@@ -59,6 +59,7 @@ namespace WinFormsApp
         {
 
             tabRanking.Enabled = false;
+            btnChoose.Enabled = false;
 
             string[] currentChampionship = File.ReadAllLines(filePathCurrentChampionship);
             string[] previousChampionship = File.ReadAllLines(filePathPreviousChampionship);
@@ -124,6 +125,8 @@ namespace WinFormsApp
             //Settings tab ddls
             FillDdlsWithData();
             SetIndexesToZero();
+
+            btnChoose.Enabled = true;
         }
 
         //Culture
@@ -162,7 +165,7 @@ namespace WinFormsApp
         {
             if (favPlayers.Count >= INIT_FAV_PLAYERS_NUM)
             {
-                MessageBox.Show($"Can not choose more than {INIT_FAV_PLAYERS_NUM} at this time.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"{Properties.Resources.playerUCclickTxtPart1}{INIT_FAV_PLAYERS_NUM}{Properties.Resources.playerUCclickTxtPart2}", $"{Properties.Resources.warningText}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -270,7 +273,7 @@ namespace WinFormsApp
 
                 if (isNewPlayer)
                 {
-                    MessageBox.Show($"Can not choose more than {INIT_FAV_PLAYERS_NUM} at this time.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"{Properties.Resources.playerUCclickTxtPart1}{INIT_FAV_PLAYERS_NUM}{Properties.Resources.playerUCclickTxtPart2}", $"{Properties.Resources.warningText}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -295,7 +298,7 @@ namespace WinFormsApp
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MessageBox.Show($"{Properties.Resources.exitConfirmTxt}", $"{Properties.Resources.warningText}", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (dialogResult == DialogResult.No)
             {
@@ -304,11 +307,11 @@ namespace WinFormsApp
         }
         private async void BtnSaveInitialSetup_Click(object sender, EventArgs e)
         {
-            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite players or their images immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirmation = MessageBox.Show($"{Properties.Resources.saveInitSettingsTxt}", $"{Properties.Resources.warningText}", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmation == DialogResult.Yes)
             {
                 pnlStartingSetup.Enabled = false;
-                MessageBox.Show("Ranking tab has been enabled.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{Properties.Resources.rankTabEnabledTxt}", $"{Properties.Resources.informationText}", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 string[] championship = File.ReadAllLines(filePathCurrentChampionship);
                 fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
@@ -361,7 +364,7 @@ namespace WinFormsApp
         }
         private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This feature is not yet implemented.", "Information!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{Properties.Resources.featNotImplemented}", $"{Properties.Resources.informationText}", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
@@ -519,12 +522,12 @@ namespace WinFormsApp
         {
             if (counterFavTeam >= INIT_FAV_TEAMS_NUM)
             {
-                MessageBox.Show($"Can not choose more than {INIT_FAV_TEAMS_NUM} at this time.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"{Properties.Resources.playerUCclickTxtPart1}{INIT_FAV_TEAMS_NUM}{Properties.Resources.playerUCclickTxtPart2}", $"{Properties.Resources.warningText}", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 thereAreLoadedPlayers = true;
                 return;
             }
 
-            DialogResult confirmation = MessageBox.Show("Are you sure? You will not be able to change favourite team immediately.", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirmation = MessageBox.Show($"{Properties.Resources.chooseTeamConfirmTxt}", $"{Properties.Resources.warningText}", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirmation == DialogResult.Yes)
             {
                 txtChosenFavTeams.AppendText($"{ddlTeams.SelectedItem}");
@@ -696,7 +699,7 @@ namespace WinFormsApp
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show($"{Properties.Resources.languageOrChampChange}", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MessageBox.Show($"{Properties.Resources.languageOrChampChange}", $"{Properties.Resources.warningText}", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
                 SaveSettings();

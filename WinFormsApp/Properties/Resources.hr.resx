@@ -117,17 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="chooseTeamConfirmTxt" xml:space="preserve">
+    <value>Jeste li sigurni? Nećete moći promijeniti najdraži tim odmah.</value>
+  </data>
   <data name="cro" xml:space="preserve">
     <value>Hrvatski</value>
   </data>
   <data name="en" xml:space="preserve">
     <value>Engleski</value>
   </data>
+  <data name="exitConfirmTxt" xml:space="preserve">
+    <value>Jeste li sigurni?</value>
+  </data>
+  <data name="featNotImplemented" xml:space="preserve">
+    <value>Ova mogućnost još nije implmentirana.</value>
+  </data>
+  <data name="informationText" xml:space="preserve">
+    <value>Informacija!</value>
+  </data>
   <data name="languageOrChampChange" xml:space="preserve">
     <value>Restart je potreban da bi se promijenio jezik ili najdraža ekipa. Restart sada?</value>
   </data>
   <data name="men" xml:space="preserve">
     <value>Muško</value>
+  </data>
+  <data name="playerUCclickTxtPart1" xml:space="preserve">
+    <value>Ne možete izabrati više od </value>
+  </data>
+  <data name="playerUCclickTxtPart2" xml:space="preserve">
+    <value> u ovom trenutku.</value>
+  </data>
+  <data name="rankTabEnabledTxt" xml:space="preserve">
+    <value>Pristup tabu za rangiranje je omogućen.</value>
+  </data>
+  <data name="saveInitSettingsTxt" xml:space="preserve">
+    <value>Jeste li sigurni? Nećete moći promijeniti najdraže igrače ili njihove slike odmah.</value>
+  </data>
+  <data name="warningText" xml:space="preserve">
+    <value>Upozorenje!</value>
   </data>
   <data name="women" xml:space="preserve">
     <value>Žensko</value>

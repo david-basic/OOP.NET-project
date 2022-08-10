@@ -61,6 +61,15 @@ namespace WinFormsApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure? You will not be able to change favourite team immediately..
+        /// </summary>
+        public static string chooseTeamConfirmTxt {
+            get {
+                return ResourceManager.GetString("chooseTeamConfirmTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Croatian.
         /// </summary>
         public static string cro {
@@ -79,6 +88,33 @@ namespace WinFormsApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        public static string exitConfirmTxt {
+            get {
+                return ResourceManager.GetString("exitConfirmTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This feature is not yet implemented..
+        /// </summary>
+        public static string featNotImplemented {
+            get {
+                return ResourceManager.GetString("featNotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information!.
+        /// </summary>
+        public static string informationText {
+            get {
+                return ResourceManager.GetString("informationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restart required to change the language or favourite team. Restart now?.
         /// </summary>
         public static string languageOrChampChange {
@@ -93,6 +129,51 @@ namespace WinFormsApp.Properties {
         public static string men {
             get {
                 return ResourceManager.GetString("men", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can not choose more than .
+        /// </summary>
+        public static string playerUCclickTxtPart1 {
+            get {
+                return ResourceManager.GetString("playerUCclickTxtPart1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  at this time..
+        /// </summary>
+        public static string playerUCclickTxtPart2 {
+            get {
+                return ResourceManager.GetString("playerUCclickTxtPart2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranking tab has been enabled..
+        /// </summary>
+        public static string rankTabEnabledTxt {
+            get {
+                return ResourceManager.GetString("rankTabEnabledTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure? You will not be able to change favourite players or their images immediately..
+        /// </summary>
+        public static string saveInitSettingsTxt {
+            get {
+                return ResourceManager.GetString("saveInitSettingsTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning!.
+        /// </summary>
+        public static string warningText {
+            get {
+                return ResourceManager.GetString("warningText", resourceCulture);
             }
         }
         
