@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +15,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPFApp
 {
@@ -22,6 +24,11 @@ namespace WPFApp
     public partial class StartupWindow : Window
     {
         private const string HR = "hr", EN = "en";
+
+        string filePathLanguage = $"~/MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = $"~/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"~/MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenResolution = $"~/MyAppFiles/ChosenResolution.txt";
 
         public StartupWindow()
         {
@@ -62,18 +69,82 @@ namespace WPFApp
 
             Thread.CurrentThread.CurrentUICulture = culture;
             Thread.CurrentThread.CurrentCulture = culture;
-
-            //ResetUI();
-        }
-        private void ResetUI()
-        {
-            
         }
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+            SaveSettings();
 
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            mainWindow.Show();
+
+            this.Hide();
         }
 
+        private void SaveSettings()
+        {
+            var langLines = new List<string>();
+            var champLines = new List<string>();
+            var resolutionLines = new List<string>();
+
+            char champLetter = ddlChampionship.SelectedItem.ToString().Trim().ToLower().ElementAt(0);
+
+            if (champLetter == 'ž')
+            {
+                champLetter = 'w';
+            }
+
+            langLines.Add($"{Thread.CurrentThread.CurrentUICulture.Name}");
+
+            champLines.Add($"{champLetter}");
+
+            resolutionLines.Add($"{ddlResolution.SelectedItem.ToString()}");
+
+            try
+            {
+                SaveToFile(filePathCurrentChampionship, champLines);
+
+                SaveToFile(filePathPreviousChampionship, champLines);
+
+                SaveToFile(filePathLanguage, langLines);
+
+                SaveToFile(filePathChosenResolution, resolutionLines);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetAndSaveLanguage();
+        }
+
+        private void SetAndSaveLanguage()
+        {
+            int currentSelectedIndex = ddlChampionship.SelectedIndex;
+
+            if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
+            {
+                SetCulture(EN);
+                FillDdlsWithData();
+                ddlLanguage.SelectedIndex = 0;
+            }
+            else if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.cro)
+            {
+                SetCulture(HR);
+                FillDdlsWithData();
+                ddlLanguage.SelectedIndex = 1;
+            }
+        }
+
+        private void SaveToFile(string path, List<string> content)
+        {
+            FileInfo file = new FileInfo(path);
+            file.Directory.Create();
+            File.WriteAllLines(file.FullName, content);
+        }
     }
 }
