@@ -8,6 +8,7 @@
         WindowStartupLocation="CenterScreen"
         FontFamily="Century Gothic"
         Loaded="Window_Loaded"
+        ResizeMode="NoResize"
         Title="Startup settings" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
