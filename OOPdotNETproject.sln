@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFApp", "WPFApp\WPFApp.csproj", "{211DDF50-106F-4AED-BD06-CB105894F041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testingArea", "testingArea\testingArea.csproj", "{0BAD9C0C-3DBA-408F-AB76-1311E825C6AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZtestingArea", "testingArea\ZtestingArea.csproj", "{0BAD9C0C-3DBA-408F-AB76-1311E825C6AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
