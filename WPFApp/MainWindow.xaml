@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
+        xmlns:props="clr-namespace:WPFApp.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
     <Grid>
-        <Label HorizontalAlignment="Center"
-               VerticalAlignment="Center">
-            HAHAHAHAHHAH
+        <Label 
+            x:Name="lblPlaceholder"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Content="{x:Static props:Resources.placeholder}">
+            
         </Label>
     </Grid>
 </Window>

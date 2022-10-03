@@ -144,6 +144,9 @@
   <data name="men" xml:space="preserve">
     <value>Muški</value>
   </data>
+  <data name="placeholder" xml:space="preserve">
+    <value>Ovo je držač mjesta!</value>
+  </data>
   <data name="res1080p" xml:space="preserve">
     <value>1080p</value>
   </data>

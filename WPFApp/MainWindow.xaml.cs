@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +22,27 @@ namespace WPFApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const string HR = "hr", EN = "en";
+
+        string filePathLanguage = "MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = "MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = "MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenResolution = "MyAppFiles/ChosenResolution.txt";
+
         public MainWindow()
         {
+            string[] lang = File.ReadAllLines(filePathLanguage);
+            SetCulture(lang[0]);
+
             InitializeComponent();
+        }
+
+        private void SetCulture(string language)
+        {
+            CultureInfo culture = new CultureInfo(language);
+
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
         }
 
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();

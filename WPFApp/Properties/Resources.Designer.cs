@@ -142,6 +142,15 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is a placeholder!.
+        /// </summary>
+        public static string placeholder {
+            get {
+                return ResourceManager.GetString("placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1080p.
         /// </summary>
         public static string res1080p {

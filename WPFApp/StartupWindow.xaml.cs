@@ -38,6 +38,12 @@ namespace WPFApp
             {
                 string[] lang = File.ReadAllLines(filePathLanguage);
                 SetCulture(lang[0]);
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                mainWindow.Show();
+
+                this.Hide();
             }
             else
             {
@@ -49,6 +55,7 @@ namespace WPFApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             FillDdlsWithData();
             SetIndexesToZero();
         }
@@ -113,7 +120,13 @@ namespace WPFApp
 
             champLines.Add($"{champLetter}");
 
-            resolutionLines.Add($"{ddlResolution.SelectedItem.ToString()}");
+            resolutionLines.Add($"{ddlResolution.SelectedItem.ToString().ToLower()}");
+
+            if (resolutionLines.First().ToString().Trim().ToLower().ElementAt(0) == 'p')
+            {
+                resolutionLines.Clear();
+                resolutionLines.Add("fullscreen");
+            }
 
             try
             {
@@ -123,7 +136,7 @@ namespace WPFApp
 
                 SaveToFile(filePathLanguage, langLines);
 
-                SaveToFile(filePathChosenResolution, langLines);
+                SaveToFile(filePathChosenResolution, resolutionLines);
             }
             catch (Exception ex)
             {
