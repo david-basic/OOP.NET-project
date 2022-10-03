@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading;
@@ -15,6 +16,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace WPFApp
 {
@@ -25,19 +27,28 @@ namespace WPFApp
     {
         private const string HR = "hr", EN = "en";
 
-        string filePathLanguage = $"~/MyAppFiles/LanguageSettings.txt";
-        string filePathCurrentChampionship = $"~/MyAppFiles/ChampionshipCurrentSettings.txt";
-        string filePathPreviousChampionship = $"~/MyAppFiles/ChampionshipPreviousSettings.txt";
-        string filePathChosenResolution = $"~/MyAppFiles/ChosenResolution.txt";
+        string filePathLanguage = "MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = "MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = "MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenResolution = "MyAppFiles/ChosenResolution.txt";
 
         public StartupWindow()
         {
+            if (File.Exists(filePathLanguage))
+            {
+                string[] lang = File.ReadAllLines(filePathLanguage);
+                SetCulture(lang[0]);
+            }
+            else
+            {
+                SetCulture(EN);
+            }
+
             InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SetCulture(EN);
             FillDdlsWithData();
             SetIndexesToZero();
         }
@@ -73,6 +84,9 @@ namespace WPFApp
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
+
+            MessageBox.Show($"{Properties.Resources.languageChangeMessage}", $"{Properties.Resources.languageChangeTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             SaveSettings();
 
             MainWindow mainWindow = new MainWindow();
@@ -109,7 +123,7 @@ namespace WPFApp
 
                 SaveToFile(filePathLanguage, langLines);
 
-                SaveToFile(filePathChosenResolution, resolutionLines);
+                SaveToFile(filePathChosenResolution, langLines);
             }
             catch (Exception ex)
             {
@@ -124,19 +138,13 @@ namespace WPFApp
 
         private void SetAndSaveLanguage()
         {
-            int currentSelectedIndex = ddlChampionship.SelectedIndex;
-
             if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
             {
                 SetCulture(EN);
-                FillDdlsWithData();
-                ddlLanguage.SelectedIndex = 0;
             }
             else if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.cro)
             {
                 SetCulture(HR);
-                FillDdlsWithData();
-                ddlLanguage.SelectedIndex = 1;
             }
         }
 

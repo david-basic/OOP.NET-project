@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
+        xmlns:props="clr-namespace:WPFApp.Properties"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FontFamily="Century Gothic"
         Loaded="Window_Loaded"
         ResizeMode="NoResize"
-        Title="Startup settings" Height="400" Width="800">
+        Title="{x:Static props:Resources.title}" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,16 +25,18 @@
         </Grid.RowDefinitions>
 
         <Label 
+            x:Name="lblTitle"
             Grid.Row="0" 
             Grid.ColumnSpan="2" 
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
             FontSize="40"
-            FontWeight="Bold">
-            Startup settings
+            FontWeight="Bold"
+            Content="{x:Static props:Resources.title}">
         </Label>
 
         <Label
+            x:Name="lblChamp"
             Grid.Row="1"
             Grid.Column="0"
             VerticalContentAlignment="Center"
@@ -41,8 +44,8 @@
             Width="230"
             HorizontalAlignment="Left"
             Margin="160,10,0,10"
-            FontSize="30">
-            Championship:
+            FontSize="30"
+            Content="{x:Static props:Resources.championship}">
         </Label>
         <ComboBox 
             x:Name="ddlChampionship"
@@ -58,6 +61,7 @@
         </ComboBox>
 
         <Label
+            x:Name="lblLang"
             Grid.Row="2"
             Grid.Column="0"
             VerticalContentAlignment="Center"
@@ -65,8 +69,8 @@
             Width="170"
             HorizontalAlignment="Left"
             Margin="220,10,0,10"
-            FontSize="30">
-            Language:
+            FontSize="30"
+            Content="{x:Static props:Resources.language}">
         </Label>
         <ComboBox 
             x:Name="ddlLanguage"
@@ -82,6 +86,7 @@
         </ComboBox>
 
         <Label
+            x:Name="lblRes"
             Grid.Row="3"
             Grid.Column="0"
             VerticalContentAlignment="Center"
@@ -89,8 +94,8 @@
             Width="281"
             HorizontalAlignment="Left"
             Margin="109,10,0,10"
-            FontSize="30">
-            Window resolution:
+            FontSize="30"
+            Content="{x:Static props:Resources.resolution}">
         </Label>
         <ComboBox 
             x:Name="ddlResolution"
@@ -117,8 +122,8 @@
             Height="50"
             Width="150"
             Margin="35"
-            Click="btnContinue_Click">
-            CONTINUE
+            Click="btnContinue_Click"
+            Content="{x:Static props:Resources.continueBtn}">
         </Button>
     </Grid>
 </Window>

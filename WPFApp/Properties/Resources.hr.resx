@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="championship" xml:space="preserve">
-    <value>Championship:</value>
+    <value>Prvenstvo:</value>
   </data>
   <data name="continueBtn" xml:space="preserve">
-    <value>CONTINUE</value>
+    <value>NASTAVI</value>
   </data>
   <data name="cro" xml:space="preserve">
-    <value>Croatian</value>
+    <value>Hrvatski</value>
   </data>
   <data name="en" xml:space="preserve">
-    <value>English</value>
+    <value>Engleski</value>
   </data>
   <data name="fullscreen" xml:space="preserve">
-    <value>Fullscreen</value>
+    <value>Puni ekran</value>
   </data>
   <data name="language" xml:space="preserve">
-    <value>Language:</value>
+    <value>Jezik:</value>
   </data>
   <data name="languageChangeMessage" xml:space="preserve">
-    <value>Language will be applied to the application after you press CONTINUE!</value>
+    <value>Jezik će biti primjenjen u aplikaciji nakon što stisnete NASTAVI!</value>
   </data>
   <data name="languageChangeTitle" xml:space="preserve">
-    <value>Language changed!</value>
+    <value>Jezik je promijenjen!</value>
   </data>
   <data name="men" xml:space="preserve">
-    <value>Men</value>
+    <value>Muški</value>
   </data>
   <data name="res1080p" xml:space="preserve">
     <value>1080p</value>
@@ -154,12 +154,12 @@
     <value>720p</value>
   </data>
   <data name="resolution" xml:space="preserve">
-    <value>Window resolution:</value>
+    <value>Rezolucija ekrana:</value>
   </data>
   <data name="title" xml:space="preserve">
-    <value>Startup settings</value>
+    <value>Početne postavke</value>
   </data>
   <data name="women" xml:space="preserve">
-    <value>Women</value>
+    <value>Žene</value>
   </data>
 </root>

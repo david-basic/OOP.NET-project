@@ -22,7 +22,7 @@ namespace WPFApp.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WPFApp.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WPFApp.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace WPFApp.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,27 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Championship:.
+        /// </summary>
+        public static string championship {
+            get {
+                return ResourceManager.GetString("championship", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CONTINUE.
+        /// </summary>
+        public static string continueBtn {
+            get {
+                return ResourceManager.GetString("continueBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Croatian.
         /// </summary>
-        internal static string cro {
+        public static string cro {
             get {
                 return ResourceManager.GetString("cro", resourceCulture);
             }
@@ -72,7 +90,7 @@ namespace WPFApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
-        internal static string en {
+        public static string en {
             get {
                 return ResourceManager.GetString("en", resourceCulture);
             }
@@ -81,16 +99,43 @@ namespace WPFApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Fullscreen.
         /// </summary>
-        internal static string fullscreen {
+        public static string fullscreen {
             get {
                 return ResourceManager.GetString("fullscreen", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string language {
+            get {
+                return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language will be applied to the application after you press CONTINUE!.
+        /// </summary>
+        public static string languageChangeMessage {
+            get {
+                return ResourceManager.GetString("languageChangeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language changed!.
+        /// </summary>
+        public static string languageChangeTitle {
+            get {
+                return ResourceManager.GetString("languageChangeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Men.
         /// </summary>
-        internal static string men {
+        public static string men {
             get {
                 return ResourceManager.GetString("men", resourceCulture);
             }
@@ -99,7 +144,7 @@ namespace WPFApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 1080p.
         /// </summary>
-        internal static string res1080p {
+        public static string res1080p {
             get {
                 return ResourceManager.GetString("res1080p", resourceCulture);
             }
@@ -108,7 +153,7 @@ namespace WPFApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 480p.
         /// </summary>
-        internal static string res480p {
+        public static string res480p {
             get {
                 return ResourceManager.GetString("res480p", resourceCulture);
             }
@@ -117,16 +162,34 @@ namespace WPFApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 720p.
         /// </summary>
-        internal static string res720p {
+        public static string res720p {
             get {
                 return ResourceManager.GetString("res720p", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Window resolution:.
+        /// </summary>
+        public static string resolution {
+            get {
+                return ResourceManager.GetString("resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup settings.
+        /// </summary>
+        public static string title {
+            get {
+                return ResourceManager.GetString("title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Women.
         /// </summary>
-        internal static string women {
+        public static string women {
             get {
                 return ResourceManager.GetString("women", resourceCulture);
             }
