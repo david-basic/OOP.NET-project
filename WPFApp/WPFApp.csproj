@@ -117,6 +117,10 @@
       <Project>{c38bdae4-8b8e-4d7c-95d1-f0d26b4cf4c8}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinFormsApp\WinFormsApp.csproj">
+      <Project>{01d289c7-1f94-49b6-9a3c-5ba59dc158bc}</Project>
+      <Name>WinFormsApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

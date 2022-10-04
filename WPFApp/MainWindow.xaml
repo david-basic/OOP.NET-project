@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:WPFApp"
         xmlns:props="clr-namespace:WPFApp.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
+        Title="{x:Static props:Resources.placeholder}" 
+        Height="450" Width="800" 
+        Closed="Window_Closed" Loaded="Window_Loaded" 
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Label 
             x:Name="lblPlaceholder"

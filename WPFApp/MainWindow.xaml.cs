@@ -37,6 +37,41 @@ namespace WPFApp
             InitializeComponent();
         }
 
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string[] resolution = File.ReadAllLines(filePathChosenResolution);
+            SetChosenResolution(resolution[0]);
+
+
+        }
+
+        private void SetChosenResolution(string res)
+        {
+            char c = res.Trim().ToLower().ElementAt(0);
+            switch (c)
+            {
+                case '1':
+                    this.Height = 1080;
+                    this.Width = 1920;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    break;
+                case '7':
+                    this.Height = 720;
+                    this.Width = 1280;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    break;
+                case '4':
+                    this.Height = 480;
+                    this.Width = 720;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    break;
+                case 'f':
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.None;
+                    break;
+            }
+        }
         private void SetCulture(string language)
         {
             CultureInfo culture = new CultureInfo(language);
