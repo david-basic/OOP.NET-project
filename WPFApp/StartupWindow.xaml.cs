@@ -25,6 +25,7 @@ namespace WPFApp
     public partial class StartupWindow : Window
     {
         private const string HR = "hr", EN = "en";
+        private bool isResolutionMissing = false;
 
         string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
         string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
@@ -33,16 +34,23 @@ namespace WPFApp
 
         public StartupWindow()
         {
-            if (File.Exists(filePathLanguage) && File.Exists(filePathChosenResolution) && File.Exists(filePathCurrentChampionship))
+            if (File.Exists(filePathLanguage) && File.Exists(filePathCurrentChampionship))
             {
                 string[] lang = File.ReadAllLines(filePathLanguage);
                 SetCulture(lang[0]);
 
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                mainWindow.Show();
+                if (File.Exists(filePathChosenResolution))
+                {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    mainWindow.Show();
 
-                this.Hide();
+                    this.Hide();
+                }
+                else
+                {
+                    isResolutionMissing = true;
+                }
             }
             else
             {
@@ -54,9 +62,42 @@ namespace WPFApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             FillDdlsWithData();
-            SetIndexesToZero();
+
+            if (isResolutionMissing)
+            {
+                string[] currentChampionship = File.ReadAllLines(filePathCurrentChampionship);
+
+                if (currentChampionship[0] == "m")
+                {
+                    ddlChampionship.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlChampionship.SelectedIndex = 1;
+                }
+
+                this.ddlChampionship.IsEnabled = false;
+                this.ddlLanguage.IsEnabled = false;
+                ddlResolution.SelectedIndex = 0;
+
+                if (Thread.CurrentThread.CurrentUICulture.Name == "en")
+                {
+                    ddlLanguage.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlLanguage.SelectedIndex = 1;
+                }
+
+                MessageBox.Show($"{Properties.Resources.chooseResolutionMessage}", $"{Properties.Resources.chooseResolutionCaption}", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                this.ddlChampionship.IsEnabled = true;
+                this.ddlLanguage.IsEnabled = true;
+                SetIndexesToZero();
+            }
         }
 
         private void SetIndexesToZero()
@@ -91,7 +132,7 @@ namespace WPFApp
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
 
-            MessageBox.Show($"{Properties.Resources.languageChangeMessage}", $"{Properties.Resources.languageChangeTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"{Properties.Resources.settingsChangeMessage}", $"{Properties.Resources.settingsChangeTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
 
             SaveSettings();
 

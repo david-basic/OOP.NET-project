@@ -120,6 +120,12 @@
   <data name="championship" xml:space="preserve">
     <value>Championship:</value>
   </data>
+  <data name="chooseResolutionCaption" xml:space="preserve">
+    <value>Screen resolution</value>
+  </data>
+  <data name="chooseResolutionMessage" xml:space="preserve">
+    <value>Please choose the resolution for the window.</value>
+  </data>
   <data name="continueBtn" xml:space="preserve">
     <value>CONTINUE</value>
   </data>
@@ -135,12 +141,6 @@
   <data name="language" xml:space="preserve">
     <value>Language:</value>
   </data>
-  <data name="languageChangeMessage" xml:space="preserve">
-    <value>Language will be applied to the application after you press CONTINUE!</value>
-  </data>
-  <data name="languageChangeTitle" xml:space="preserve">
-    <value>Language changed!</value>
-  </data>
   <data name="medium" xml:space="preserve">
     <value>M</value>
   </data>
@@ -152,6 +152,12 @@
   </data>
   <data name="resolution" xml:space="preserve">
     <value>Window resolution:</value>
+  </data>
+  <data name="settingsChangeMessage" xml:space="preserve">
+    <value>Settings will be applied to the application!</value>
+  </data>
+  <data name="settingsChangeTitle" xml:space="preserve">
+    <value>Settings changed!</value>
   </data>
   <data name="small" xml:space="preserve">
     <value>S</value>

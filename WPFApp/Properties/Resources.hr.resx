@@ -120,6 +120,12 @@
   <data name="championship" xml:space="preserve">
     <value>Prvenstvo:</value>
   </data>
+  <data name="chooseResolutionCaption" xml:space="preserve">
+    <value>Rezolucija ekrana</value>
+  </data>
+  <data name="chooseResolutionMessage" xml:space="preserve">
+    <value>Izaberite rezoluciju ekrana.</value>
+  </data>
   <data name="continueBtn" xml:space="preserve">
     <value>NASTAVI</value>
   </data>
@@ -135,12 +141,6 @@
   <data name="language" xml:space="preserve">
     <value>Jezik:</value>
   </data>
-  <data name="languageChangeMessage" xml:space="preserve">
-    <value>Jezik će biti primjenjen u aplikaciji nakon što stisnete NASTAVI!</value>
-  </data>
-  <data name="languageChangeTitle" xml:space="preserve">
-    <value>Jezik je promijenjen!</value>
-  </data>
   <data name="medium" xml:space="preserve">
     <value>M</value>
   </data>
@@ -152,6 +152,12 @@
   </data>
   <data name="resolution" xml:space="preserve">
     <value>Rezolucija ekrana:</value>
+  </data>
+  <data name="settingsChangeMessage" xml:space="preserve">
+    <value>Postavke će biti primjenjene u aplikaciji!</value>
+  </data>
+  <data name="settingsChangeTitle" xml:space="preserve">
+    <value>Postavke su promijenjene!</value>
   </data>
   <data name="small" xml:space="preserve">
     <value>S</value>

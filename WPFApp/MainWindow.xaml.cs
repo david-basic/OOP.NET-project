@@ -24,10 +24,10 @@ namespace WPFApp
     {
         private const string HR = "hr", EN = "en";
 
-        string filePathLanguage = "MyAppFiles/LanguageSettings.txt";
-        string filePathCurrentChampionship = "MyAppFiles/ChampionshipCurrentSettings.txt";
-        string filePathPreviousChampionship = "MyAppFiles/ChampionshipPreviousSettings.txt";
-        string filePathChosenResolution = "MyAppFiles/ChosenResolution.txt";
+        string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenResolution = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenResolution.txt";
 
         public MainWindow()
         {

@@ -70,6 +70,24 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Screen resolution.
+        /// </summary>
+        public static string chooseResolutionCaption {
+            get {
+                return ResourceManager.GetString("chooseResolutionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose the resolution for the window..
+        /// </summary>
+        public static string chooseResolutionMessage {
+            get {
+                return ResourceManager.GetString("chooseResolutionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CONTINUE.
         /// </summary>
         public static string continueBtn {
@@ -115,24 +133,6 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language will be applied to the application after you press CONTINUE!.
-        /// </summary>
-        public static string languageChangeMessage {
-            get {
-                return ResourceManager.GetString("languageChangeMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language changed!.
-        /// </summary>
-        public static string languageChangeTitle {
-            get {
-                return ResourceManager.GetString("languageChangeTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to M.
         /// </summary>
         public static string medium {
@@ -165,6 +165,24 @@ namespace WPFApp.Properties {
         public static string resolution {
             get {
                 return ResourceManager.GetString("resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings will be applied to the application!.
+        /// </summary>
+        public static string settingsChangeMessage {
+            get {
+                return ResourceManager.GetString("settingsChangeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings changed!.
+        /// </summary>
+        public static string settingsChangeTitle {
+            get {
+                return ResourceManager.GetString("settingsChangeTitle", resourceCulture);
             }
         }
         
