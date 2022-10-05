@@ -46,8 +46,6 @@ namespace WPFApp
         }
 
 
-
-
         private void SetChosenResolution(string res)
         {
             char c = res.Trim().ToLower().ElementAt(0);
