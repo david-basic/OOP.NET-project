@@ -41,8 +41,6 @@ namespace WPFApp
         {
             string[] resolution = File.ReadAllLines(filePathChosenResolution);
             SetChosenResolution(resolution[0]);
-
-
         }
 
 
