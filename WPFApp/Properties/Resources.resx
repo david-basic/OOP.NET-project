@@ -141,20 +141,20 @@
   <data name="languageChangeTitle" xml:space="preserve">
     <value>Language changed!</value>
   </data>
+  <data name="medium" xml:space="preserve">
+    <value>M</value>
+  </data>
   <data name="men" xml:space="preserve">
     <value>Men</value>
   </data>
   <data name="placeholder" xml:space="preserve">
     <value>This is a placeholder!</value>
   </data>
-  <data name="res480p" xml:space="preserve">
-    <value>480p</value>
-  </data>
-  <data name="res720p" xml:space="preserve">
-    <value>720p</value>
-  </data>
   <data name="resolution" xml:space="preserve">
     <value>Window resolution:</value>
+  </data>
+  <data name="small" xml:space="preserve">
+    <value>S</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Startup settings</value>

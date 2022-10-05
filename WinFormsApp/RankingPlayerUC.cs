@@ -20,7 +20,8 @@ namespace WinFormsApp
 
         private Dictionary<string, string> namePathCollection = new Dictionary<string, string>();
 
-        string filePathImagesPaths = $"{Application.StartupPath}/MyAppFiles/ImagesPaths.txt";
+        //string filePathImagesPaths = $"{Application.StartupPath}/MyAppFiles/ImagesPaths.txt";
+        string filePathImagesPaths = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ImagesPaths.txt";
 
         public string FullName { get; set; }
         public bool Captain { get; set; }

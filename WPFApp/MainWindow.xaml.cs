@@ -55,21 +55,24 @@ namespace WPFApp
                     this.WindowState = WindowState.Maximized;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     break;
-                case '7':
+                case 'm':
                     this.Height = 720;
                     this.Width = 1280;
                     this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     break;
-                case '4':
+                case 's':
                     this.Height = 480;
                     this.Width = 720;
                     this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     break;
                 case 'f':
                     this.WindowState = WindowState.Maximized;
                     this.WindowStyle = WindowStyle.None;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     break;
             }
         }

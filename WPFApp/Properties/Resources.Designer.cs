@@ -133,6 +133,15 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to M.
+        /// </summary>
+        public static string medium {
+            get {
+                return ResourceManager.GetString("medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Men.
         /// </summary>
         public static string men {
@@ -151,29 +160,20 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 480p.
-        /// </summary>
-        public static string res480p {
-            get {
-                return ResourceManager.GetString("res480p", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 720p.
-        /// </summary>
-        public static string res720p {
-            get {
-                return ResourceManager.GetString("res720p", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Window resolution:.
         /// </summary>
         public static string resolution {
             get {
                 return ResourceManager.GetString("resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
+        /// </summary>
+        public static string small {
+            get {
+                return ResourceManager.GetString("small", resourceCulture);
             }
         }
         

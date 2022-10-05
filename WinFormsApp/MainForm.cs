@@ -35,15 +35,26 @@ namespace WinFormsApp
         private HashSet<RankingPlayerUC> favRankingPanelPlayers = new HashSet<RankingPlayerUC>();
         private HashSet<RankingPlayerUC> allRankingPanelPlayers = new HashSet<RankingPlayerUC>();
 
-        string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
-        string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
-        string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
-        string filePathChosenTeams = $"{Application.StartupPath}/MyAppFiles/ChosenTeams.txt";
-        string filePathChosenTeamsFifaCodes = $"{Application.StartupPath}/MyAppFiles/ChosenTeamsFifaCodes.txt";
-        string filePathNotChosenTeams = $"{Application.StartupPath}/MyAppFiles/NotChosenTeams.txt";
-        string filePathChosenPlayers = $"{Application.StartupPath}/MyAppFiles/ChosenPlayers.txt";
-        string filePathNotChosenPlayers = $"{Application.StartupPath}/MyAppFiles/NotChosenPlayers.txt";
-        string filePathStartup = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+        //string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
+        //string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        //string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        //string filePathChosenTeams = $"{Application.StartupPath}/MyAppFiles/ChosenTeams.txt";
+        //string filePathChosenTeamsFifaCodes = $"{Application.StartupPath}/MyAppFiles/ChosenTeamsFifaCodes.txt";
+        //string filePathNotChosenTeams = $"{Application.StartupPath}/MyAppFiles/NotChosenTeams.txt";
+        //string filePathChosenPlayers = $"{Application.StartupPath}/MyAppFiles/ChosenPlayers.txt";
+        //string filePathNotChosenPlayers = $"{Application.StartupPath}/MyAppFiles/NotChosenPlayers.txt";
+        //string filePathStartup = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+
+        string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenTeams.txt";
+        string filePathChosenTeamsFifaCodes = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenTeamsFifaCodes.txt";
+        string filePathNotChosenTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenTeams.txt";
+        string filePathChosenPlayers = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenPlayers.txt";
+        string filePathNotChosenPlayers = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenPlayers.txt";
+        string filePathStartup = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/StartupSettings.txt";
+
 
         string[] fifaCodes = null;
 

@@ -26,14 +26,14 @@ namespace WPFApp
     {
         private const string HR = "hr", EN = "en";
 
-        string filePathLanguage = "MyAppFiles/LanguageSettings.txt";
-        string filePathCurrentChampionship = "MyAppFiles/ChampionshipCurrentSettings.txt";
-        string filePathPreviousChampionship = "MyAppFiles/ChampionshipPreviousSettings.txt";
-        string filePathChosenResolution = "MyAppFiles/ChosenResolution.txt";
+        string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathChosenResolution = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenResolution.txt";
 
         public StartupWindow()
         {
-            if (File.Exists(filePathLanguage))
+            if (File.Exists(filePathLanguage) && File.Exists(filePathChosenResolution) && File.Exists(filePathCurrentChampionship))
             {
                 string[] lang = File.ReadAllLines(filePathLanguage);
                 SetCulture(lang[0]);
@@ -76,8 +76,8 @@ namespace WPFApp
 
             ddlResolution.Items.Add(Properties.Resources.fullscreen);
             ddlResolution.Items.Add(Properties.Resources.windowed);
-            ddlResolution.Items.Add(Properties.Resources.res720p);
-            ddlResolution.Items.Add(Properties.Resources.res480p);
+            ddlResolution.Items.Add(Properties.Resources.medium);
+            ddlResolution.Items.Add(Properties.Resources.small);
         }
 
         private void SetCulture(string language)

@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,10 +18,15 @@ namespace WinFormsApp
 
         private const string HR = "hr", EN = "en";
 
-        string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
-        string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
-        string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
-        string filePathStartup = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+        //string filePathLanguage = $"{Application.StartupPath}/MyAppFiles/LanguageSettings.txt";
+        //string filePathCurrentChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        //string filePathPreviousChampionship = $"{Application.StartupPath}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        //string filePathStartup = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+        
+        string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
+        string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
+        string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
+        string filePathStartup = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/StartupSettings.txt";
 
         public SettingsForm()
         {

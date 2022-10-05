@@ -141,20 +141,20 @@
   <data name="languageChangeTitle" xml:space="preserve">
     <value>Jezik je promijenjen!</value>
   </data>
+  <data name="medium" xml:space="preserve">
+    <value>M</value>
+  </data>
   <data name="men" xml:space="preserve">
     <value>Muški</value>
   </data>
   <data name="placeholder" xml:space="preserve">
     <value>Ovo je držač mjesta!</value>
   </data>
-  <data name="res480p" xml:space="preserve">
-    <value>480p</value>
-  </data>
-  <data name="res720p" xml:space="preserve">
-    <value>720p</value>
-  </data>
   <data name="resolution" xml:space="preserve">
     <value>Rezolucija ekrana:</value>
+  </data>
+  <data name="small" xml:space="preserve">
+    <value>S</value>
   </data>
   <data name="title" xml:space="preserve">
     <value>Početne postavke</value>

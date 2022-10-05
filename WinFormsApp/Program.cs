@@ -18,7 +18,8 @@ namespace WinFormsApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string filePath = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+            //string filePath = $"{Application.StartupPath}/MyAppFiles/StartupSettings.txt";
+            string filePath = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/StartupSettings.txt";
             if (!File.Exists(filePath))
             {
                 Application.Run(new SettingsForm());
