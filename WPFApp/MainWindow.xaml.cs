@@ -37,7 +37,6 @@ namespace WPFApp
             InitializeComponent();
         }
 
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string[] resolution = File.ReadAllLines(filePathChosenResolution);
@@ -45,6 +44,9 @@ namespace WPFApp
 
 
         }
+
+
+
 
         private void SetChosenResolution(string res)
         {
@@ -63,8 +65,8 @@ namespace WPFApp
                     this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     break;
                 case 's':
-                    this.Height = 480;
-                    this.Width = 720;
+                    this.Height = 680;
+                    this.Width = 920;
                     this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     this.WindowStartupLocation = WindowStartupLocation.CenterScreen;

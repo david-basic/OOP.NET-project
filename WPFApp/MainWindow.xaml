@@ -6,17 +6,29 @@
         xmlns:local="clr-namespace:WPFApp"
         xmlns:props="clr-namespace:WPFApp.Properties"
         mc:Ignorable="d"
-        Title="{x:Static props:Resources.placeholder}" 
+        Title="Main window"
         Height="450" Width="800" 
         Closed="Window_Closed" Loaded="Window_Loaded" 
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <Label 
+        <!--<Label 
             x:Name="lblPlaceholder"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Content="{x:Static props:Resources.placeholder}">
-            
-        </Label>
+        </Label>-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Background="Red"/>
+        <Button Grid.Column="1" Background="Blue"/>
+        <Button Grid.Row="1" Background="Green"/>
+        <Button Grid.Column="1" Grid.Row="1" Background="Purple"/>
     </Grid>
 </Window>
