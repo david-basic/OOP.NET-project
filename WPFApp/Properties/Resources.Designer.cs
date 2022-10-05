@@ -151,15 +151,6 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1080p.
-        /// </summary>
-        public static string res1080p {
-            get {
-                return ResourceManager.GetString("res1080p", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 480p.
         /// </summary>
         public static string res480p {
@@ -192,6 +183,15 @@ namespace WPFApp.Properties {
         public static string title {
             get {
                 return ResourceManager.GetString("title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windowed.
+        /// </summary>
+        public static string windowed {
+            get {
+                return ResourceManager.GetString("windowed", resourceCulture);
             }
         }
         

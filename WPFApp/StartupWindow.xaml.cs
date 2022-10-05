@@ -75,7 +75,7 @@ namespace WPFApp
             ddlLanguage.Items.Add(Properties.Resources.cro);
 
             ddlResolution.Items.Add(Properties.Resources.fullscreen);
-            ddlResolution.Items.Add(Properties.Resources.res1080p);
+            ddlResolution.Items.Add(Properties.Resources.windowed);
             ddlResolution.Items.Add(Properties.Resources.res720p);
             ddlResolution.Items.Add(Properties.Resources.res480p);
         }

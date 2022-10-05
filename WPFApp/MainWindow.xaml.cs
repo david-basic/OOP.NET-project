@@ -51,19 +51,20 @@ namespace WPFApp
             char c = res.Trim().ToLower().ElementAt(0);
             switch (c)
             {
-                case '1':
-                    this.Height = 1080;
-                    this.Width = 1920;
+                case 'w':
+                    this.WindowState = WindowState.Maximized;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     break;
                 case '7':
                     this.Height = 720;
                     this.Width = 1280;
+                    this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     break;
                 case '4':
                     this.Height = 480;
                     this.Width = 720;
+                    this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                     break;
                 case 'f':

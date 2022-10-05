@@ -147,9 +147,6 @@
   <data name="placeholder" xml:space="preserve">
     <value>This is a placeholder!</value>
   </data>
-  <data name="res1080p" xml:space="preserve">
-    <value>1080p</value>
-  </data>
   <data name="res480p" xml:space="preserve">
     <value>480p</value>
   </data>
@@ -161,6 +158,9 @@
   </data>
   <data name="title" xml:space="preserve">
     <value>Startup settings</value>
+  </data>
+  <data name="windowed" xml:space="preserve">
+    <value>Windowed</value>
   </data>
   <data name="women" xml:space="preserve">
     <value>Women</value>
