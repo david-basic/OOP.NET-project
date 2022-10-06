@@ -153,6 +153,9 @@
   <data name="resolution" xml:space="preserve">
     <value>Window resolution:</value>
   </data>
+  <data name="saveBtn" xml:space="preserve">
+    <value>SAVE</value>
+  </data>
   <data name="settingsChangeMessage" xml:space="preserve">
     <value>Settings will be applied to the application!</value>
   </data>

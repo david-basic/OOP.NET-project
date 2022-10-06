@@ -7,28 +7,297 @@
         xmlns:props="clr-namespace:WPFApp.Properties"
         mc:Ignorable="d"
         Title="Main window"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Century Gothic"
         Height="450" Width="800" 
-        Closed="Window_Closed" Loaded="Window_Loaded" 
-        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-    <Grid>
-        <!--<Label 
+        Closed="Window_Closed" 
+        Loaded="Window_Loaded" 
+        ResizeMode="CanMinimize">
+    <!--<Label 
             x:Name="lblPlaceholder"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Content="{x:Static props:Resources.placeholder}">
         </Label>-->
+    <Grid
+        x:Name="gridWholeMainWindow">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Background="Red"/>
-        <Button Grid.Column="1" Background="Blue"/>
-        <Button Grid.Row="1" Background="Green"/>
-        <Button Grid.Column="1" Grid.Row="1" Background="Purple"/>
+        <Image x:Name="imgLogo"
+               Grid.Row="0"
+               Grid.Column="0"
+               Source="Images/logo.png"/>
+
+        <Image x:Name="imgHeader"
+               Grid.Row="0"
+               Grid.Column="1"
+               Source="Images/header.png"
+               Stretch="None"/>
+        <Image 
+            x:Name="imgLeftSide"
+            Grid.Column="0"
+            Grid.Row="1"
+            Source="Images/leftSide.png"
+            Stretch="UniformToFill"/>
+
+        <TabControl 
+            Grid.Column="1"
+            Grid.Row="1">
+            <TabItem>
+                <TabItem.Header>
+                    <Label
+                        x:Name="lblMainTab"
+                        Content="Main tab"/>
+                </TabItem.Header>
+                <TabItem.Content >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel 
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Orientation="Vertical">
+                            <Label
+                                x:Name="lblTeams"
+                                Content="Teams:"/>
+                            <ComboBox
+                                x:Name="ddlTeams"
+                                Cursor="Hand"
+                                Margin="0 0 0 10"/>
+                            <Label
+                                x:Name="lblChoosenTeam"
+                                Content="Chosen team:"/>
+                            <TextBox
+                                x:Name="tbChosenFavTeam"/>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Orientation="Vertical">
+                            <Button 
+                                x:Name="btnChooseTeam"
+                                HorizontalAlignment="Left"
+                                Margin="5 25 0 0"
+                                Content="Choose" Click="btnChooseFavTeam_Click"/>
+                            <Button
+                                x:Name="btnSeeTeamStats"
+                                HorizontalAlignment="Left"
+                                Margin="5 35 0 0"
+                                Content="See statistics" Click="btnSeeFavTeamStats_Click"/>
+                        </StackPanel>
+
+                        <Grid
+                            x:Name="matchResultGrid"
+                            Grid.Column="2"
+                            Grid.Row="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                x:Name="lblChosenTeamResult"
+                                Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="80"
+                                Content="0"/>
+                            <Label
+                                Grid.Column="1"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="60"
+                                Content=":"/>
+                            <Label
+                                x:Name="lblOpponentTeamResult"
+                                Grid.Column="2"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="80"
+                                Content="0"/>
+                        </Grid>
+
+                        <StackPanel 
+                            Grid.Column="4"
+                            Grid.Row="0"
+                            Orientation="Vertical">
+                            <Label
+                                x:Name="lblOpponentTeams"
+                                Content="Opponent teams:"/>
+                            <ComboBox
+                                x:Name="ddlOpponentTeams"
+                                Cursor="Hand"
+                                Margin="0 0 0 10"/>
+                            <Label
+                                x:Name="lblChosenOpponentTeam"
+                                Content="Chosen team:"/>
+                            <TextBox
+                                x:Name="tbChosenOpponentTeam"/>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="3"
+                            Grid.Row="0"
+                            Orientation="Vertical">
+                            <Button 
+                                x:Name="btnChooseOpponentTeam"
+                                HorizontalAlignment="Right"
+                                Margin="0 25 5 0"
+                                Content="Choose" Click=""/>
+                            <Button
+                                x:Name="btnSeeOpponentTeamStats"
+                                HorizontalAlignment="Right"
+                                Margin="0 35 5 0"
+                                Content="See statistics" Click=""/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <Label
+                        x:Name="lblSettingsTab"
+                        Content="Settings"/>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label 
+                            x:Name="lblTitle"
+                            Grid.Row="0" 
+                            Grid.ColumnSpan="2" 
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            FontSize="40"
+                            FontWeight="Bold"
+                            Content="{x:Static props:Resources.title}">
+                        </Label>
+
+                        <Label
+                            x:Name="lblChamp"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="230"
+                            HorizontalAlignment="Right"
+                            Margin="10"
+                            FontSize="30"
+                            Content="{x:Static props:Resources.championship}">
+                        </Label>
+                        <ComboBox 
+                            x:Name="ddlChampionship"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="230"
+                            HorizontalAlignment="Left"
+                            Margin="10"
+                            FontSize="20" 
+                            Cursor="Hand">
+                        </ComboBox>
+
+                        <Label
+                            x:Name="lblLang"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="170"
+                            HorizontalAlignment="Right"
+                            Margin="10"
+                            FontSize="30"
+                            Content="{x:Static props:Resources.language}">
+                        </Label>
+                        <ComboBox 
+                            x:Name="ddlLanguage"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="230"
+                            HorizontalAlignment="Left"
+                            Margin="10"
+                            FontSize="20" 
+                            Cursor="Hand"
+                            SelectionChanged="ddlLanguage_SelectionChanged">
+                        </ComboBox>
+
+                        <Label
+                            x:Name="lblRes"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="281"
+                            HorizontalAlignment="Right"
+                            Margin="10"
+                            FontSize="30"
+                            Content="{x:Static props:Resources.resolution}">
+                        </Label>
+                        <ComboBox 
+                            x:Name="ddlResolution"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Width="230"
+                            HorizontalAlignment="Left"
+                            Margin="10"
+                            FontSize="20" 
+                            Cursor="Hand">
+                        </ComboBox>
+
+                        <Button 
+                            x:Name="btnSave"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Cursor="Hand"
+                            Height="50"
+                            Width="150"
+                            Click="btnSave_Click"
+                            Content="{x:Static props:Resources.saveBtn}">
+                        </Button>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

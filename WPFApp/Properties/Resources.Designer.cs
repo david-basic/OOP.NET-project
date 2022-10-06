@@ -169,6 +169,15 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SAVE.
+        /// </summary>
+        public static string saveBtn {
+            get {
+                return ResourceManager.GetString("saveBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings will be applied to the application!.
         /// </summary>
         public static string settingsChangeMessage {
