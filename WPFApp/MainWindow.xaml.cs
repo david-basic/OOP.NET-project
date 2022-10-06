@@ -135,6 +135,14 @@ namespace WPFApp
         {
 
         }
+        private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnSeeOpponentTeamStats_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         #region Team load logic
         private async Task FillTeamsList(string[] championship)
@@ -163,25 +171,19 @@ namespace WPFApp
             }
             ddlTeams.SelectedIndex = 0;
         }
-        private async void ChooseATeam()
+        private void ChooseATeam()
         {
 
             if (teamsWereChosen)
             {
-                //var tempTeam = ddlTeams.SelectedItem;
-                var tempTeam = ddlTeams.SelectedItem.ToString();
+                string tempOldTeam = tbChosenFavTeam.GetLineText(0).Trim();
 
                 tbChosenFavTeam.Clear();
                 tbChosenFavTeam.AppendText($"{ddlTeams.SelectedItem}");
                 tbChosenFavTeam.AppendText(Environment.NewLine);
+                ddlTeams.Items.Remove(ddlTeams.SelectedItem);
 
-                string[] championship = File.ReadAllLines(filePathCurrentChampionship);
-
-                ddlTeams.Items.Clear();
-
-                await FillTeamsList(championship);
-
-                ddlTeams.Items.Remove(tempTeam); // this might or might not work, jer neznam dal ce tempTeam biti prepoznat u ddl-u kao taj objekt ili ne
+                ddlTeams.Items.Add(tempOldTeam);
             }
             else
             {
@@ -199,6 +201,29 @@ namespace WPFApp
             }
 
             SaveToFile(filePathNotChosenTeams, itemsCollection);
+
+            SaveTeams();
+        }
+        private void SaveTeams()
+        {
+            var lineCollection = new List<string>();
+
+            string line = tbChosenFavTeam.GetLineText(0);
+
+            lineCollection.Add(line);
+
+            SaveToFile(filePathChosenTeams, lineCollection);
+
+            var fifaCodeCollection = new List<string>();
+            foreach (var l in lineCollection)
+            {
+                if (l != "")
+                {
+                    var fifaCode = l.ToString().Split('(', ')')[1];
+                    fifaCodeCollection.Add(fifaCode);
+                }
+            }
+            SaveToFile(filePathChosenTeamsFifaCodes, fifaCodeCollection);
         }
         private void FillOpponentTeamsDdl(List<Matches> matches, string[] fifaCodes)
         {
@@ -207,9 +232,12 @@ namespace WPFApp
             {
                 if (match.AwayTeam.Code != fifaCodes[0])
                 {
-
+                    ddlOpponentTeams.Items.Add($"{match.AwayTeam.Country} ({match.AwayTeam.Code})");
                 }
-                ddlOpponentTeams.Items.Add(match.AwayTeam.Code);
+                else if (match.HomeTeam.Code != fifaCodes[0])
+                {
+                    ddlOpponentTeams.Items.Add($"{match.HomeTeam.Country} ({match.HomeTeam.Code})");
+                }
             }
         }
         private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
@@ -296,6 +324,7 @@ namespace WPFApp
             file.Directory.Create();
             File.WriteAllLines(file.FullName, content);
         }
+
 
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();
         #endregion
