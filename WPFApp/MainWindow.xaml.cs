@@ -38,6 +38,7 @@ namespace WPFApp
         string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
         string filePathChosenResolution = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenResolution.txt";
         string filePathChosenTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenTeams.txt";
+        string filePathPreviousTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/PreviousChosenTeams.txt";
         string filePathChosenTeamsFifaCodes = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenTeamsFifaCodes.txt";
         string filePathNotChosenTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenTeams.txt";
 
@@ -58,7 +59,6 @@ namespace WPFApp
 
             string[] currentChampionship = File.ReadAllLines(filePathCurrentChampionship);
             string[] previousChampionship = File.ReadAllLines(filePathPreviousChampionship);
-
 
             if (currentChampionship[0] == previousChampionship[0])
             {
@@ -99,13 +99,14 @@ namespace WPFApp
             }
 
             FillDdlsWithData();
-            SettingUpIndexesOnSettingsTab(currentChampionship);
+            SettingUpIndexesOnSettingsTab(currentChampionship, resolution[0]);
         }
 
 
         private async void btnChooseFavTeam_Click(object sender, RoutedEventArgs e)
         {
             ChooseATeam();
+
             ddlTeams.SelectedIndex = 0;
 
             if (teamsWereChosen)
@@ -184,6 +185,10 @@ namespace WPFApp
                 ddlTeams.Items.Remove(ddlTeams.SelectedItem);
 
                 ddlTeams.Items.Add(tempOldTeam);
+
+                FileInfo file = new FileInfo(filePathPreviousTeams);
+                file.Directory.Create();
+                File.WriteAllText(filePathPreviousTeams, tempOldTeam);
             }
             else
             {
@@ -203,6 +208,12 @@ namespace WPFApp
             SaveToFile(filePathNotChosenTeams, itemsCollection);
 
             SaveTeams();
+
+            string[] tempChosenTeams = File.ReadAllLines(filePathChosenTeams);
+            if (!File.Exists(filePathPreviousTeams))
+            {
+                SaveToFile(filePathPreviousTeams, tempChosenTeams.ToList());
+            }
         }
         private void SaveTeams()
         {
@@ -227,6 +238,13 @@ namespace WPFApp
         }
         private void FillOpponentTeamsDdl(List<Matches> matches, string[] fifaCodes)
         {
+            string[] previousTeam = File.ReadAllLines(filePathPreviousTeams);
+            string[] currentTeam = File.ReadAllLines(filePathChosenTeams);
+
+            if (currentTeam[0] != previousTeam[0])
+            {
+                ddlOpponentTeams.Items.Clear();
+            }
 
             foreach (var match in matches)
             {
@@ -239,6 +257,8 @@ namespace WPFApp
                     ddlOpponentTeams.Items.Add($"{match.HomeTeam.Country} ({match.HomeTeam.Code})");
                 }
             }
+
+            ddlOpponentTeams.SelectedIndex = 0;
         }
         private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
         {
@@ -298,7 +318,7 @@ namespace WPFApp
             ddlResolution.Items.Add(Properties.Resources.medium);
             ddlResolution.Items.Add(Properties.Resources.small);
         }
-        private void SettingUpIndexesOnSettingsTab(string[] currentChampionship)
+        private void SettingUpIndexesOnSettingsTab(string[] currentChampionship, string resolution)
         {
             if (currentChampionship[0] == "m")
             {
@@ -317,6 +337,24 @@ namespace WPFApp
             {
                 ddlLanguage.SelectedIndex = 1;
             }
+
+            char c = resolution.Trim().ToLower().ElementAt(0);
+            switch (c)
+            {
+                case 'w':
+                    ddlResolution.SelectedIndex = 1;
+                    break;
+                case 'm':
+                    ddlResolution.SelectedIndex = 2;
+                    break;
+                case 's':
+                    ddlResolution.SelectedIndex = 3;
+                    break;
+                case 'f':
+                    ddlResolution.SelectedIndex = 0;
+                    break;
+            }
+
         }
         private void SaveToFile(string path, List<string> content)
         {
@@ -324,8 +362,6 @@ namespace WPFApp
             file.Directory.Create();
             File.WriteAllLines(file.FullName, content);
         }
-
-
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();
         #endregion
     }
