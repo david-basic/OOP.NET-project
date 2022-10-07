@@ -26,7 +26,7 @@ namespace WPFApp
     {
         private const string HR = "hr", EN = "en";
         private bool teamsWereChosen;
-        private int counterFavTeam = 0;
+        private bool opponentsWereChosen;
 
         private Repository repo = new Repository();
 
@@ -41,6 +41,9 @@ namespace WPFApp
         string filePathPreviousTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/PreviousChosenTeams.txt";
         string filePathChosenTeamsFifaCodes = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenTeamsFifaCodes.txt";
         string filePathNotChosenTeams = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenTeams.txt";
+        string filePathNotChosenOpponents = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenOpponents.txt";
+        string filePathChosenOpponents = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenOpponents.txt";
+        string filePathChosenOpponentsFifaCodes = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenOpponentsFifaCodes.txt";
 
         string[] fifaCodes = null;
 
@@ -78,6 +81,7 @@ namespace WPFApp
                 {
                     Mouse.OverrideCursor = Cursors.Wait;
                     GetChosenAndNotChosenTeams();
+                    await FillOpponentTeams();
                     Mouse.OverrideCursor = null;
                 }
             }
@@ -111,12 +115,42 @@ namespace WPFApp
 
             if (teamsWereChosen)
             {
-                string[] championship = File.ReadAllLines(filePathCurrentChampionship);
-                fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
-                matches = await GetAllMatches(fifaCodes, championship);
-
-                FillOpponentTeamsDdl(matches, fifaCodes);
+                await FillOpponentTeams();
             }
+        }
+
+
+        private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
+        {
+            ChooseAOpponent();
+            ddlOpponentTeams.SelectedIndex = 0;
+
+            // ovdje logiku ubacit za pojavljivanje rezultata uzakmice
+            ShowMatchResult(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
+        }
+
+        private void ShowMatchResult(string pathMainTeamCode, string pathOpponentCode, List<Matches> matches)
+        {
+            string[] mainTeamCode = File.ReadAllLines(pathMainTeamCode);
+            string[] OpponentCode = File.ReadAllLines(pathOpponentCode);
+
+            foreach (var match in matches)
+            {
+                long homeTeamGoalsAgg = match.HomeTeam.Goals + match.HomeTeam.Penalties;
+                long awayTeamGoalsAgg = match.AwayTeam.Goals + match.AwayTeam.Penalties;
+
+                if (match.HomeTeam.Code == mainTeamCode[0] && match.AwayTeam.Code == OpponentCode[0])
+                {
+                    lblChosenTeamResult.Content = homeTeamGoalsAgg.ToString();
+                    lblOpponentTeamResult.Content = awayTeamGoalsAgg.ToString();
+                }
+                else if (match.HomeTeam.Code == OpponentCode[0] && match.AwayTeam.Code == mainTeamCode[0])
+                {
+                    lblChosenTeamResult.Content = awayTeamGoalsAgg.ToString();
+                    lblOpponentTeamResult.Content = homeTeamGoalsAgg.ToString();
+                }
+            }
+            matchResultGrid.Visibility = Visibility.Visible;
         }
 
         private void btnSeeFavTeamStats_Click(object sender, RoutedEventArgs e)
@@ -136,10 +170,6 @@ namespace WPFApp
         {
 
         }
-        private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void btnSeeOpponentTeamStats_Click(object sender, RoutedEventArgs e)
         {
 
@@ -152,6 +182,14 @@ namespace WPFApp
             teams.ForEach(t => ddlTeams.Items.Add(t));
             ddlTeams.SelectedIndex = 0;
         }
+        private async Task FillOpponentTeams()
+        {
+            string[] championship = File.ReadAllLines(filePathCurrentChampionship);
+            fifaCodes = File.ReadAllLines(filePathChosenTeamsFifaCodes);
+            matches = await GetAllMatches(fifaCodes, championship);
+
+            FillOpponentTeamsDdl(matches, fifaCodes);
+        }
         private void GetChosenAndNotChosenTeams()
         {
             string[] ChosenTeams = File.ReadAllLines(filePathChosenTeams);
@@ -159,7 +197,6 @@ namespace WPFApp
             {
                 if (item != "")
                 {
-                    counterFavTeam++;
                     tbChosenFavTeam.AppendText($"{item}{Environment.NewLine}");
                 }
             }
@@ -215,6 +252,38 @@ namespace WPFApp
                 SaveToFile(filePathPreviousTeams, tempChosenTeams.ToList());
             }
         }
+        private void ChooseAOpponent()
+        {
+            if (opponentsWereChosen)
+            {
+                string tempOldOpponent = tbChosenOpponentTeam.GetLineText(0).Trim();
+
+                tbChosenOpponentTeam.Clear();
+                tbChosenOpponentTeam.AppendText($"{ddlOpponentTeams.SelectedItem}");
+                tbChosenOpponentTeam.AppendText(Environment.NewLine);
+                ddlOpponentTeams.Items.Remove(ddlOpponentTeams.SelectedItem);
+
+                ddlOpponentTeams.Items.Add(tempOldOpponent);
+            }
+            else
+            {
+                tbChosenOpponentTeam.AppendText($"{ddlOpponentTeams.SelectedItem}");
+                tbChosenOpponentTeam.AppendText(Environment.NewLine);
+                ddlOpponentTeams.Items.Remove(ddlOpponentTeams.SelectedItem);
+
+                opponentsWereChosen = true;
+            }
+
+            var itemsCollection = new List<string>();
+            foreach (object item in ddlOpponentTeams.Items)
+            {
+                itemsCollection.Add(item.ToString());
+            }
+
+            SaveToFile(filePathNotChosenOpponents, itemsCollection);
+
+            SaveOpponents();
+        }
         private void SaveTeams()
         {
             var lineCollection = new List<string>();
@@ -235,6 +304,28 @@ namespace WPFApp
                 }
             }
             SaveToFile(filePathChosenTeamsFifaCodes, fifaCodeCollection);
+        }
+        private void SaveOpponents()
+        {
+            var lineCollection = new List<string>();
+
+            string line = tbChosenOpponentTeam.GetLineText(0);
+
+            lineCollection.Add(line);
+
+            SaveToFile(filePathChosenOpponents, lineCollection);
+
+            var fifaCodeCollection = new List<string>();
+            foreach (var l in lineCollection)
+            {
+                if (l != "")
+                {
+                    var fifaCode = l.ToString().Split('(', ')')[1];
+                    fifaCodeCollection.Add(fifaCode);
+                }
+            }
+            SaveToFile(filePathChosenOpponentsFifaCodes, fifaCodeCollection);
+
         }
         private void FillOpponentTeamsDdl(List<Matches> matches, string[] fifaCodes)
         {

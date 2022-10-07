@@ -123,8 +123,7 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                FontSize="80"
-                                Content="0"/>
+                                FontSize="80"/>
                             <Label
                                 Grid.Column="1"
                                 HorizontalContentAlignment="Center"
@@ -136,8 +135,7 @@
                                 Grid.Column="2"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                FontSize="80"
-                                Content="0"/>
+                                FontSize="80"/>
                         </Grid>
 
                         <StackPanel 
