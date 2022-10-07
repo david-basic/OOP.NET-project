@@ -105,6 +105,7 @@
                                 HorizontalAlignment="Left"
                                 Margin="5 35 0 0"
                                 Cursor="Hand"
+                                IsEnabled="False"
                                 Content="See statistics" Click="btnSeeFavTeamStats_Click"/>
                         </StackPanel>
 
@@ -150,6 +151,7 @@
                             <ComboBox
                                 x:Name="ddlOpponentTeams"
                                 Cursor="Hand"
+                                IsEnabled="False"
                                 Margin="0 0 0 10"/>
                             <Label
                                 x:Name="lblChosenOpponentTeam"
@@ -168,12 +170,14 @@
                                 HorizontalAlignment="Right"
                                 Margin="0 25 5 0"
                                 Cursor="Hand"
+                                IsEnabled="False"
                                 Content="Choose" Click="btnChooseOpponentTeam_Click"/>
                             <Button
                                 x:Name="btnSeeOpponentTeamStats"
                                 HorizontalAlignment="Right"
                                 Margin="0 35 5 0"
                                 Cursor="Hand"
+                                IsEnabled="False"
                                 Content="See statistics" Click="btnSeeOpponentTeamStats_Click"/>
                         </StackPanel>
                     </Grid>
@@ -226,15 +230,14 @@
                         <ComboBox 
                             x:Name="ddlChampionship"
                             Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Width="230"
                             HorizontalAlignment="Left"
                             Margin="10"
                             FontSize="20" 
-                            Cursor="Hand">
-                        </ComboBox>
+                            Cursor="Hand"/>
 
                         <Label
                             x:Name="lblLang"
@@ -251,14 +254,14 @@
                         <ComboBox 
                             x:Name="ddlLanguage"
                             Grid.Row="2"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Width="230"
                             HorizontalAlignment="Left"
                             Margin="10"
                             FontSize="20" 
-                            Cursor="Hand"/>
+                            Cursor="Hand" SelectionChanged="ddlLanguage_SelectionChanged"/>
 
                         <Label
                             x:Name="lblRes"
@@ -267,7 +270,7 @@
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Width="281"
-                            HorizontalAlignment="Right"
+                            HorizontalAlignment="right"
                             Margin="10"
                             FontSize="30"
                             Content="{x:Static props:Resources.resolution}">
@@ -275,7 +278,7 @@
                         <ComboBox 
                             x:Name="ddlResolution"
                             Grid.Row="3"
-                            Grid.Column="1"
+                            Grid.Column="2"
                             VerticalContentAlignment="Center"
                             HorizontalContentAlignment="Center"
                             Width="230"
@@ -294,8 +297,7 @@
                             HorizontalAlignment="Center"
                             FontSize="20"
                             Cursor="Hand"
-                            Height="50"
-                            Width="150"
+                            Padding="10"
                             Click="btnSave_Click"
                             Content="{x:Static props:Resources.saveBtn}">
                         </Button>

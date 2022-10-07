@@ -106,7 +106,6 @@ namespace WPFApp
             ddlLanguage.SelectedIndex = 0;
             ddlResolution.SelectedIndex = 0;
         }
-
         private void FillDdlsWithData()
         {
             ddlChampionship.Items.Add(Properties.Resources.men);
@@ -120,7 +119,6 @@ namespace WPFApp
             ddlResolution.Items.Add(Properties.Resources.medium);
             ddlResolution.Items.Add(Properties.Resources.small);
         }
-
         private void SetCulture(string language)
         {
             CultureInfo culture = new CultureInfo(language);
@@ -128,7 +126,6 @@ namespace WPFApp
             Thread.CurrentThread.CurrentUICulture = culture;
             Thread.CurrentThread.CurrentCulture = culture;
         }
-
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
 
@@ -142,7 +139,6 @@ namespace WPFApp
 
             this.Hide();
         }
-
         private void SaveSettings()
         {
             var langLines = new List<string>();
@@ -183,12 +179,10 @@ namespace WPFApp
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetAndSaveLanguage();
         }
-
         private void SetAndSaveLanguage()
         {
             if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
@@ -200,7 +194,6 @@ namespace WPFApp
                 SetCulture(HR);
             }
         }
-
         private void SaveToFile(string path, List<string> content)
         {
             FileInfo file = new FileInfo(path);

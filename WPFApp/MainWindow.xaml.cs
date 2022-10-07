@@ -83,6 +83,10 @@ namespace WPFApp
                     GetChosenAndNotChosenTeams();
                     await FillOpponentTeams();
                     Mouse.OverrideCursor = null;
+
+                    btnSeeTeamStats.IsEnabled = true;
+                    btnChooseOpponentTeam.IsEnabled = true;
+                    ddlOpponentTeams.IsEnabled = true;
                 }
             }
             else
@@ -116,6 +120,10 @@ namespace WPFApp
             {
                 await FillOpponentTeams();
             }
+            btnChooseOpponentTeam.IsEnabled = true;
+            ddlOpponentTeams.IsEnabled = true;
+            btnSeeTeamStats.IsEnabled = true;
+            btnSeeOpponentTeamStats.IsEnabled = false;
         }
         private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
         {
@@ -123,6 +131,7 @@ namespace WPFApp
             ddlOpponentTeams.SelectedIndex = 0;
 
             ShowMatchResult(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
+            btnSeeOpponentTeamStats.IsEnabled = true;
         }
         private void ShowMatchResult(string pathMainTeamCode, string pathOpponentCode, List<Matches> matches)
         {
@@ -149,18 +158,20 @@ namespace WPFApp
         }
         private void btnSeeFavTeamStats_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-
-
-            MessageBox.Show($"{Properties.Resources.settingsMainWindowMessage}", $"{Properties.Resources.settingsMainWindowTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
+            StatsWindow statsWindow = new StatsWindow(filePathChosenTeamsFifaCodes, filePathChosenTeams, filePathCurrentChampionship);
+            statsWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            statsWindow.ShowDialog();
         }
         private void btnSeeOpponentTeamStats_Click(object sender, RoutedEventArgs e)
         {
-
+            StatsWindow statsWindow = new StatsWindow(filePathChosenOpponentsFifaCodes, filePathChosenOpponents, filePathCurrentChampionship);
+            statsWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            statsWindow.ShowDialog();
+        }
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
+            MessageBox.Show($"{Properties.Resources.settingsMainWindowMessage}", $"{Properties.Resources.settingsMainWindowTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         #region Team load logic
@@ -239,6 +250,8 @@ namespace WPFApp
             {
                 SaveToFile(filePathPreviousTeams, tempChosenTeams.ToList());
             }
+
+            opponentsWereChosen = false;
         }
         private void ChooseAOpponent()
         {
@@ -248,7 +261,6 @@ namespace WPFApp
 
                 tbChosenOpponentTeam.Clear();
                 tbChosenOpponentTeam.AppendText($"{ddlOpponentTeams.SelectedItem}");
-                tbChosenOpponentTeam.AppendText(Environment.NewLine);
                 ddlOpponentTeams.Items.Remove(ddlOpponentTeams.SelectedItem);
 
                 ddlOpponentTeams.Items.Add(tempOldOpponent);
@@ -256,7 +268,6 @@ namespace WPFApp
             else
             {
                 tbChosenOpponentTeam.AppendText($"{ddlOpponentTeams.SelectedItem}");
-                tbChosenOpponentTeam.AppendText(Environment.NewLine);
                 ddlOpponentTeams.Items.Remove(ddlOpponentTeams.SelectedItem);
 
                 opponentsWereChosen = true;
@@ -323,6 +334,7 @@ namespace WPFApp
             if (currentTeam[0] != previousTeam[0])
             {
                 ddlOpponentTeams.Items.Clear();
+                tbChosenOpponentTeam.Clear();
             }
 
             foreach (var match in matches)
@@ -441,6 +453,71 @@ namespace WPFApp
             file.Directory.Create();
             File.WriteAllLines(file.FullName, content);
         }
+        private void SaveSettings()
+        {
+            var langLines = new List<string>();
+            var champLines = new List<string>();
+            var prevChampLines = new List<string>();
+            var resolutionLines = new List<string>();
+
+            char champLetter = ddlChampionship.SelectedItem.ToString().Trim().ToLower().ElementAt(0);
+
+            string[] prevChamp = File.ReadAllLines(filePathCurrentChampionship);
+
+            char prevChampLetter = prevChamp[0].Trim()[0];
+
+            //char prevChampLetter = ddlChampionship.SelectedItem.ToString().Trim().ToLower().ElementAt(0);
+
+            if (champLetter == 'ž')
+            {
+                champLetter = 'w';
+            }
+
+            if (prevChampLetter == 'ž')
+            {
+                prevChampLetter = 'w';
+            }
+
+            langLines.Add($"{Thread.CurrentThread.CurrentUICulture.Name}");
+
+            champLines.Add($"{champLetter}");
+            prevChampLines.Add($"{prevChampLetter}");
+
+            resolutionLines.Add($"{ddlResolution.SelectedItem.ToString().ToLower()}");
+
+            if (resolutionLines.First().ToString().Trim().ToLower().ElementAt(0) == 'p')
+            {
+                resolutionLines.Clear();
+                resolutionLines.Add("fullscreen");
+            }
+
+            try
+            {
+                SaveToFile(filePathCurrentChampionship, champLines);
+
+                SaveToFile(filePathPreviousChampionship, prevChampLines);
+
+                SaveToFile(filePathLanguage, langLines);
+
+                SaveToFile(filePathChosenResolution, resolutionLines);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
+            {
+                SetCulture(EN);
+            }
+            else if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.cro)
+            {
+                SetCulture(HR);
+            }
+        }
+
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();
         #endregion
     }
