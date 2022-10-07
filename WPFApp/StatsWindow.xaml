@@ -9,7 +9,22 @@
         ResizeMode="NoResize"
         Title="Statistics" Height="450" Width="800"
         FontFamily="Century Gothic"
+        x:Name="statsWindow"
         Loaded="Window_Loaded">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="statsWindow"
+                            Storyboard.TargetProperty="Height"
+                            From="0" To="450" Duration="0:0:0.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
