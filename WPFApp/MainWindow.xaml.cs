@@ -24,15 +24,20 @@ namespace WPFApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string HR = "hr", EN = "en";
+        #region Constants
+        private const string HR = "hr", EN = "en"; 
+        #endregion
+
+        #region Fields
         private bool teamsWereChosen;
         private bool opponentsWereChosen;
-
         private Repository repo = new Repository();
-
         private List<Team> teams = new List<Team>();
         private List<Matches> matches = new List<Matches>();
+        string[] fifaCodes = null; 
+        #endregion
 
+        #region Paths
         string filePathLanguage = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/LanguageSettings.txt";
         string filePathCurrentChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipCurrentSettings.txt";
         string filePathPreviousChampionship = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChampionshipPreviousSettings.txt";
@@ -44,8 +49,7 @@ namespace WPFApp
         string filePathNotChosenOpponents = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/NotChosenOpponents.txt";
         string filePathChosenOpponents = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenOpponents.txt";
         string filePathChosenOpponentsFifaCodes = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ChosenOpponentsFifaCodes.txt";
-
-        string[] fifaCodes = null;
+        #endregion
 
         public MainWindow()
         {
@@ -55,6 +59,7 @@ namespace WPFApp
             InitializeComponent();
         }
 
+        #region On window load
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string[] resolution = File.ReadAllLines(filePathChosenResolution);
@@ -109,7 +114,9 @@ namespace WPFApp
             FillDdlsWithData();
             SettingUpIndexesOnSettingsTab(currentChampionship, resolution[0]);
         }
+        #endregion
 
+        #region Teams methods and logic
         private async void btnChooseFavTeam_Click(object sender, RoutedEventArgs e)
         {
             ChooseATeam();
@@ -168,13 +175,6 @@ namespace WPFApp
             statsWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             statsWindow.ShowDialog();
         }
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            SaveSettings();
-            MessageBox.Show($"{Properties.Resources.settingsMainWindowMessage}", $"{Properties.Resources.settingsMainWindowTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        #region Team load logic
         private async Task FillTeamsList(string[] championship)
         {
             teams = await repo.PrepareTeams(championship[0]);
@@ -351,63 +351,19 @@ namespace WPFApp
 
             ddlOpponentTeams.SelectedIndex = 0;
         }
-        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
-        {
-            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
-            return tmpMatches;
-        }
         #endregion
 
-        #region General methods and closing logic
-        private void SetChosenResolution(string res)
+        #region Settings tab methods and logic
+        private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            char c = res.Trim().ToLower().ElementAt(0);
-            switch (c)
+            if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
             {
-                case 'w':
-                    this.WindowState = WindowState.Maximized;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    break;
-                case 'm':
-                    this.Height = 720;
-                    this.Width = 1280;
-                    this.WindowState = WindowState.Normal;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    break;
-                case 's':
-                    this.Height = 680;
-                    this.Width = 920;
-                    this.WindowState = WindowState.Normal;
-                    this.WindowStyle = WindowStyle.SingleBorderWindow;
-                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    break;
-                case 'f':
-                    this.WindowState = WindowState.Maximized;
-                    this.WindowStyle = WindowStyle.None;
-                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                    break;
+                SetCulture(EN);
             }
-        }
-        private void SetCulture(string language)
-        {
-            CultureInfo culture = new CultureInfo(language);
-
-            Thread.CurrentThread.CurrentUICulture = culture;
-            Thread.CurrentThread.CurrentCulture = culture;
-        }
-        private void FillDdlsWithData()
-        {
-            ddlChampionship.Items.Add(Properties.Resources.men);
-            ddlChampionship.Items.Add(Properties.Resources.women);
-
-            ddlLanguage.Items.Add(Properties.Resources.en);
-            ddlLanguage.Items.Add(Properties.Resources.cro);
-
-            ddlResolution.Items.Add(Properties.Resources.fullscreen);
-            ddlResolution.Items.Add(Properties.Resources.windowed);
-            ddlResolution.Items.Add(Properties.Resources.medium);
-            ddlResolution.Items.Add(Properties.Resources.small);
+            else if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.cro)
+            {
+                SetCulture(HR);
+            }
         }
         private void SettingUpIndexesOnSettingsTab(string[] currentChampionship, string resolution)
         {
@@ -446,6 +402,69 @@ namespace WPFApp
                     break;
             }
 
+        }
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
+            MessageBox.Show($"{Properties.Resources.settingsMainWindowMessage}", $"{Properties.Resources.settingsMainWindowTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+        #endregion
+
+        #region General methods and closing logic
+        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
+        {
+            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
+            return tmpMatches;
+        }
+        private void FillDdlsWithData()
+        {
+            ddlChampionship.Items.Add(Properties.Resources.men);
+            ddlChampionship.Items.Add(Properties.Resources.women);
+
+            ddlLanguage.Items.Add(Properties.Resources.en);
+            ddlLanguage.Items.Add(Properties.Resources.cro);
+
+            ddlResolution.Items.Add(Properties.Resources.fullscreen);
+            ddlResolution.Items.Add(Properties.Resources.windowed);
+            ddlResolution.Items.Add(Properties.Resources.medium);
+            ddlResolution.Items.Add(Properties.Resources.small);
+        }
+        private void SetChosenResolution(string res)
+        {
+            char c = res.Trim().ToLower().ElementAt(0);
+            switch (c)
+            {
+                case 'w':
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    break;
+                case 'm':
+                    this.Height = 720;
+                    this.Width = 1280;
+                    this.WindowState = WindowState.Normal;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    break;
+                case 's':
+                    this.Height = 680;
+                    this.Width = 920;
+                    this.WindowState = WindowState.Normal;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    break;
+                case 'f':
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.None;
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                    break;
+            }
+        }
+        private void SetCulture(string language)
+        {
+            CultureInfo culture = new CultureInfo(language);
+
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
         }
         private void SaveToFile(string path, List<string> content)
         {
@@ -506,18 +525,6 @@ namespace WPFApp
                 MessageBox.Show(ex.Message);
             }
         }
-        private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.en)
-            {
-                SetCulture(EN);
-            }
-            else if (ddlLanguage.SelectedItem.ToString() == Properties.Resources.cro)
-            {
-                SetCulture(HR);
-            }
-        }
-
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();
         #endregion
     }
