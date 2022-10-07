@@ -196,6 +196,24 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings will be applied to the application after restart!.
+        /// </summary>
+        public static string settingsMainWindowMessage {
+            get {
+                return ResourceManager.GetString("settingsMainWindowMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings changed!.
+        /// </summary>
+        public static string settingsMainWindowTitle {
+            get {
+                return ResourceManager.GetString("settingsMainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to S.
         /// </summary>
         public static string small {

@@ -98,11 +98,13 @@
                                 x:Name="btnChooseTeam"
                                 HorizontalAlignment="Left"
                                 Margin="5 25 0 0"
+                                Cursor="Hand"
                                 Content="Choose" Click="btnChooseFavTeam_Click"/>
                             <Button
                                 x:Name="btnSeeTeamStats"
                                 HorizontalAlignment="Left"
                                 Margin="5 35 0 0"
+                                Cursor="Hand"
                                 Content="See statistics" Click="btnSeeFavTeamStats_Click"/>
                         </StackPanel>
 
@@ -165,11 +167,13 @@
                                 x:Name="btnChooseOpponentTeam"
                                 HorizontalAlignment="Right"
                                 Margin="0 25 5 0"
+                                Cursor="Hand"
                                 Content="Choose" Click="btnChooseOpponentTeam_Click"/>
                             <Button
                                 x:Name="btnSeeOpponentTeamStats"
                                 HorizontalAlignment="Right"
                                 Margin="0 35 5 0"
+                                Cursor="Hand"
                                 Content="See statistics" Click="btnSeeOpponentTeamStats_Click"/>
                         </StackPanel>
                     </Grid>
@@ -254,9 +258,7 @@
                             HorizontalAlignment="Left"
                             Margin="10"
                             FontSize="20" 
-                            Cursor="Hand"
-                            SelectionChanged="ddlLanguage_SelectionChanged">
-                        </ComboBox>
+                            Cursor="Hand"/>
 
                         <Label
                             x:Name="lblRes"

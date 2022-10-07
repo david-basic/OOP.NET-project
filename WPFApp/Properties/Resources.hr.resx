@@ -162,6 +162,12 @@
   <data name="settingsChangeTitle" xml:space="preserve">
     <value>Postavke su promijenjene!</value>
   </data>
+  <data name="settingsMainWindowMessage" xml:space="preserve">
+    <value>Postavke će biti primjenjene u aplikaciji nakon restarta!</value>
+  </data>
+  <data name="settingsMainWindowTitle" xml:space="preserve">
+    <value>Postavke su promijenjene!</value>
+  </data>
   <data name="small" xml:space="preserve">
     <value>S</value>
   </data>

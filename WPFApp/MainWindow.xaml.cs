@@ -106,7 +106,6 @@ namespace WPFApp
             SettingUpIndexesOnSettingsTab(currentChampionship, resolution[0]);
         }
 
-
         private async void btnChooseFavTeam_Click(object sender, RoutedEventArgs e)
         {
             ChooseATeam();
@@ -118,17 +117,13 @@ namespace WPFApp
                 await FillOpponentTeams();
             }
         }
-
-
         private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
         {
             ChooseAOpponent();
             ddlOpponentTeams.SelectedIndex = 0;
 
-            // ovdje logiku ubacit za pojavljivanje rezultata uzakmice
             ShowMatchResult(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
         }
-
         private void ShowMatchResult(string pathMainTeamCode, string pathOpponentCode, List<Matches> matches)
         {
             string[] mainTeamCode = File.ReadAllLines(pathMainTeamCode);
@@ -152,23 +147,16 @@ namespace WPFApp
             }
             matchResultGrid.Visibility = Visibility.Visible;
         }
-
         private void btnSeeFavTeamStats_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
 
 
-            MessageBox.Show($"{Properties.Resources.settingsChangeMessage}", $"{Properties.Resources.settingsChangeTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        private void ddlLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            MessageBox.Show($"{Properties.Resources.settingsMainWindowMessage}", $"{Properties.Resources.settingsMainWindowTitle}", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         private void btnSeeOpponentTeamStats_Click(object sender, RoutedEventArgs e)
         {

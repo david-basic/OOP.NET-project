@@ -162,6 +162,12 @@
   <data name="settingsChangeTitle" xml:space="preserve">
     <value>Settings changed!</value>
   </data>
+  <data name="settingsMainWindowMessage" xml:space="preserve">
+    <value>Settings will be applied to the application after restart!</value>
+  </data>
+  <data name="settingsMainWindowTitle" xml:space="preserve">
+    <value>Settings changed!</value>
+  </data>
   <data name="small" xml:space="preserve">
     <value>S</value>
   </data>
