@@ -250,7 +250,8 @@ namespace WPFApp
         }
         private void BtnPlayerUC_Click(object sender, RoutedEventArgs e)
         {
-            // ovdje ces otvarati prozor sa extra detaljima igraca 
+            // ovdje ces otvarati prozor sa extra detaljima igraca
+
         }
         private async Task<List<StartingEleven>> GetStartingElevenPlayers(string[] favTeamCode, string[] opponentTeamCode, string[] championship)
         {
