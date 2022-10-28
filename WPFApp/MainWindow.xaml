@@ -12,7 +12,7 @@
         Height="450" Width="800" 
         Closed="Window_Closed" 
         Loaded="Window_Loaded" 
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize" Closing="Window_Closing">
     <!--<Label 
             x:Name="lblPlaceholder"
             HorizontalAlignment="Center"

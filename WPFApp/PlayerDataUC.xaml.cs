@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,32 +16,33 @@ using System.Windows.Shapes;
 namespace WPFApp
 {
     /// <summary>
-    /// Interaction logic for PlayerUC.xaml
+    /// Interaction logic for PlayerDataUC.xaml
     /// </summary>
-    public partial class PlayerUC : UserControl
+    public partial class PlayerDataUC : UserControl
     {
+
+        private Dictionary<string, string> namePathCollection = new Dictionary<string, string>();
+
+        string filePathImagesPaths = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/MyAppFiles/ImagesPaths.txt";
+
         public string FullName { get; set; }
+        public bool Captain { get; set; }
         public long ShirtNumber { get; set; }
-        public string Position { get; set; }
+        public int Goals { get; set; }
+        public int YellowCards { get; set; }
 
-        public PlayerUC()
+        public PlayerDataUC()
         {
             InitializeComponent();
         }
 
-        public PlayerUC(string fullName, int shirtNumber, string position)
+        public PlayerDataUC(string fullName, bool captain, long shirtNumber, int goals, int yellowCards)
         {
-            InitializeComponent();
-
             FullName = fullName;
+            Captain = captain;
             ShirtNumber = shirtNumber;
-            Position = position;
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            lblPlayerShirtNumber.Content = ShirtNumber.ToString();
-            lblPlayerName.Content = FullName;
+            Goals = goals;
+            YellowCards = yellowCards;
         }
     }
 }

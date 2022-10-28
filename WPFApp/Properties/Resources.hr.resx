@@ -135,6 +135,12 @@
   <data name="en" xml:space="preserve">
     <value>Engleski</value>
   </data>
+  <data name="ExitMessage" xml:space="preserve">
+    <value>Želite li izaći iz aplikacije?</value>
+  </data>
+  <data name="ExitTitle" xml:space="preserve">
+    <value>Upozorenje! Izlazite iz aplikacije!</value>
+  </data>
   <data name="fullscreen" xml:space="preserve">
     <value>Puni ekran</value>
   </data>

@@ -191,6 +191,7 @@ namespace WPFApp
                 plUC.Position = player.Position;
 
                 plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
+                plUC.MouseEnter += PlUC_MouseEnter;
 
                 if (player.Position == "Goalie")
                 {
@@ -218,6 +219,7 @@ namespace WPFApp
                 plUC.Position = player.Position;
 
                 plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
+                plUC.MouseEnter += PlUC_MouseEnter;
 
                 if (player.Position == "Goalie")
                 {
@@ -237,12 +239,19 @@ namespace WPFApp
                 }
             });
         }
+        private void PlUC_MouseEnter(object sender, MouseEventArgs e)
+        {
+            PlayerUC control = sender as PlayerUC;
 
+            playerUCTooltip tooltip = new playerUCTooltip();
+            tooltip.Content = control.FullName;
+
+            control.ToolTip = tooltip;
+        }
         private void BtnPlayerUC_Click(object sender, RoutedEventArgs e)
         {
             // ovdje ces otvarati prozor sa extra detaljima igraca 
         }
-
         private async Task<List<StartingEleven>> GetStartingElevenPlayers(string[] favTeamCode, string[] opponentTeamCode, string[] championship)
         {
             var tmpPlayers = await repo.PrepareStartingElevenForAMatch(favTeamCode, opponentTeamCode, championship[0]);
@@ -254,6 +263,8 @@ namespace WPFApp
             opponentTeamPlayers.Clear();
             goalieAreaFavTeam.Children.Clear();
             goalieAreaOpponentTeam.Children.Clear();
+            defenderAreaFavTeam.Children.Clear();
+            defenderAreaOpponentTeam.Children.Clear();
             midfielderAreaFavTeam.Children.Clear();
             midfielderAreaOpponentTeam.Children.Clear();
             forwardAreaFavTeam.Children.Clear();
@@ -642,6 +653,14 @@ namespace WPFApp
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show($"{Properties.Resources.ExitMessage}", $"{Properties.Resources.ExitTitle}", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
             }
         }
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();

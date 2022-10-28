@@ -96,8 +96,14 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerDataUC.xaml.cs">
+      <DependentUpon>PlayerDataUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlayerUC.xaml.cs">
       <DependentUpon>PlayerUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="playerUCTooltip.xaml.cs">
+      <DependentUpon>playerUCTooltip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.hr.Designer.cs">
       <DependentUpon>Resources.hr.resx</DependentUpon>
@@ -148,7 +154,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PlayerDataUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PlayerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="playerUCTooltip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\footballPitch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\imgGoal.png" />
+    <Resource Include="Images\imgYellowCard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

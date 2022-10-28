@@ -135,6 +135,12 @@
   <data name="en" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="ExitMessage" xml:space="preserve">
+    <value>Do you wish to exit the application?</value>
+  </data>
+  <data name="ExitTitle" xml:space="preserve">
+    <value>Warning! You are about to exit the application!</value>
+  </data>
   <data name="fullscreen" xml:space="preserve">
     <value>Fullscreen</value>
   </data>

@@ -115,6 +115,24 @@ namespace WPFApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you wish to exit the application?.
+        /// </summary>
+        public static string ExitMessage {
+            get {
+                return ResourceManager.GetString("ExitMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning! You are about to exit the application!.
+        /// </summary>
+        public static string ExitTitle {
+            get {
+                return ResourceManager.GetString("ExitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fullscreen.
         /// </summary>
         public static string fullscreen {

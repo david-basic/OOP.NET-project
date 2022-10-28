@@ -10,7 +10,7 @@
     <Button
         x:Name="BtnPlayerUC"
         Height="80"
-        Width="48"
+        Width="55"
         Background="Transparent">
         <StackPanel
             x:Name="stackPanelPlayerUC"

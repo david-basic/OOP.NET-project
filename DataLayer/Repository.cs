@@ -117,7 +117,7 @@ namespace DataLayer
 
                 Matches[] m = tempMatches.ToArray();
 
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < m.Length; i++)
                 {
                     if (m[i].HomeTeam.Code == favTeamCode[0] && m[i].AwayTeam.Code == opponentTeamCode[0])
                     {
