@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinFormsApp;
 
 namespace WPFApp
 {
@@ -25,7 +26,7 @@ namespace WPFApp
     public partial class MainWindow : Window
     {
         #region Constants
-        private const string HR = "hr", EN = "en"; 
+        private const string HR = "hr", EN = "en";
         #endregion
 
         #region Fields
@@ -34,7 +35,12 @@ namespace WPFApp
         private Repository repo = new Repository();
         private List<Team> teams = new List<Team>();
         private List<Matches> matches = new List<Matches>();
-        string[] fifaCodes = null; 
+        private List<StartingEleven> favTeamPlayers = new List<StartingEleven>();
+        private List<StartingEleven> opponentTeamPlayers = new List<StartingEleven>();
+        private List<StartingEleven> allStartingPlayers = new List<StartingEleven>();
+        private HashSet<PlayerUC> favPlayerUCs = new HashSet<PlayerUC>();
+        private HashSet<PlayerUC> opponentPlayerUCs = new HashSet<PlayerUC>();
+        string[] fifaCodes = null;
         #endregion
 
         #region Paths
@@ -59,7 +65,6 @@ namespace WPFApp
             InitializeComponent();
         }
 
-        #region On window load
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string[] resolution = File.ReadAllLines(filePathChosenResolution);
@@ -114,7 +119,6 @@ namespace WPFApp
             FillDdlsWithData();
             SettingUpIndexesOnSettingsTab(currentChampionship, resolution[0]);
         }
-        #endregion
 
         #region Teams methods and logic
         private async void btnChooseFavTeam_Click(object sender, RoutedEventArgs e)
@@ -134,11 +138,126 @@ namespace WPFApp
         }
         private void btnChooseOpponentTeam_Click(object sender, RoutedEventArgs e)
         {
+            ClearPlayingArea();
+
             ChooseAOpponent();
             ddlOpponentTeams.SelectedIndex = 0;
 
             ShowMatchResult(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
             btnSeeOpponentTeamStats.IsEnabled = true;
+
+            AddOpponentTeamPlayerUCs(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
+        }
+        private async void AddOpponentTeamPlayerUCs(string pathFavTeamCode, string pathOpponentTeamCode, List<Matches> matches)
+        {
+            string[] favTeamCode = File.ReadAllLines(pathFavTeamCode);
+            string[] opponentCode = File.ReadAllLines(pathOpponentTeamCode);
+            string[] championship = File.ReadAllLines(filePathCurrentChampionship);
+            foreach (var match in matches)
+            {
+                if (match.HomeTeam.Code == favTeamCode[0] && match.AwayTeam.Code == opponentCode[0])
+                {
+                    allStartingPlayers = await GetStartingElevenPlayers(favTeamCode, opponentCode, championship);
+
+                    break;
+                }
+                else if (match.AwayTeam.Code == favTeamCode[0] && match.HomeTeam.Code == opponentCode[0])
+                {
+                    allStartingPlayers = await GetStartingElevenPlayers(favTeamCode, opponentCode, championship);
+
+                    break;
+                }
+            }
+
+            int i = 0;
+            allStartingPlayers.ForEach(p =>
+            {
+                if (i < 11)
+                {
+                    favTeamPlayers.Add(p);
+                }
+                else
+                {
+                    opponentTeamPlayers.Add(p);
+                }
+                i++;
+            });
+            
+            favTeamPlayers.ForEach(player =>
+            {
+                PlayerUC plUC = new PlayerUC();
+                plUC.FullName = player.FullName;
+                plUC.ShirtNumber = player.ShirtNumber;
+                plUC.Position = player.Position;
+
+                plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
+
+                if (player.Position == "Goalie")
+                {
+                    goalieAreaFavTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Defender")
+                {
+                    defenderAreaFavTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Midfield")
+                {
+                    midfielderAreaFavTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Forward")
+                {
+                    forwardAreaFavTeam.Children.Add(plUC);
+                }
+            });
+
+            opponentTeamPlayers.ForEach(player =>
+            {
+                PlayerUC plUC = new PlayerUC();
+                plUC.FullName = player.FullName;
+                plUC.ShirtNumber = player.ShirtNumber;
+                plUC.Position = player.Position;
+
+                plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
+
+                if (player.Position == "Goalie")
+                {
+                    goalieAreaOpponentTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Defender")
+                {
+                    defenderAreaOpponentTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Midfield")
+                {
+                    midfielderAreaOpponentTeam.Children.Add(plUC);
+                }
+                else if (player.Position == "Forward")
+                {
+                    forwardAreaOpponentTeam.Children.Add(plUC);
+                }
+            });
+        }
+
+        private void BtnPlayerUC_Click(object sender, RoutedEventArgs e)
+        {
+            // ovdje ces otvarati prozor sa extra detaljima igraca 
+        }
+
+        private async Task<List<StartingEleven>> GetStartingElevenPlayers(string[] favTeamCode, string[] opponentTeamCode, string[] championship)
+        {
+            var tmpPlayers = await repo.PrepareStartingElevenForAMatch(favTeamCode, opponentTeamCode, championship[0]);
+            return tmpPlayers;
+        }
+        private void ClearPlayingArea()
+        {
+            favTeamPlayers.Clear();
+            opponentTeamPlayers.Clear();
+            goalieAreaFavTeam.Children.Clear();
+            goalieAreaOpponentTeam.Children.Clear();
+            midfielderAreaFavTeam.Children.Clear();
+            midfielderAreaOpponentTeam.Children.Clear();
+            forwardAreaFavTeam.Children.Clear();
+            forwardAreaOpponentTeam.Children.Clear();
         }
         private void ShowMatchResult(string pathMainTeamCode, string pathOpponentCode, List<Matches> matches)
         {

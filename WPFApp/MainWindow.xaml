@@ -69,6 +69,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
 
                         <StackPanel 
@@ -180,6 +181,119 @@
                                 IsEnabled="False"
                                 Content="See statistics" Click="btnSeeOpponentTeamStats_Click"/>
                         </StackPanel>
+
+                        <Grid
+                            x:Name="gridFootballPitch"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="8"
+                                Grid.RowSpan="7"
+                                Source="Images/footballPitch.png"
+                                Stretch="Fill"/>
+
+                            <StackPanel
+                                x:Name="goalieAreaFavTeam"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="defenderAreaFavTeam"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="midfielderAreaFavTeam"
+                                Grid.Column="2"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="forwardAreaFavTeam"
+                                Grid.Column="3"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>
+                                <local:PlayerUC/>-->
+                            </StackPanel>
+
+                            <StackPanel
+                                x:Name="forwardAreaOpponentTeam"
+                                Grid.Column="4"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="midfielderAreaOpponentTeam"
+                                Grid.Column="5"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="defenderAreaOpponentTeam"
+                                Grid.Column="6"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>
+                                <local:PlayerUC/>-->
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="goalieAreaOpponentTeam"
+                                Grid.Column="7"
+                                Grid.Row="0"
+                                Grid.RowSpan="7"
+                                VerticalAlignment="Center"
+                                Margin="5">
+                                <!--<local:PlayerUC/>-->
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </TabItem.Content>
             </TabItem>

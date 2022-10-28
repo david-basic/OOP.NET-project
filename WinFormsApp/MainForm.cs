@@ -612,7 +612,7 @@ namespace WinFormsApp
         //Players
         private async Task<List<StartingEleven>> GetAllPlayers(string[] fifaCodes, string[] championship)
         {
-            var tmpPlayers = await repo.PreparePlayers(fifaCodes, championship[0]);
+            var tmpPlayers = await repo.PreparePlayers(fifaCodes, championship[0], false);
             return tmpPlayers;
         }
         private void GetChosenAndNotChosenPlayers()

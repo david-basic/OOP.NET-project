@@ -96,6 +96,9 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerUC.xaml.cs">
+      <DependentUpon>PlayerUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.hr.Designer.cs">
       <DependentUpon>Resources.hr.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -145,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PlayerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StartupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +180,9 @@
     <Resource Include="Images\leftSide.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\footballPitch.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

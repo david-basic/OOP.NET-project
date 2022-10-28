@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="WPFApp.PlayerUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFApp"
+             mc:Ignorable="d"
+             FontFamily="Century Gothic"
+             Loaded="UserControl_Loaded" MinHeight="80" MinWidth="55">
+    <Button
+        x:Name="BtnPlayerUC"
+        Height="80"
+        Width="48"
+        Background="Transparent">
+        <StackPanel
+            x:Name="stackPanelPlayerUC"
+            Background="White">
+            <Image
+                x:Name="imgPlayerImage"
+                HorizontalAlignment="Center"
+                Margin="0,1,0,-10"
+                Stretch="UniformToFill" 
+                Source="/Images/defaultPlayer.png"/>
+            <Label
+                x:Name="lblPlayerShirtNumber"
+                FontWeight="Bold"
+                FontSize="20"
+                HorizontalAlignment="Center"
+                Content="99"/>
+            <Label
+                x:Name="lblPlayerName"
+                Margin="0,-10,0,0"
+                FontSize="4"
+                HorizontalAlignment="Center"
+                Content="PLACEHOLDER"/>
+        </StackPanel>
+    </Button>
+</UserControl>

@@ -15,6 +15,8 @@ namespace DataLayer
     {
         public List<Team> teams = new List<Team>();
         public List<StartingEleven> players = new List<StartingEleven>();
+        public List<StartingEleven> favTeamPlayers = new List<StartingEleven>();
+        public List<StartingEleven> opponentTeamPlayers = new List<StartingEleven>();
         public List<Matches> matches = new List<Matches>();
 
         // Team API
@@ -69,7 +71,74 @@ namespace DataLayer
 
         //Player API
         #region
-        public async Task<List<StartingEleven>> PreparePlayers(string[] fifaCodes, string champ)
+        public async Task<List<StartingEleven>> PrepareStartingElevenForAMatch(string[] favTeamCode, string[] opponentTeamCode, string champ)
+        {
+            List<Matches> tempMatches = new List<Matches>();
+
+            string path;
+
+            if (champ == "m")
+            {
+                path = $"{Application.StartupPath}/men_matches.json";
+            }
+            else
+            {
+                path = $"{Application.StartupPath}/women_matches.json";
+            }
+
+            RestResponse<List<Matches>> restResponse = await GetPlayers(favTeamCode[0], champ);
+
+            if (restResponse.Content == null)
+            {
+                string restResponseFromFile = GetDataFromFile(path);
+                tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
+
+                Matches[] m = tempMatches.ToArray();
+
+                for (int i = 0; i < m.Length; i++)
+                {
+                    if (m[i].HomeTeam.Code == favTeamCode[0] && m[i].AwayTeam.Code == opponentTeamCode[0])
+                    {
+                        favTeamPlayers = m[i].HomeTeamStatistics.StartingEleven;
+                        opponentTeamPlayers = m[i].AwayTeamStatistics.StartingEleven;
+                        break;
+                    }
+                    else if (m[i].HomeTeam.Code == opponentTeamCode[0] && m[i].AwayTeam.Code == favTeamCode[0])
+                    {
+                        favTeamPlayers = m[i].AwayTeamStatistics.StartingEleven;
+                        opponentTeamPlayers = m[i].HomeTeamStatistics.StartingEleven;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                tempMatches = DeserializeData(restResponse);
+
+                Matches[] m = tempMatches.ToArray();
+
+                for (int i = 0; i < 1; i++)
+                {
+                    if (m[i].HomeTeam.Code == favTeamCode[0] && m[i].AwayTeam.Code == opponentTeamCode[0])
+                    {
+                        favTeamPlayers = m[i].HomeTeamStatistics.StartingEleven;
+                        opponentTeamPlayers = m[i].AwayTeamStatistics.StartingEleven;
+                    }
+                    else if (m[i].HomeTeam.Code == opponentTeamCode[0] && m[i].AwayTeam.Code == favTeamCode[0])
+                    {
+                        favTeamPlayers = m[i].AwayTeamStatistics.StartingEleven;
+                        opponentTeamPlayers = m[i].HomeTeamStatistics.StartingEleven;
+                    }
+                }
+            }
+
+            List<StartingEleven> allStartingPlayers = new List<StartingEleven>();
+            favTeamPlayers.ForEach(p => allStartingPlayers.Add(p));
+            opponentTeamPlayers.ForEach(p => allStartingPlayers.Add(p));
+
+            return allStartingPlayers;
+        }
+        public async Task<List<StartingEleven>> PreparePlayers(string[] fifaCodes, string champ, bool showOnlyStartingEleven)
         {
             List<Matches> tempMatches = new List<Matches>();
 
@@ -100,15 +169,21 @@ namespace DataLayer
                         if (m[i].HomeTeam.Code == code)
                         {
                             players = m[i].HomeTeamStatistics.StartingEleven;
-                            var tmpPlayers = m[i].HomeTeamStatistics.Substitutes;
-                            tmpPlayers.ForEach(p => players.Add(p));
+                            if (!showOnlyStartingEleven)
+                            {
+                                var tmpPlayers = m[i].HomeTeamStatistics.Substitutes;
+                                tmpPlayers.ForEach(p => players.Add(p));
+                            }
                             break;
                         }
                         else if (m[i].AwayTeam.Code == code)
                         {
                             players = m[i].AwayTeamStatistics.StartingEleven;
-                            var tmpPlayers = m[i].AwayTeamStatistics.Substitutes;
-                            tmpPlayers.ForEach(p => players.Add(p));
+                            if (!showOnlyStartingEleven)
+                            {
+                                var tmpPlayers = m[i].AwayTeamStatistics.Substitutes;
+                                tmpPlayers.ForEach(p => players.Add(p));
+                            }
                             break;
                         }
                     }
