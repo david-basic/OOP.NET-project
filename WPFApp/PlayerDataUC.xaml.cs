@@ -56,16 +56,12 @@ namespace WPFApp
             {
                 imgCaptain.Visibility = Visibility.Visible;
             }
-            else
-            {
-                imgCaptain.Visibility = Visibility.Hidden;
-            }
 
             lblFullName.Content = FullName;
             lblPosition.Content = Position;
             lblGoals.Content = Goals.ToString();
             lblYellowCards.Content = YellowCards.ToString();
-
+            lblShirtNumber.Content = ShirtNumber.ToString();
 
 
             //if (File.Exists(filePathImagesPaths))

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +31,12 @@ namespace WPFApp
 
         private void PlayerDataWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            player = data;
+            player.FullName = data.FullName;
+            player.Position = data.Position;
+            player.ShirtNumber = data.ShirtNumber;
+            player.Captain = data.Captain;
+            player.Goals = data.Goals;
+            player.YellowCards = data.YellowCards;
         }
     }
 }
