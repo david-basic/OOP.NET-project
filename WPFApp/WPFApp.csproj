@@ -99,6 +99,9 @@
     <Compile Include="PlayerDataUC.xaml.cs">
       <DependentUpon>PlayerDataUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerDataUCWindow.xaml.cs">
+      <DependentUpon>PlayerDataUCWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlayerUC.xaml.cs">
       <DependentUpon>PlayerUC.xaml</DependentUpon>
     </Compile>
@@ -155,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PlayerDataUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlayerDataUCWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

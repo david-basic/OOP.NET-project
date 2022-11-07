@@ -40,6 +40,7 @@ namespace WPFApp
         private List<StartingEleven> allStartingPlayers = new List<StartingEleven>();
         private HashSet<PlayerUC> favPlayerUCs = new HashSet<PlayerUC>();
         private HashSet<PlayerUC> opponentPlayerUCs = new HashSet<PlayerUC>();
+        private Matches matchPlayed = null;
         string[] fifaCodes = null;
         #endregion
 
@@ -146,25 +147,26 @@ namespace WPFApp
             ShowMatchResult(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
             btnSeeOpponentTeamStats.IsEnabled = true;
 
-            AddOpponentTeamPlayerUCs(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
+            AddPlayerUCs(filePathChosenTeamsFifaCodes, filePathChosenOpponentsFifaCodes, matches);
         }
-        private async void AddOpponentTeamPlayerUCs(string pathFavTeamCode, string pathOpponentTeamCode, List<Matches> matches)
+        private async void AddPlayerUCs(string pathFavTeamCode, string pathOpponentTeamCode, List<Matches> matches)
         {
             string[] favTeamCode = File.ReadAllLines(pathFavTeamCode);
             string[] opponentCode = File.ReadAllLines(pathOpponentTeamCode);
             string[] championship = File.ReadAllLines(filePathCurrentChampionship);
+
             foreach (var match in matches)
             {
                 if (match.HomeTeam.Code == favTeamCode[0] && match.AwayTeam.Code == opponentCode[0])
                 {
                     allStartingPlayers = await GetStartingElevenPlayers(favTeamCode, opponentCode, championship);
-
+                    matchPlayed = match;
                     break;
                 }
                 else if (match.AwayTeam.Code == favTeamCode[0] && match.HomeTeam.Code == opponentCode[0])
                 {
                     allStartingPlayers = await GetStartingElevenPlayers(favTeamCode, opponentCode, championship);
-
+                    matchPlayed = match;
                     break;
                 }
             }
@@ -182,13 +184,16 @@ namespace WPFApp
                 }
                 i++;
             });
-            
+
             favTeamPlayers.ForEach(player =>
             {
                 PlayerUC plUC = new PlayerUC();
                 plUC.FullName = player.FullName;
                 plUC.ShirtNumber = player.ShirtNumber;
                 plUC.Position = player.Position;
+                plUC.Captain = player.Captain;
+                plUC.Goals = GetPlayerGoals(player.FullName, matchPlayed);
+                plUC.YellowCards = GetPlayerYellowCards(player.FullName, matchPlayed);
 
                 plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
                 plUC.MouseEnter += PlUC_MouseEnter;
@@ -217,6 +222,9 @@ namespace WPFApp
                 plUC.FullName = player.FullName;
                 plUC.ShirtNumber = player.ShirtNumber;
                 plUC.Position = player.Position;
+                plUC.Captain = player.Captain;
+                plUC.Goals = GetPlayerGoals(player.FullName, matchPlayed);
+                plUC.YellowCards = GetPlayerYellowCards(player.FullName, matchPlayed);
 
                 plUC.BtnPlayerUC.Click += BtnPlayerUC_Click;
                 plUC.MouseEnter += PlUC_MouseEnter;
@@ -239,19 +247,89 @@ namespace WPFApp
                 }
             });
         }
+        private int GetPlayerGoals(string playerFullName, Matches match)
+        {
+            int goalCounter = 0;
+
+            List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+            foreach (var teamEvent in homeTeamEvents)
+            {
+                if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                {
+                    if (teamEvent.TypeOfEvent != "goal-own")
+                    {
+                        goalCounter++;
+                    }
+                }
+            }
+
+            List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+            foreach (var teamEvent in awayTeamEvents)
+            {
+                if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent.Split('-')[0] == "goal")
+                {
+                    if (teamEvent.TypeOfEvent != "goal-own")
+                    {
+                        goalCounter++;
+                    }
+                }
+            }
+
+            return goalCounter;
+        }
+        private int GetPlayerYellowCards(string playerFullName, Matches match)
+        {
+            int yellowCardCounter = 0;
+
+            List<TeamEvent> homeTeamEvents = match.HomeTeamEvents;
+            foreach (var teamEvent in homeTeamEvents)
+            {
+                if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                {
+                    yellowCardCounter++;
+                }
+            }
+
+            List<TeamEvent> awayTeamEvents = match.AwayTeamEvents;
+            foreach (var teamEvent in awayTeamEvents)
+            {
+                if (teamEvent.Player == playerFullName && teamEvent.TypeOfEvent == "yellow-card")
+                {
+                    yellowCardCounter++;
+                }
+            }
+
+            return yellowCardCounter;
+        }
         private void PlUC_MouseEnter(object sender, MouseEventArgs e)
         {
             PlayerUC control = sender as PlayerUC;
 
             playerUCTooltip tooltip = new playerUCTooltip();
             tooltip.Content = control.FullName;
-
+            
             control.ToolTip = tooltip;
         }
         private void BtnPlayerUC_Click(object sender, RoutedEventArgs e)
         {
             // ovdje ces otvarati prozor sa extra detaljima igraca
 
+            Button btn = sender as Button;
+
+            PlayerUC clickedPlayer = btn.Parent as PlayerUC;
+
+            PlayerDataUC data = new PlayerDataUC();
+            data.FullName = clickedPlayer.FullName;
+            data.Position = clickedPlayer.Position;
+            data.ShirtNumber = clickedPlayer.ShirtNumber;
+            data.Captain = clickedPlayer.Captain;
+            data.Goals = clickedPlayer.Goals;
+            data.YellowCards = clickedPlayer.YellowCards;
+
+            PlayerDataUCWindow dataWindow = new PlayerDataUCWindow(data);
+            dataWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            dataWindow.ShowDialog();
+            
         }
         private async Task<List<StartingEleven>> GetStartingElevenPlayers(string[] favTeamCode, string[] opponentTeamCode, string[] championship)
         {
