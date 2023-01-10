@@ -329,7 +329,7 @@ namespace WinFormsApp
                 matches = await GetAllMatches(fifaCodes, championship);
 
                 FillPlayerRankingPanel(matches);
-                FillTeamRankingPanel(matches);
+                FillTeamRankingPanel(matches, fifaCodes);
 
                 tabRanking.Enabled = true;
             }
@@ -379,8 +379,13 @@ namespace WinFormsApp
         }
         #endregion
 
-        //Ranking tab methods
-        #region
+        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
+        {
+            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
+            return tmpMatches;
+        }
+
+        #region Ranking tab methods
         //Players
         private void FillPlayerRankingPanel(List<Matches> matches)
         {
@@ -498,27 +503,27 @@ namespace WinFormsApp
 
             return yellowCardCounter;
         }
-        private async Task<List<Matches>> GetAllMatches(string[] fifaCodes, string[] championship)
-        {
-            var tmpMatches = await repo.PrepareMatches(fifaCodes, championship[0]);
-            return tmpMatches;
-        }
 
         //Teams
-        private void FillTeamRankingPanel(List<Matches> matches)
+        private void FillTeamRankingPanel(List<Matches> matches, string[] fifaCodes)
         {
             List<RankingTeamUC> rankingMatches = new List<RankingTeamUC>();
 
+            string countryFifaCode = fifaCodes[0];
+
             foreach (var match in matches)
             {
-                RankingTeamUC teamUC = new RankingTeamUC();
+                if (match.HomeTeam.Code == countryFifaCode || match.AwayTeam.Code == countryFifaCode)
+                {
+                    RankingTeamUC teamUC = new RankingTeamUC();
 
-                teamUC.HomeTeamName = match.HomeTeam.Country;
-                teamUC.AwayTeamName = match.AwayTeam.Country;
-                teamUC.MatchLocation = match.Location;
-                teamUC.MatchAttendance = match.Attendance;
+                    teamUC.HomeTeamName = match.HomeTeam.Country;
+                    teamUC.AwayTeamName = match.AwayTeam.Country;
+                    teamUC.MatchLocation = match.Location;
+                    teamUC.MatchAttendance = match.Attendance;
 
-                rankingMatches.Add(teamUC);
+                    rankingMatches.Add(teamUC);
+                }
             }
             rankingMatches.Sort();
 

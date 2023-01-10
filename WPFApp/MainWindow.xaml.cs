@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -307,7 +308,7 @@ namespace WPFApp
 
             playerUCTooltip tooltip = new playerUCTooltip();
             tooltip.Content = control.FullName;
-            
+
             control.ToolTip = tooltip;
         }
         private void BtnPlayerUC_Click(object sender, RoutedEventArgs e)
@@ -329,7 +330,7 @@ namespace WPFApp
             PlayerDataUCWindow dataWindow = new PlayerDataUCWindow(data);
             dataWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             dataWindow.ShowDialog();
-            
+
         }
         private async Task<List<StartingEleven>> GetStartingElevenPlayers(string[] favTeamCode, string[] opponentTeamCode, string[] championship)
         {
@@ -537,8 +538,23 @@ namespace WPFApp
         }
         private void FillOpponentTeamsDdl(List<Matches> matches, string[] fifaCodes)
         {
-            string[] previousTeam = File.ReadAllLines(filePathPreviousTeams);
+            string[] previousTeam = null;
             string[] currentTeam = File.ReadAllLines(filePathChosenTeams);
+            try
+            {
+                previousTeam = File.ReadAllLines(filePathPreviousTeams);
+            }
+            catch
+            {
+                List<string> tempList = currentTeam.ToList();
+
+                SaveToFile(filePathPreviousTeams, tempList);
+
+                ddlOpponentTeams.Items.Clear();
+                tbChosenOpponentTeam.Clear();
+
+                previousTeam = File.ReadAllLines(filePathPreviousTeams);
+            }
 
             if (currentTeam[0] != previousTeam[0])
             {
@@ -548,11 +564,15 @@ namespace WPFApp
 
             foreach (var match in matches)
             {
-                if (match.AwayTeam.Code != fifaCodes[0])
+                if (fifaCodes[0] != match.AwayTeam.Code && fifaCodes[0] != match.HomeTeam.Code)
+                {
+                    continue;
+                }
+                else if (fifaCodes[0] != match.AwayTeam.Code)
                 {
                     ddlOpponentTeams.Items.Add($"{match.AwayTeam.Country} ({match.AwayTeam.Code})");
                 }
-                else if (match.HomeTeam.Code != fifaCodes[0])
+                else if (fifaCodes[0] != match.HomeTeam.Code)
                 {
                     ddlOpponentTeams.Items.Add($"{match.HomeTeam.Country} ({match.HomeTeam.Code})");
                 }

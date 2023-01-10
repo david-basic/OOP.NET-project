@@ -106,24 +106,36 @@ namespace WPFApp
         }
         private void MatchRelatedLabelsChange(List<Matches> matches, string fifaCode)
         {
-            lblPlayedNum.Content = matches.Count.ToString();
+            int playedCnt = 0;
+            foreach (var match in matches)
+            {
+                if (match.AwayTeam.Code == fifaCode || match.HomeTeam.Code == fifaCode)
+                {
+                    playedCnt++;
+                }
+            }
+
+            lblPlayedNum.Content = playedCnt.ToString();
 
             int winCnt = 0;
             int lossCnt = 0;
             int drawCnt = 0;
             foreach (var match in matches)
             {
-                if (match.WinnerCode == fifaCode)
+                if (fifaCode == match.AwayTeam.Code || fifaCode == match.HomeTeam.Code)
                 {
-                    winCnt++;
-                }
-                else if (match.WinnerCode == "Draw")
-                {
-                    drawCnt++;
-                }
-                else
-                {
-                    lossCnt++;
+                    if (match.WinnerCode == fifaCode)
+                    {
+                        winCnt++;
+                    }
+                    else if (match.WinnerCode == "Draw")
+                    {
+                        drawCnt++;
+                    }
+                    else
+                    {
+                        lossCnt++;
+                    }
                 }
             }
 

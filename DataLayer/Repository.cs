@@ -19,8 +19,7 @@ namespace DataLayer
         public List<StartingEleven> opponentTeamPlayers = new List<StartingEleven>();
         public List<Matches> matches = new List<Matches>();
 
-        // Team API
-        #region
+        #region Team API
         public async Task<List<Team>> PrepareTeams(string champ)
         {
             string path;
@@ -41,7 +40,7 @@ namespace DataLayer
 
             RestResponse<List<Team>> restResponse = await GetTeams(endpoint);
 
-            if (restResponse.Content == null)
+            if (restResponse.Content == null || restResponse.Data == null)
             {
                 Cursor.Current = Cursors.Arrow;
                 try
@@ -69,8 +68,7 @@ namespace DataLayer
         }
         #endregion
 
-        //Player API
-        #region
+        #region Player API
         public async Task<List<StartingEleven>> PrepareStartingElevenForAMatch(string[] favTeamCode, string[] opponentTeamCode, string champ)
         {
             List<Matches> tempMatches = new List<Matches>();
@@ -88,7 +86,7 @@ namespace DataLayer
 
             RestResponse<List<Matches>> restResponse = await GetPlayers(favTeamCode[0], champ);
 
-            if (restResponse.Content == null)
+            if (restResponse.Content == null || restResponse.Data == null)
             {
                 string restResponseFromFile = GetDataFromFile(path);
                 tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
@@ -157,7 +155,7 @@ namespace DataLayer
             {
                 RestResponse<List<Matches>> restResponse = await GetPlayers(code, champ);
 
-                if (restResponse.Content == null)
+                if (restResponse.Content == null || restResponse.Data == null)
                 {
                     string restResponseFromFile = GetDataFromFile(path);
                     tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
@@ -230,8 +228,7 @@ namespace DataLayer
         }
         #endregion
 
-        // Matches API
-        #region
+        #region Matches API
         public async Task<List<Matches>> PrepareMatches(string[] fifaCodes, string champ)
         {
             List<Matches> tempMatches = new List<Matches>();
@@ -250,7 +247,7 @@ namespace DataLayer
             foreach (var code in fifaCodes)
             {
                 RestResponse<List<Matches>> restResponse = await GetMatches(code, champ);
-                if (restResponse.Content == null)
+                if (restResponse.Content == null || restResponse.Data == null)
                 {
                     string restResponseFromFile = GetDataFromFile(path);
                     tempMatches = DeserializeFileData<List<Matches>>(restResponseFromFile);
@@ -282,8 +279,7 @@ namespace DataLayer
         }
         #endregion
 
-        // Deserializing data
-        #region
+        #region Deserializing data
         private T DeserializeData<T>(RestResponse<T> restResponse)
         {
             return JsonConvert.DeserializeObject<T>(restResponse.Content);
@@ -294,8 +290,7 @@ namespace DataLayer
         }
         #endregion
 
-        // general methods
-        #region
+        #region General methods
         private string GetDataFromFile(string path)
         {
             return File.ReadAllText(path);

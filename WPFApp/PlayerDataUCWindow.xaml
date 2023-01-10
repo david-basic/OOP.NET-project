@@ -5,6 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
+        x:Name="playerUCwindow"
         Title="Player data" Height="400" Width="600" Loaded="PlayerDataWindow_Loaded">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="playerUCwindow"
+                            Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" 
+                            From="265" To="360" Duration="0:0:1" 
+                            RepeatBehavior="1x"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.RenderTransform>
+        <RotateTransform CenterX="0.5" CenterY="0.5" Angle="0"/>
+    </Window.RenderTransform>
     <local:PlayerDataUC x:Name="player"/>
 </Window>
